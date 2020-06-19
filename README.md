@@ -1,8 +1,15 @@
 # LabNetApp
 
-## A. Kubernetes v2 (with CSI)
+## A. Trident with K8s (with CSI)
 
-The section has been tested with the Lab-on-Demand Using "Trident with Kubernetes and ONTAP v3.1" which comes with Trident 19.07 already installed on Kubernetes 1.15.3.
+The section has been tested with the Lab-on-Demand Using "Trident with Kubernetes and ONTAP v3.1" which comes by default with Trident 19.07 already installed on Kubernetes 1.15.3. The configure.sh will modify the environment by 
+- Installing and creating a MetalLB configuration
+- Upgading k8s to 1.18
+- Initialize and configure a 2nd k8s cluster
+- Install and configure Prometheus and Grafana dashboards
+- Install and configure Trident with an Operator
+
+<<< Overview diagram by Horner>>>
 
 :boom:  
 Most labs will be done by connecting with Putty to the RHEL3 host (root/Netapp1!).  
@@ -14,7 +21,8 @@ Most of them start with a '#', usually followed by the result you would get.
 
 Tasks
 ---------
-[1.](Kubernetes_v2/Scenarios/Scenario01) Install/Upgrade Trident  
+[1.](Trident with K8s/Tasks/Task 1) Install/Upgrade Trident 
+111.  Trident with K8s\Tasks\Task 1 Install/Upgrade Trident with Operator
 [2.](Kubernetes_v2/Scenarios/Scenario02) Install Prometheus & incorporate Trident's metrics  
 [3.](Kubernetes_v2/Scenarios/Scenario03) Configure Grafana & add your first graphs  
 [4.](Kubernetes_v2/Scenarios/Scenario04) Configure your first NAS backends & storage classes  
@@ -38,30 +46,4 @@ Addendum
 [3.](Kubernetes_v2/Addendum/Addenda03) Allow user PODs on the master node  
 [4.](Kubernetes_v2/Addendum/Addenda04) Upgrade your Kubernetes cluster (1.15 => 1.16 => 1.17 => 1.18)  
 [5.](Kubernetes_v2/Addendum/Addenda05) Prepare ONTAP for block storage  
-[6.](Kubernetes_v2/Addendum/Addenda06) Install Ansible on RHEL3 (Kubernetes Master)  
-
-## B. Kubernetes v1 (pre-CSI)
-
-These files are attended to be used with the NetApp LabOnDemand "Using NetApp with Docker and Kubernetes v2.0".
-The "Kubernetes_v1" directory contains lots of configuration files to create backends / storage classes / PVC / PODs
-
-Scenarios
----------
-1. Upgrade Trident
-2. Backends & Storage Classes configuration
-3. Quota Management with Kubernetes
-4. Test new features released in Trident 18.10 (limitVolumeSize, snapshotReserve & limitAggregateUsage)
-5. Create an Apache environment with a Persistent Volume
-6. Test new features released in Trident 19.04 (volume import)
-7. Migrating an app from a legacy Docker environment to a new Kubernetes cluster
-8. Snapshots management with ONTAP-NAS & ONTAP-NAS-ECONOMY
-
-
-## C. Docker
-
-the "Docker" directory contains several configuration files to create different plugins on the lab
-
-Scenarios
----------
-1. Create & Update Trident plugins
-2. Play around with clones & Apache
+[6.](Kubernetes_v2/Addendum/Addenda06) Install Ansible on RHEL3 (Kubernetes Master)

@@ -21,7 +21,8 @@ Most of them start with a '#', usually followed by the result you would get.
 
 Tasks
 ---------
-[1.](Trident with K8s/Tasks/Task 1) Install/Upgrade Trident 
+[1.](Trident_with_K8s/Tasks/Task_1) Install/Upgrade Trident 
+
 111.  Trident with K8s\Tasks\Task 1 Install/Upgrade Trident with Operator
 [2.](Kubernetes_v2/Scenarios/Scenario02) Install Prometheus & incorporate Trident's metrics  
 [3.](Kubernetes_v2/Scenarios/Scenario03) Configure Grafana & add your first graphs  

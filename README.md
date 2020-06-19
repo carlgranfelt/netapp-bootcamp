@@ -12,7 +12,7 @@ Last, there are plenty of commands to write or copy/paste.
 Most of them start with a '#', usually followed by the result you would get.  
 :boom:  
 
-Scenarios
+Tasks
 ---------
 [1.](Kubernetes_v2/Scenarios/Scenario01) Install/Upgrade Trident  
 [2.](Kubernetes_v2/Scenarios/Scenario02) Install Prometheus & incorporate Trident's metrics  

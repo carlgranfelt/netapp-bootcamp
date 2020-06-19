@@ -1,5 +1,7 @@
 # Task 5: Create your first App
 
+## GOAL
+
 **GOAL:**  
 Now that the admin has configured Trident, and has created storage classes, the end-user can request PVC.  
 
@@ -81,7 +83,7 @@ If you have configured Grafana, you can go back to your dashboard, to check what
 ## D. Cleanup (optional)
 
 :boom:  
-**The PVC will be reused in the [scenario8](../Scenario08) ('import a volume'). Only clean up if you dont plan to do the scenario8.**  
+**The PVC will be reused in the [Task 8](../Task_8) ('import a volume'). Only clean up if you dont plan to do the scenario8.**  
 Instead of deleting each object one by one, you can directly delete the namespace which will then remove all of its objects.  
 :boom:  
 
@@ -94,9 +96,9 @@ namespace "ghost" deleted
 
 I hope you are getting more familiar with Trident now. You can move on to:  
 
-- [Task_6](../Task_6): Configure your first iSCSI backends & storage classes
-- [Task_8](../Task_8): Use the 'import' feature of Trident  
-- [Task_9](../Task_9): Consumption control  
-- [Task_10](../Task_10): Resize a NFS CSI PVC  
+- [Task 6](../Task_6): Configure your first iSCSI backends & storage classes
+- [Task 8](../Task_8): Use the 'import' feature of Trident  
+- [Task 9](../Task_9): Consumption control  
+- [Task 10](../Task_10): Resize a NFS CSI PVC  
 
 Back to the [Top](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_5#a-create-the-app) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

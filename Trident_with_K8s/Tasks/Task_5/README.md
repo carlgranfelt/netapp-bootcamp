@@ -1,16 +1,15 @@
-#########################################################################################
-# SCENARIO 5: Create your first App
-#########################################################################################
+# Task 5: Create your first App
 
-**GOAL:**   
+**GOAL:**  
 Now that the admin has configured Trident, and has created storage classes, the end-user can request PVC.  
 
 Ghost is a light weight web portal. You will a few YAML files in the Ghost directory:
-- a PVC to manage the persistent storage of this app
-- a DEPLOYMENT that will define how to manage the app
-- a SERVICE to expose the app
 
-![Scenario5](Images/scenario5.jpg "Scenario5")
+- A PVC to manage the persistent storage of this app
+- A DEPLOYMENT that will define how to manage the app
+- A SERVICE to expose the app
+
+![Task5](Images/scenario5.jpg "Task5")
 
 ## A. Create the app
 
@@ -48,14 +47,12 @@ persistentvolume/pvc-ce8d812b-d976-43f9-8320-48a49792c972   5Gi        RWX      
 ...
 ```
 
-
 ## B. Access the app
 
 It takes about 40 seconds for the POD to be in a *running* state
 The Ghost service is configured with a NodePort type, which means you can access it from every node of the cluster on port 30080.
 Give it a try !
-=> http://192.168.0.63:30080
-
+=> <http://192.168.0.63:30080>
 
 ## C. Explore the app container
 
@@ -79,7 +76,7 @@ settings
 themes
 ```
 
-If you have configured Grafana, you can go back to your dashboard, to check what is happening (cf http://192.168.0.63:30001).  
+If you have configured Grafana, you can go back to your dashboard, to check what is happening (<http://192.168.0.63:30001>).  
 
 ## D. Cleanup (optional)
 
@@ -95,10 +92,11 @@ namespace "ghost" deleted
 
 ## E. What's next
 
-I hope you are getting more familiar with Trident now. You can move on to:    
-- [Scenario06](../Scenario06): Configure your first iSCSI backends & storage classes 
-- [Scenario08](../Scenario08): Use the 'import' feature of Trident  
-- [Scenario09](../Scenario09): Consumption control  
-- [Scenario10](../Scenario10): Resize a NFS CSI PVC  
+I hope you are getting more familiar with Trident now. You can move on to:  
 
-Or go back to the [FrontPage](https://github.com/carlgranfelt/NetApp-LoD)
+- [Task_6](../Task_6): Configure your first iSCSI backends & storage classes
+- [Task_8](../Task_8): Use the 'import' feature of Trident  
+- [Task_9](../Task_9): Consumption control  
+- [Task_10](../Task_10): Resize a NFS CSI PVC  
+
+Back to the [Top](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_5#scenario-5-create-your-first-app) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

@@ -22,8 +22,10 @@ Most of them start with a '#', usually followed by the result you would get.
 
 ### Tasks
 
-[1.](Trident_with_K8s/Tasks/Task_1) Install/Upgrade Trident with an Operator
-[2.](Trident_with_K8s/Tasks/Task_2) Install Prometheus & incorporate Trident's metrics
+---------
+
+[1.](Trident_with_K8s/Tasks/Task_1) Install/Upgrade Trident with an Operator  
+[2.](Trident_with_K8s/Tasks/Task_2) Install Prometheus & incorporate Trident's metrics  
 [3.](Trident_with_K8s/Tasks/Task_3) Configure Grafana & add your first graphs  
 [4.](Trident_with_K8s/Tasks/Task_4) Configure your first NAS backends & storage classes  
 [5.](Trident_with_K8s/Tasks/Task_5) Deploy your first app with File storage  
@@ -41,8 +43,7 @@ Most of them start with a '#', usually followed by the result you would get.
 ### Addendum
 
 ---------
-
-[0.](Trident_with_K8s/Addendum/Addenda00) Useful commands
+[0.](Trident_with_K8s/Addendum/Addenda00) Useful commands  
 [1.](Trident_with_K8s/Addendum/Addenda01) Add a node to the cluster  
 [2.](Trident_with_K8s/Addendum/Addenda02) Specify a default storage class  
 [3.](Trident_with_K8s/Addendum/Addenda03) Allow user PODs on the master node  

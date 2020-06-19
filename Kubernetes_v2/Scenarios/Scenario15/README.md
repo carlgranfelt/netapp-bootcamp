@@ -149,4 +149,4 @@ Tadaaaa !
 ## E. What's next
 
 You may have gone through all tasks.  
-Maybe you could learn something in the different [addenda](https://github.com/carlgranfelt/NetApp-LoD)?
+Maybe you could learn something in the different [addenda](https://github.com/carlgranfelt/NetApp-LoD#addendum)?

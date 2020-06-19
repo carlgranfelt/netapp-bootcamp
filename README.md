@@ -2,10 +2,11 @@
 
 ## A. Trident with K8s (with CSI)
 
-The section has been tested with the Lab-on-Demand Using "Trident with Kubernetes and ONTAP v3.1" which comes by default with Trident 19.07 already installed on Kubernetes 1.15.3. The configure.sh will modify the environment by 
+The section has been tested with the Lab-on-Demand Using "Trident with Kubernetes and ONTAP v3.1" which comes by default with Trident 19.07 already installed on Kubernetes 1.15.3. The configure.sh will modify the environment by
+
 - Installing and creating a MetalLB configuration
 - Upgading k8s to 1.18
-- Initialize and configure a 2nd k8s cluster
+- Initialize and configure a 2nd k8s cluster (*pull this or modify to have rhel4 available to add to the 1st cluster*)
 - Install and configure Prometheus and Grafana dashboards
 - Install and configure Trident with an Operator
 
@@ -21,7 +22,8 @@ Most of them start with a '#', usually followed by the result you would get.
 
 Tasks
 ---------
-[ 1.](Trident_with_K8s/Tasks/Task_1) Install/Upgrade Trident with an Operator
+
+[1.](Trident_with_K8s/Tasks/Task_1) Install/Upgrade Trident with an Operator
 [ 2.](Trident_with_K8s/Tasks/Task_2) Install Prometheus & incorporate Trident's metrics  
 [ 3.](Trident_with_K8s/Tasks/Task_3) Configure Grafana & add your first graphs  
 [ 4.](Trident_with_K8s/Tasks/Task_4) Configure your first NAS backends & storage classes  

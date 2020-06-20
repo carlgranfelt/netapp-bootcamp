@@ -1,11 +1,10 @@
-#########################################################################################
 # SCENARIO 11: Working with Virtual Storage Pools
-#########################################################################################
 
-**GOAL:**    
+**GOAL:**  
 While creating a backend, you can generally specify a set of parameters. It was impossible for the administrator to create another backend with the same storage credentials and with a different set of parameters. With the introduction of Virtual Storage Pools, this issue has been alleviated. Virtual Storage Pools is a level of abstraction introduced between the backend and the Kubernetes Storage Class so that the administrator can define parameters along with labels which can be referenced through Kubernetes Storage Classes as a selector, in a backend-agnostic way.  
 
 The following parameters can be used in the Virtual Pools:
+
 - spaceAllocation
 - spaceReserve
 - snapshotPolicy
@@ -35,7 +34,7 @@ Each one with a different set of parameters.
 +---------+----------------+--------------------------------------+--------+---------+
 ```
 
-## B. Create new storage classes.
+## B. Create new storage classes
 
 We are going to create 3 storage classes, one per Virtual Storage Pool.
 ```
@@ -133,10 +132,11 @@ storageclass.storage.k8s.io "sc-vsp3" deleted
 
 ## D. What's next
 
-You can now move on to:    
-- [Scenario12](../Scenario12): StatefulSets & Storage consumption 
-- [Scenario13](../Scenario13): Resize a iSCSI CSI PVC  
-- [Scenario14](../Scenario14): On-Demand Snapshots & Create PVC from Snapshot  
-- [Scenario15](../Scenario15): Dynamic export policy management  
+You can now move on to:  
 
-Or go back to the [FrontPage](https://github.com/carlgranfelt/NetApp-LoD)
+- [Task 12](../Task_12): StatefulSets & Storage consumption  
+- [Task 13](../Task_13): Resize a iSCSI CSI PVC  
+- [Task 14](../Task_14): On-Demand Snapshots & Create PVC from Snapshot  
+- [Task 15](../Task_15): Dynamic export policy management  
+
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_11#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

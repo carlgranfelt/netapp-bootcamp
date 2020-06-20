@@ -1,8 +1,6 @@
-#########################################################################################
 # SCENARIO 9: Consumption control
-#########################################################################################
 
-**GOAL:**   
+**GOAL:**  
 As Trident dynamically manages persitent volumes & bring lots of goodness to the app level.  
 The first benefit is that end-users do not need to rely on a storage admin to provision volumes on the fly.
 However, this freedom can lead to quickly feel up the storage backend, especially if the user does not tidy up his environment...  
@@ -13,10 +11,11 @@ We are going to review here different methods to control the storage consumption
 
 In order to restrict the tests to a small environment & not affect other projects, we will create a specific namespace called _quota_  
 We will then create two types of quotas:
-1. limit the number of PVC a user can create
-2. limit the total capacity a user can create  
 
-We consider that the ONTAP-NAS backend & storage class have already been created. ([cf Scenario04](../Scenario04))
+1. Limit the number of PVC a user can create
+2. Limit the total capacity a user can create  
+
+We consider that the ONTAP-NAS backend & storage class have already been created. ([Task 4](../Task_4))
 
 ```
 # kubectl create namespace quota
@@ -124,10 +123,11 @@ resourcequota "sc-resource-limit" deleted
 ## B. Trident parameters
 
 One parameter stands out in the Trident configuration when it comes to control sizes: _limitVolumeSize_  
-https://netapp-trident.readthedocs.io/en/stable-v20.01/dag/kubernetes/storage_configuration_trident.html#limit-the-maximum-size-of-volumes-created-by-trident  
+<https://netapp-trident.readthedocs.io/en/stable-v20.01/dag/kubernetes/storage_configuration_trident.html#limit-the-maximum-size-of-volumes-created-by-trident>  
 Depending on the driver, this parameter will
-1. control the PVC Size (ex: driver ONTAP-NAS)
-2. control the size of the ONTAP volume hosting PVC (ex: drivers ONTAP-NAS-ECONOMY or ONTAP-SAN-ECONOMY)
+
+1. Control the PVC Size (ex: driver ONTAP-NAS)
+2. Control the size of the ONTAP volume hosting PVC (ex: drivers ONTAP-NAS-ECONOMY or ONTAP-SAN-ECONOMY)
 
 ![Scenario09_3](Images/scenario09_3.JPG "Scenario09_3")
 
@@ -190,12 +190,13 @@ storageclass.storage.k8s.io "sclimitvolumesize" deleted
 ## C. ONTAP parameters
 
 The amount of ONTAP volumes (Flexvols) you can have on a ONTAP cluster depends on several parameters:
-- version
-- size of the ONTAP cluster (in terms of controllers)  
+
+- Version
+- Size of the ONTAP cluster (in terms of controllers)  
 
 If the storage platform is also used by other workloads (Databases, Files Services ...), you may want to limit the number of PVC you build in your storage Tenant (ie SVM)
 This can be achieved by setting a parameter on this SVM.  
-https://netapp-trident.readthedocs.io/en/stable-v20.01/dag/kubernetes/storage_configuration_trident.html#limit-the-maximum-volume-count
+<https://netapp-trident.readthedocs.io/en/stable-v20.01/dag/kubernetes/storage_configuration_trident.html#limit-the-maximum-volume-count>
 
 ![Scenario09_4](Images/scenario09_4.JPG "Scenario09_4")
 
@@ -243,9 +244,10 @@ persistentvolumeclaim "quotasc-3" deleted
 
 ## D. What's next
 
-You can now move on to:    
-- [Scenario10](../Scenario10): Resize a NFS CSI PVC
-- [Scenario11](../Scenario11): Using Virtual Storage Pools 
-- [Scenario12](../Scenario12): StatefulSets & Storage consumption  
+You can now move on to:  
 
-Or go back to the [FrontPage](https://github.com/carlgranfelt/NetApp-LoD)
+- [Task 10](../Task_10): Resize a NFS CSI PVC
+- [Task 11](../Task_11): Using Virtual Storage Pools  
+- [Task 12](../Task_12): StatefulSets & Storage consumption  
+
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_9#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

@@ -2,7 +2,7 @@
 # SCENARIO 7: Create your first App with Block storage
 #########################################################################################
 
-**GOAL:**   
+**GOAL:**  
 We will deploy the same App as in the scenario 5, but instead of using File Storage, we will use Block Storage.
 
 ![Scenario7](Images/scenario7.jpg "Scenario7")
@@ -47,8 +47,7 @@ persistentvolume/pvc-8ff8c1b3-48da-400e-893c-23bc9ec459ff   10Gi       RWO      
 It takes about 40 seconds for the POD to be in a *running* state
 The Ghost service is configured with a NodePort type, which means you can access it from every node of the cluster on port 30081.
 Give it a try !
-=> http://192.168.0.63:30081
-
+=> <http://192.168.0.63:30081>
 
 ## C. Explore the app container
 
@@ -72,7 +71,6 @@ themes
 
 If you have configured Grafana, you can go back to your dashboard, to check what is happening (cf http://192.168.0.63:30001).  
 
-
 ## D. Cleanup
 
 Instead of deleting each object one by one, you can directly delete the namespace which will then remove all of its objects.
@@ -85,6 +83,6 @@ namespace "ghostsan" deleted
 ## E. What's next
 
 Now that you have tried working with SAN backends, you can try to resize a PVC:
-- [Scenario13](../Scenario13): Resize a iSCSI CSI PVC  
+- [Task_13](../Task_13): Resize a iSCSI CSI PVC  
 
-Or go back to the [FrontPage](https://github.com/carlgranfelt/NetApp-LoD)
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_7#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

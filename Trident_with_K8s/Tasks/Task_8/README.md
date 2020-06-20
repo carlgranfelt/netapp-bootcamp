@@ -1,6 +1,4 @@
-#########################################################################################
 # SCENARIO 8: Use the import feature of Trident
-#########################################################################################
 
 **GOAL:**  
 Trident allows you to import a volume sitting in a NetApp backend into Kubernetes.  
@@ -8,7 +6,7 @@ We will first copy the volume we used in the [Scenario05](../Scenario05), import
 
 ![Scenario8](Images/scenario8.jpg "Scenario8")
 
-## A. Identify & copy the volume on the NetApp backend.
+## A. Identify & copy the volume on the NetApp backend
 
 The full name of the volume is available in the PV metadata.  
 You can retrieve it if with the 'kubectl describe' command, or use the following (note how to use the jsonpath feature!)
@@ -57,7 +55,7 @@ Even though the name of the original PV has changed, you can still see it if you
                trident.netapp.io/importOriginalName: to_import
 ```
 
-## C. Create a new Ghost app.
+## C. Create a new Ghost app
 
 You can now create the deployment & expose it on a new port
 ```
@@ -84,7 +82,6 @@ replicaset.apps/blog-cd5894ddd       1         1         1       20h
 replicaset.apps/blogimport-66945d9   1         1         1       24m
 ```
 
-
 ## D. Access the app
 
 The Ghost service is configured with a NodePort type, which means you can access it from every node of the cluster on port 30082.
@@ -104,10 +101,11 @@ namespace "ghostnas" deleted
 
 ## F. What's next
 
-You can now move on to:    
-- [Scenario09](../Scenario09): Consumption control  
-- [Scenario10](../Scenario10): Resize a NFS CSI PVC
-- [Scenario11](../Scenario11): Using Virtual Storage Pools 
-- [Scenario12](../Scenario12): StatefulSets & Storage consumption  
+You can now move on to:  
 
-Or go back to the [FrontPage](https://github.com/carlgranfelt/NetApp-LoD)
+- [Task 9](../Task_9): Consumption control  
+- [Task 10](../Task_10): Resize a NFS CSI PVC  
+- [Task 11](../Task_11): Using Virtual Storage Pools  
+- [Task 12](../Task_12): StatefulSets & Storage consumption  
+
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_8#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

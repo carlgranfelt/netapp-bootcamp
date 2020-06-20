@@ -1,13 +1,12 @@
-#########################################################################################
 # SCENARIO 15: Dynamic Export Policy Management
-#########################################################################################
 
-**GOAL:**   
+**GOAL:**  
 Trident 20.04 introduced the dynamic export policy feature for the 3 different ONTAP-NAS backends.  
 Letting Trident manage the export policies allows to reduce the amount of administrative tasks, especially when clusters scale up&down.
 
 The configuration of this feature is done in the Trident Backend object. There 2 different json files in this directory that will help you discover how to use it.  
 2 options can be used here:  
+
 - *autoExportPolicy*: enables the feature
 - *autoExportCIDRs*: defines the address blocks to use (optional parameter)
 
@@ -140,7 +139,7 @@ svm1         trident-ebf1efb0-e8c6-457e-8e1a-827b1725ed9e
 ```
 Tadaaaa !
 
-## D. Finally some optional cleanup.
+## D. Finally some optional cleanup
 ```
 # tridentctl -n trident delete backend Export_with_CIDR
 # tridentctl -n trident delete backend Export_without_CIDR
@@ -150,3 +149,4 @@ Tadaaaa !
 
 You may have gone through all tasks.  
 Maybe you could learn something in the different [addenda](https://github.com/carlgranfelt/NetApp-LoD#addendum)?
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_15#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

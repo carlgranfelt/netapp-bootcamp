@@ -1,6 +1,4 @@
-#########################################################################################
 # SCENARIO 14: Test Kubernetes snapshots
-#########################################################################################
 
 **GOAL:**  
 Kubernetes 1.17 promoted [CSI Snapshots to Beta](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/).  
@@ -47,7 +45,7 @@ Because moving on, let's check we can access the app:
 => http://192.168.0.63:30080
 
 
-## B. Configure the snapshot feature.
+## B. Configure the snapshot feature
 
 This [link](https://github.com/kubernetes-csi/external-snapshotter) is a good read if you want to know more details about installing the CSI Snapshotter.  
 You first need to install 3 CRD which you can find in the Kubernetes/CRD directory or in the CSI Snapshotter github repository.
@@ -174,7 +172,7 @@ NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/blogclone   1/1     1            1           2m19s
 ```
 Let's check the result:  
-=> http://192.168.0.63:30081
+=> <http://192.168.0.63:30081>
 
 You can probably notice some differences between both pages...  
 
@@ -190,7 +188,8 @@ namespace "ghost" deleted
 
 ## F. What's next
 
-You can now move on to:    
-- [Scenario15](../Scenario15): Dynamic export policy management  
+You can now move on to:  
 
-Or go back to the [FrontPage](https://github.com/carlgranfelt/NetApp-LoD)
+- [Task 15](../Task_15): Dynamic export policy management  
+
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_14#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

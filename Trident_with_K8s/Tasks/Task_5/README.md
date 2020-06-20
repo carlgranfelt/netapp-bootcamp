@@ -1,7 +1,5 @@
 # Task 5: Create your first App
 
-## GOAL
-
 **GOAL:**  
 Now that the admin has configured Trident, and has created storage classes, the end-user can request PVC.  
 

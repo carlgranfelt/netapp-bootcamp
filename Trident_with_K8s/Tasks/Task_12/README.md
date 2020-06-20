@@ -1,6 +1,4 @@
-#########################################################################################
 # SCENARIO 12: StatefulSets & Storage consumption
-#########################################################################################
 
 **GOAL:**  
 StatefulSets work differently that Deployments or DaemonSets when it comes to storage.  
@@ -76,7 +74,7 @@ persistentvolume/pvc-ce114401-5789-454a-ba1c-eb5453fbe026   10Gi       RWO      
 persistentvolume/pvc-f348ec0a-f304-49d8-bbaf-5a85685a6194   10Gi       RWO            Delete           Bound    mysql/data-mysql-0   storage-class-nas            5m
 ```
 
-## B. Let's write some data in this database!
+## B. Let's write some data in this database
 
 To connect to MySQL, we will use another POD which will connect to the master DB (mysql-0).  
 Copy & paste the whole block at once:
@@ -100,7 +98,7 @@ If you don't see a command prompt, try pressing enter.
 pod "mysql-client" deleted
 ```
 
-## C. Where are my reads coming from ?
+## C. Where are my reads coming from
 
 In the current setup, _writes_ are done on the master DB, wheareas _reads_ can come from any DB POD.  
 Let's check this!  
@@ -121,7 +119,7 @@ First, open a new Putty window & connect to RHEL3. You can then run the followin
 As you can see, _reads_ are well distributed between all the PODs.  
 Keep this window open for now...
 
-## D. Let's scale!
+## D. Let's scale
 
 Scaling an application with Kubernetes is pretty straightforward & can be achieved with the following command:
 ```
@@ -141,7 +139,7 @@ mysql-3   2/2     Running   1          3m13s
 Notice the last POD is _younger_ that the other ones...  
 Again, check the storage. You can see that a new PVC was automatically created.
 ```
-# kubectl get -n mysql pvc,pv 
+# kubectl get -n mysql pvc,pv  
 NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
 persistentvolumeclaim/data-mysql-0   Bound    pvc-f348ec0a-f304-49d8-bbaf-5a85685a6194   10Gi       RWO            storage-class-nas   15m
 persistentvolumeclaim/data-mysql-1   Bound    pvc-ce114401-5789-454a-ba1c-eb5453fbe026   10Gi       RWO            storage-class-nas   15m
@@ -183,9 +181,10 @@ namespace "mysql" deleted
 
 ## F. What's next
 
-You can now move on to:    
-- [Scenario13](../Scenario13): Resize a iSCSI CSI PVC  
-- [Scenario14](../Scenario14): On-Demand Snapshots & Create PVC from Snapshot  
-- [Scenario15](../Scenario15): Dynamic export policy management  
+You can now move on to:  
 
-Or go back to the [FrontPage](https://github.com/carlgranfelt/NetApp-LoD)
+- [Task 13](../Task_13): Resize a iSCSI CSI PVC  
+- [Task 14](../Task_14): On-Demand Snapshots & Create PVC from Snapshot  
+- [Task 15](../Task_15): Dynamic export policy management  
+
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_12#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

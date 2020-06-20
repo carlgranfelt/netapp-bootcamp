@@ -1,6 +1,4 @@
-#########################################################################################
 # SCENARIO 13: iSCSI Volume resizing
-#########################################################################################
 
 **GOAL:**  
 Trident supports the resizing of File (NFS) & Block (iSCSI) PVC, depending on the Kubernetes version.  
@@ -19,7 +17,7 @@ Also, you will also need to configure your environment for iSCSI if not done yet
 That part is described in the [Addenda5](../../Addendum/Addenda05).  
 :boom:  
 
-## A. Create a new storage class with the option allowVolumeExpansion.
+## A. Create a new storage class with the option allowVolumeExpansion
 
 If you dont have a ONTAP-SAN Backend, you can use the backend file in this directory:
 ```
@@ -126,8 +124,9 @@ storageclass.storage.k8s.io "sc-san-resize" deleted
 
 ## D. What's next
 
-You can now move on to:    
-- [Scenario14](../Scenario14): On-Demand Snapshots & Create PVC from Snapshot  
-- [Scenario15](../Scenario15): Dynamic export policy management  
+You can now move on to:  
 
-Or go back to the [FrontPage](https://github.com/carlgranfelt/NetApp-LoD)
+- [Task 14](../Task_14): On-Demand Snapshots & Create PVC from Snapshot  
+- [Task 15](../Task_15): Dynamic export policy management  
+
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_13#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

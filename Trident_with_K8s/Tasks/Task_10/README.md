@@ -1,19 +1,18 @@
-#########################################################################################
 # SCENARIO 10: NFS Volume resizing
-#########################################################################################
 
-**GOAL:**   
+**GOAL:**  
 Trident supports the resizing of File (NFS) & Block (iSCSI) PVC, depending on the Kubernetes version.  
 NFS Resizing was introduced in K8S 1.11, while iSCSI resizing was introduced in K8S 1.16.  
 Here we will go through a NFS Resizing ...
 
 Resizing a PVC is made available through the option *allowVolumeExpansion* set in the StorageClass.  
 
-We consider that the ONTAP-NAS backend has already been created. ([cf Scenario04](../Scenario04))
+We consider that the ONTAP-NAS backend has already been created. ([Task 4](../Task_4))
 
 ![Scenario10](Images/scenario10.jpg "Scenario10")
 
-## A. Create a new storage class with the option allowVolumeExpansion.
+## A. Create a new storage class with the option allowVolumeExpansion
+
 ```
 # kubectl create -f sc-csi-ontap-nas-resize.yaml
 storageclass.storage.k8s.io/sc-nas-resize created
@@ -99,9 +98,10 @@ storageclass.storage.k8s.io "sc-nas-resize" deleted
 
 ## D. What's next
 
-You can now move on to:    
-- [Scenario11](../Scenario11): Using Virtual Storage Pools 
-- [Scenario12](../Scenario12): StatefulSets & Storage consumption 
-- [Scenario13](../Scenario13): Resize a iSCSI CSI PVC  
+You can now move on to:  
 
-Or go back to the [FrontPage](https://github.com/carlgranfelt/NetApp-LoD)
+- [Task 11](../Task_11): Using Virtual Storage Pools  
+- [Task 12](../Task_12): StatefulSets & Storage consumption  
+- [Task 13](../Task_13): Resize a iSCSI CSI PVC  
+
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_10#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

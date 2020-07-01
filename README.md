@@ -6,7 +6,7 @@ The section has been tested with the Lab-on-Demand Using "Trident with Kubernete
 
 - Installing and creating a MetalLB configuration
 - Upgading k8s to 1.18
-- Modify add rhel4 node to the production cluster
+- Add rhel4 as a worker node to the production k8s cluster
 - Initialize and configure a 2nd k8s cluster (nodes rhel5 and rhel6)
 - Install and configure Prometheus and Grafana dashboards
 - Install and configure Trident with an Operator

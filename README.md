@@ -2,11 +2,12 @@
 
 ## A. Trident with K8s (with CSI)
 
-The section has been tested with the Lab-on-Demand Using "Trident with Kubernetes and ONTAP v3.1" which comes by default with Trident 19.07 already installed on Kubernetes 1.15.3. The configure.sh will modify the environment by
+The section has been tested with the Lab-on-Demand Using "Trident with Kubernetes and ONTAP v3.1" which comes by default with Trident 19.07 already installed on Kubernetes 1.15.3. The configure.sh will modify the environment by:
 
 - Installing and creating a MetalLB configuration
 - Upgading k8s to 1.18
-- Initialize and configure a 2nd k8s cluster (*pull this or modify to have rhel4 available to add to the 1st cluster*)
+- Modify add rhel4 node to the production cluster
+- Initialize and configure a 2nd k8s cluster (nodes rhel5 and rhel6)
 - Install and configure Prometheus and Grafana dashboards
 - Install and configure Trident with an Operator
 
@@ -19,6 +20,8 @@ I assume each scenario will be run in its own directory. Also, you will find a R
 Last, there are plenty of commands to write or copy/paste.  
 Most of them start with a '#', usually followed by the result you would get.  
 :boom:  
+
+<<< Common vi commands to be included>>>
 
 ### Tasks
 

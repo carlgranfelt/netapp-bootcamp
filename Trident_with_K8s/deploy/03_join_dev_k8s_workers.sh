@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "#######################################################################################################"
-echo "kubeadm join in the k8s worker node"
+echo "kubeadm join dev k8s worker node"
 echo "#######################################################################################################"
 
 systemctl daemon-reload && systemctl enable kubelet && systemctl start kubelet

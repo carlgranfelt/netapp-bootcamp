@@ -1,13 +1,18 @@
 #!/bin/bash
 
 echo "#######################################################################################################"
-echo "Download the last Trident package and GitHub Demo Trident repository"
+echo "Download the last Trident package and GitHub NetApp-LoD repository"
 echo "#######################################################################################################"
 
-wget https://github.com/NetApp/trident/releases/download/v20.04.0/trident-installer-20.04.0.tar.gz
-tar -xf trident-installer-20.04.0.tar.gz
-git clone https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s
-chmod 744 * NetApp-LoD/Trident_with_K8s/deploy/*.sh
+# MUST FIND A BETTER PLACE TO DOWNLOAD TRIDENT TO RHEL5 - DEV K8S MASTER
+# wget -nv https://github.com/NetApp/trident/releases/download/v20.04.0/trident-installer-20.04.0.tar.gz
+# tar -xf trident-installer-20.04.0.tar.gz
+
+# MUST REMOVE COMMENT ONCE REPO IS PUBLIC!!!
+# git clone https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s
+scp -r -q -o "StrictHostKeyChecking no" root@rhel3:/root/NetApp-LoD/ /root
+
+chmod 744 * /root/NetApp-LoD/Trident_with_K8s/deploy/*.sh
 
 echo "#######################################################################################################"
 echo "Setting net.bridge.bridge-nf-call-iptables to 1"
@@ -17,8 +22,8 @@ cat <<EOF > /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
-sysctl -p
-echo 1 > /proc/sys/net/bridge/bridge-nf-call-iptables
+sysctl --system
+# echo 1 > /proc/sys/net/bridge/bridge-nf-call-iptables
 
 echo "#######################################################################################################"
 echo "Disabling swap"
@@ -79,3 +84,4 @@ echo "Installing kubelet, kubeadm and kubectl"
 echo "#######################################################################################################"
 
 yum -y install kubelet-1.18.0 kubeadm-1.18.0 kubectl-1.18.0 --nogpgcheck
+

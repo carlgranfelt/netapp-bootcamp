@@ -49,9 +49,9 @@ mount -t nfs 192.168.0.132:/web_content /mnt/web_content
 cp -r netapp_website/v1/* /mnt/web_content
 docker -H ssh://root@rhel6 run --name docker-nginx -p 80:80 -d -v /mnt/web_content:/usr/share/nginx/html nginx
 
-# echo "#######################################################################################################"
-# echo "Delete the configured K8S Storage Classes and backend, and uninstall trident"
-# echo "#######################################################################################################"
+echo "#######################################################################################################"
+echo "Delete the configured K8S Storage Classes, Trident backends, and uninstall Trident"
+echo "#######################################################################################################"
 
 # kubectl delete sc storage-class-nas
 # kubectl delete sc storage-class-ssd
@@ -61,6 +61,39 @@ docker -H ssh://root@rhel6 run --name docker-nginx -p 80:80 -d -v /mnt/web_conte
 # tridentctl delete backend BackendForNAS -n trident
 # tridentctl delete backend BackendForSolidFire -n trident
 # tridentctl uninstall -n trident
+
+# Echo existing version
+echo ""
+echo "[root@rhel3 ~]# tridentctl -n trident version"
+tridentctl -n trident version
+
+# Cleanup up Trident backends and kubernetes storage classes
+kubectl delete sc --all
+tridentctl -n trident delete backend --all
+
+# Delete existing CRD deployed and used by Trident
+tridentctl -n trident obliviate crd --yesireallymeanit
+
+# Uninstall Trident 
+tridentctl -n trident uninstall
+
+# Delete trident namespace
+kubectl delete ns trident
+
+# Download Trident 20.04
+cd
+mv trident-installer/ trident-installer_19.07
+wget -nv https://github.com/NetApp/trident/releases/download/v20.04.0/trident-installer-20.04.0.tar.gz
+tar -xf trident-installer-20.04.0.tar.gz
+
+#
+# Do I need to cd to the directory?
+# Do i need to specify the namespace?
+#
+
+# Run twice the obliviate alpha-snapshot-crd command due to a known issue
+tridentctl -n trident obliviate alpha-snapshot-crd
+tridentctl -n trident obliviate alpha-snapshot-crd
 
 echo "#######################################################################################################"
 echo "Install and create a metallb configuration"
@@ -154,10 +187,9 @@ ssh -o "StrictHostKeyChecking no" root@rhel4 < ./01_prepare_k8s_servers.sh
 ssh -o "StrictHostKeyChecking no" root@rhel4 < ./03_join_prod_k8s_workers.sh
 
 echo "#######################################################################################################"
-echo "Initialize and configure the second kubernetes cluster"
+echo "Initialize and configure the dev kubernetes cluster"
 echo "#######################################################################################################"
 
-ssh -o "StrictHostKeyChecking no" root@rhel4 < ./01_prepare_k8s_servers.sh
 ssh -o "StrictHostKeyChecking no" root@rhel5 < ./01_prepare_k8s_servers.sh
 ssh -o "StrictHostKeyChecking no" root@rhel6 < ./01_prepare_k8s_servers.sh
 
@@ -246,34 +278,6 @@ EOF
 echo "#######################################################################################################"
 echo "Installing Trident with an Operator"
 echo "#######################################################################################################"
-
-# Echo existing version
-echo ""
-echo "[root@rhel3 ~]# tridentctl -n trident version"
-tridentctl -n trident version
-
-# Cleanup up Trident backends and kubernetes storage classes
-kubectl delete sc --all
-tridentctl -n trident delete backend --all
-
-# Delete existing CRD deployed and used by Trident
-tridentctl -n trident obliviate crd --yesireallymeanit
-
-# Uninstall Trident 
-tridentctl -n trident uninstall
-
-# Delete trident namespace
-kubectl delete ns trident
-
-# Download Trident 20.04
-cd
-mv trident-installer/ trident-installer_19.07
-wget https://github.com/NetApp/trident/releases/download/v20.04.0/trident-installer-20.04.0.tar.gz
-tar -xf trident-installer-20.04.0.tar.gz
-
-# Run twice the obliviate alpha-snapshot-crd command due to a known issue
-tridentctl -n trident obliviate alpha-snapshot-crd
-tridentctl -n trident obliviate alpha-snapshot-crd
 
 # Install Trident Provisioner, which is a Custom Resource Definition
 kubectl create -f trident-installer/deploy/crds/trident.netapp.io_tridentprovisioners_crd_post1.16.yaml

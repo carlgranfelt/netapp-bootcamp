@@ -102,7 +102,7 @@ echo "##########################################################################
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.9.3/manifests/metallb.yaml
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
-kubectl apply -f k8s_files/metailb-configmap-k8s-prod.yaml
+kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/metallb-configmap-k8s-prod.yaml
 
 echo "#######################################################################################################"
 echo "Upgrading to K8s 1.16"
@@ -153,7 +153,7 @@ ssh -o "StrictHostKeyChecking no" root@rhel2 yum install -y kubelet-1.17.3-0 kub
 ssh -o "StrictHostKeyChecking no" root@rhel2 systemctl restart kubelet
 ssh -o "StrictHostKeyChecking no" root@rhel2 systemctl daemon-reload
 sleep 30s
-e
+
 echo "#######################################################################################################"
 echo "Upgrading to K8s 1.18"
 echo "#######################################################################################################"
@@ -183,21 +183,21 @@ echo "##########################################################################
 echo "Initialize and configure rhel4 to join prod kubernetes cluster"
 echo "#######################################################################################################"
 
-ssh -o "StrictHostKeyChecking no" root@rhel4 < ./01_prepare_k8s_servers.sh
-ssh -o "StrictHostKeyChecking no" root@rhel4 < ./03_join_prod_k8s_workers.sh
+ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/Trident_with_K8s/deploy/01_prepare_k8s_servers.sh
+ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/Trident_with_K8s/deploy/03_join_prod_k8s_workers.sh
 
 echo "#######################################################################################################"
 echo "Initialize and configure the dev kubernetes cluster"
 echo "#######################################################################################################"
 
-ssh -o "StrictHostKeyChecking no" root@rhel5 < ./01_prepare_k8s_servers.sh
-ssh -o "StrictHostKeyChecking no" root@rhel6 < ./01_prepare_k8s_servers.sh
+ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/01_prepare_k8s_servers.sh
+ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/01_prepare_k8s_servers.sh
 
-ssh -o "StrictHostKeyChecking no" root@rhel5 < ./02_init_dev_k8s_master.sh
+ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/02_init_dev_k8s_master.sh
 
-ssh -o "StrictHostKeyChecking no" root@rhel6 < ./03_join_dev_k8s_workers.sh
+ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/03_join_dev_k8s_workers.sh
 
-ssh -o "StrictHostKeyChecking no" root@rhel5 < ./04_configure_dev_k8s_cluster.sh
+ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/04_configure_dev_k8s_cluster.sh
 
 # chmod 744 * ../demo/*.sh
 # chmod 744 * ../demo/k8s_backup/*.sh
@@ -208,7 +208,7 @@ echo "##########################################################################
 
 # Install Helm
 
-wget https://get.helm.sh/helm-v3.0.3-linux-amd64.tar.gz
+wget -nv https://get.helm.sh/helm-v3.0.3-linux-amd64.tar.gz
 tar xzvf helm-v3.0.3-linux-amd64.tar.gz
 cp linux-amd64/helm /usr/bin/
 
@@ -293,6 +293,8 @@ kubectl create namespace trident
 # Install Trident Operator
 kubectl create -f trident-installer/deploy/bundle.yaml
 
+sleep 30s
+
 # Verify Trident Operator
 echo ""
 echo "[root@rhel3 ~]# kubectl get all -n trident"
@@ -300,6 +302,8 @@ kubectl get all -n trident
 
 # Installing Trident Provisioner
 kubectl create -f trident-installer/deploy/crds/tridentprovisioner_cr.yaml
+
+sleep 30s
 
 # Verify new Trident version
 echo ""
@@ -328,11 +332,11 @@ echo "##########################################################################
 
 # Create Trident backends
 echo ""
-echo "[root@rhel3 ~]# tridentctl -n trident create backend -f ./k8s_files/backend-nas-default.json"
-tridentctl -n trident create backend -f ./k8s_files/backend-nas-default.json
+echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-nas-default.json"
+tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-nas-default.json
 echo ""
-echo "[root@rhel3 ~]# tridentctl -n trident create backend -f ./k8s_files/backend-nas-eco-default.json"
-tridentctl -n trident create backend -f ./k8s_files/backend-nas-eco-default.json
+echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-nas-eco-default.json"
+tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-nas-eco-default.json
 
 echo ""
 echo "[root@rhel3 ~]# kubectl get -n trident tridentbackends"
@@ -341,11 +345,11 @@ kubectl get -n trident tridentbackends
 # Create kubernetes storage class objects pointing at the backends
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f sc-csi-ontap-nas.yaml"
-kubectl create -f sc-csi-ontap-nas.yaml
+kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/sc-csi-ontap-nas.yaml
 
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f sc-csi-ontap-nas-eco.yaml"
-kubectl create -f sc-csi-ontap-nas-eco.yaml
+kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/sc-csi-ontap-nas-eco.yaml
 
 echo ""
 echo "[root@rhel3 ~]# kubectl get sc"

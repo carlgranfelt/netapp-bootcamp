@@ -19,7 +19,7 @@ echo "##########################################################################
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.9.3/manifests/metallb.yaml
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
-kubectl apply -f NetApp-LoD/Trident_with_K8s/deploy/k8s_files/metailb-configmap-k8s-dev.yaml
+kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/metallb-configmap-k8s-dev.yaml
 
 # echo "#######################################################################################################"
 # echo "Installing Trident with an Operator"

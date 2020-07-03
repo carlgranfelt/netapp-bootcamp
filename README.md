@@ -52,15 +52,14 @@ Vim a “modal” text editor based on the vi editor. In Vim, the mode that the 
 
 For more information about the kuberenetes dashboard, please see: <https://github.com/kubernetes/dashboard>.
 
-To access the dashboard from your local workstation you must create a secure channel to your Kubernetes cluster. Open a new SSH terminal to rhel3 and run the following command:
-
+To access the dashboard from your local workstation you must create a secure channel to your Kubernetes cluster. Open a new SSH terminal to rhel3 and run the following command:  
 `kubectl proxy`
 
-Access the k8s dashboard from a web browser at:
+Access the k8s dashboard from a web browser at:  
 <http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/>.
 
-Getting a Bearer Token
-Now we need to find token we can use to log in. Execute following command in the original terminal window:
+Getting a Bearer Token  
+Now we need to find token we can use to log in. Execute following command in the original terminal window:  
 
 `kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')`
 

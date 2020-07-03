@@ -2,7 +2,7 @@
 
 ## A. Trident with K8s (with CSI)
 
-The section has been tested with the Lab-on-Demand Using "Trident with Kubernetes and ONTAP v3.1" which comes by default with Trident 19.07 already installed on Kubernetes 1.15.3. The configure.sh will modify the environment by:
+The section has been tested with the Lab-on-Demand Using "Trident with Kubernetes and ONTAP v3.1" which comes by default with Trident 19.07 already installed on Kubernetes 1.15.3. The configure_bootcamp.sh will modify the environment by:
 
 - Installing and creating a MetalLB configuration
 - Upgading k8s to 1.18
@@ -57,7 +57,6 @@ To access the dashboard from your local workstation you must create a secure cha
 `kubectl proxy`
 
 Access the k8s dashboard from a web browser at:
-
 <http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/>.
 
 Getting a Bearer Token

@@ -25,27 +25,28 @@ Most of them start with a '#', usually followed by the result you would get.
 
 Vim a “modal” text editor based on the vi editor. In Vim, the mode that the editor is in determines whether the alphanumeric keys will input those characters or move the cursor through the document. Listed below are some basic commands to move, edit, search and replace, save and quit.
 
-**Vim Command           Description**
-i                       Enter insert mode
-Esc                     Enter command mode
-x or Del                Delete a character
-X                       Delete character is backspace mode
-u                       Undo the last operation
-Ctrl + r                Redo the last undo
-yy                      Copy a line
-d                       Starts the delete operation
-dw                      Delete a word
-d0                      Delete to the beginning of a line
-d$                      Delete to the end of a line
-dd                      Delete a line
-p                       Paste the content of the buffer
-/<search_term>          Search for text and then cycle through matches with n and N
-[[ or gg                Move to the beginning of a file
-]] or G                 Move to the end of a file
-:%s/foo/bar/gci         Search and replace all occurrences with confirmation
-Esc + :w                Save changes
-Esc + :wq or Esc + ZZ   Save and quit Vim
-Esc + :q!               Force quit Vim discarding all changes
+|**Vim Command           | Description**
+|------------------------|--------------------------------------------------------------|
+|i                       | Enter insert mode |
+| Esc                    | Enter command mode |
+| x or Del               | Delete a character |
+| X                      | Delete character is backspace mode |
+| u                      | Undo the last operation |
+| Ctrl + r               | Redo the last undo |
+| yy                     | Copy a line |
+| d                      | Starts the delete operation |
+| dw                     | Delete a word |
+| d0                     | Delete to the beginning of a line |
+| d$                     | Delete to the end of a line |
+| dd                     | Delete a line |
+| p                      | Paste the content of the buffer |
+| /<search_term>         | Search for text and then cycle through matches with n and N |
+| [[ or gg               | Move to the beginning of a file |
+| ]] or G                | Move to the end of a file |
+| :%s/foo/bar/gci        | Search and replace all occurrences with confirmation |
+| Esc + :w               | Save changes |
+| Esc + :wq or Esc + ZZ  | Save and quit Vim |
+| Esc + :q!              | Force quit Vim discarding all changes |
 
 ### Kubernetes web-based UI
 
@@ -53,13 +54,15 @@ For more information about the kuberenetes dashboard, please see: <https://githu
 
 To access the dashboard from your local workstation you must create a secure channel to your Kubernetes cluster. Open a new SSH terminal to rhel3 and run the following command:
 
-$ kubectl proxy
+kubectl proxy
 
 Access the k8s dashboard from a web browser at:
+
 <http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/>.
 
 Getting a Bearer Token
 Now we need to find token we can use to log in. Execute following command in the original terminal window:
+
 kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
 
 It should display something similar to below:

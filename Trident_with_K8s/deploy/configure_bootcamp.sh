@@ -222,26 +222,26 @@ helm install prom-operator stable/prometheus-operator --namespace monitoring
 # Recreate the Prometheus service using a LoadBalancer type
 
 kubectl delete -n monitoring svc prom-operator-prometheus-o-prometheus
-kubectl apply -f /root/demo-trident/making/monitoring/prometheus/service-prom-operator-prometheus.yaml
+kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/monitoring/prometheus/service-prom-operator-prometheus.yaml
 
 # Create a Service Monitor for Trident
 
-kubectl apply -f /root/demo-trident/making/monitoring/prometheus/servicemonitor.yaml
+kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/monitoring/prometheus/servicemonitor.yaml
 
 # Recreate the Grafana service using a LoadBalancer type
 
 kubectl delete -n monitoring svc prom-operator-grafana
-kubectl apply -f /root/demo-trident/making/monitoring/grafana/service-prom-operator-grafana.yaml
+kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/monitoring/grafana/service-prom-operator-grafana.yaml
 
 # Create configmap resources with the Grafana datasource and dashboards
 
-kubectl apply -f /root/demo-trident/making/monitoring/grafana/cm-grafana-datasources.yaml
-kubectl create configmap cm-grafana-dashboard -n monitoring --from-file=/root/demo-trident/making/monitoring/grafana/dashboards/
+kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/monitoring/grafana/cm-grafana-datasources.yaml
+kubectl create configmap cm-grafana-dashboard -n monitoring --from-file=/root/NetApp-LoD/Trident_with_K8s/deploy/monitoring/grafana/dashboards/
 
 # Recreate the Grafana deployment using the previuos configmap resources to avoid manual configuration
 
 kubectl delete deployment prom-operator-grafana -n monitoring
-kubectl apply -f /root/demo-trident/making/monitoring/grafana/deployment-prom-operator-grafana.yaml
+kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/monitoring/grafana/deployment-prom-operator-grafana.yaml
 
 # Modify the Grafana GUI password setting 'admin'
 

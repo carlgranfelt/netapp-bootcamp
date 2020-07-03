@@ -350,3 +350,22 @@ kubectl create -f sc-csi-ontap-nas-eco.yaml
 echo ""
 echo "[root@rhel3 ~]# kubectl get sc"
 kubectl get sc
+
+echo "#######################################################################################################"
+echo "Install Kubernetes Dashboard"
+echo "#######################################################################################################"
+
+# Deploy Dashboard
+echo ""
+echo "[root@rhel3 ~]# kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.3/aio/deploy/recommended.yaml"
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.3/aio/deploy/recommended.yaml
+
+# Create An Authentication Token (RBAC)
+# Create a Service Account
+echo ""
+echo "[root@rhel3 ~]# kubectl create -f dashboard-service-account.yaml"
+kubectl create -f dashboard-service-account.yaml
+
+echo ""
+echo "[root@rhel3 ~]# kubectl create -f dashboard-clusterrolebinding.yaml"
+kubectl create -f dashboard-clusterrolebinding.yaml

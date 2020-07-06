@@ -36,7 +36,7 @@ Vim is a “modal” text editor based on the vi editor. In Vim, the mode that t
 
 |Vim Command             | Description
 |------------------------|--------------------------------------------------------------|
-|i                       | Enter insert mode |
+| i                      | Enter insert mode |
 | Esc                    | Enter command mode |
 | x or Del               | Delete a character |
 | X                      | Delete character is backspace mode |

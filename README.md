@@ -25,10 +25,12 @@ Most of them start with a '#', usually followed by the result you would get.
 
 Open the PuTTY console and connect to the kubernetes master node as root@rhel3. Run the below commands to configure the kubernetes clusters for the bootcamp:  
 
-`git clone <https://github.com/carlgranfelt/NetApp-LoD.git>  
+```bash
+git clone <https://github.com/carlgranfelt/NetApp-LoD.git>  
 cd /NetApp-LoD/Trident_with_K8s/deploy/  
 chmod 744 *.sh  
-. ./configure_bootcamp.sh`
+. ./configure_bootcamp.sh
+```
 
 ### Vim 101 commands
 

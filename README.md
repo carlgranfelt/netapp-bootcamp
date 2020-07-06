@@ -21,6 +21,15 @@ Last, there are plenty of commands to write or copy/paste.
 Most of them start with a '#', usually followed by the result you would get.  
 :boom:  
 
+### Configuring the bootcamp k8s environment
+
+Open the PuTTY console and connect to the kubernetes master node root@rhel3. Run the below commands:  
+
+git clone <https://github.com/carlgranfelt/NetApp-LoD.git>
+cd /NetApp-LoD/Trident_with_K8s/deploy/
+chmod 744 *.sh
+. ./configure_bootcamp.sh
+
 ### Vim 101 commands
 
 Vim is a “modal” text editor based on the vi editor. In Vim, the mode that the editor is in determines whether the alphanumeric keys will input those characters or move the cursor through the document. Listed below are some basic commands to move, edit, search and replace, save and quit.

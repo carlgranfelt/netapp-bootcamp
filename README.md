@@ -23,7 +23,7 @@ Most of them start with a '#', usually followed by the result you would get.
 
 ### Vim 101 commands
 
-Vim a “modal” text editor based on the vi editor. In Vim, the mode that the editor is in determines whether the alphanumeric keys will input those characters or move the cursor through the document. Listed below are some basic commands to move, edit, search and replace, save and quit.
+Vim is a “modal” text editor based on the vi editor. In Vim, the mode that the editor is in determines whether the alphanumeric keys will input those characters or move the cursor through the document. Listed below are some basic commands to move, edit, search and replace, save and quit.
 
 |Vim Command             | Description
 |------------------------|--------------------------------------------------------------|

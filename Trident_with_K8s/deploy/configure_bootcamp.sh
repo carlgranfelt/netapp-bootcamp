@@ -321,6 +321,8 @@ kubectl get all -n trident
 #read -p "Press any key to continue... " -n1 -s
 #clear
 
+sleep 30
+
 # Verify Trident Provisioner status
 echo ""
 echo "[root@rhel3 ~]# kubectl describe tprov trident -n trident | grep Message: -A 3"
@@ -368,8 +370,8 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.3/a
 # Create a Service Account
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f dashboard-service-account.yaml"
-kubectl create -f dashboard-service-account.yaml
+kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/dashboard-service-account.yaml
 
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f dashboard-clusterrolebinding.yaml"
-kubectl create -f dashboard-clusterrolebinding.yaml
+kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/dashboard-clusterrolebinding.yaml

@@ -375,3 +375,24 @@ kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/dashboard-s
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f dashboard-clusterrolebinding.yaml"
 kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/dashboard-clusterrolebinding.yaml
+
+echo "#######################################################################################################"
+echo "Install Kubernetes Metrics Server for kubectl top and pod autoscaler"
+echo "#######################################################################################################"
+
+cd
+
+# Clone kodekloudhub/kubernetes-metrics-server repository
+echo ""
+echo "[root@rhel3 ~]# git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git"
+git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git
+
+# Create Kubernetes Metrics Server
+echo ""
+echo "[root@rhel3 ~]# kubectl create -f kubernetes-metrics-server/"
+kubectl create -f kubectl create -f kubernetes-metrics-server/
+
+sleep 30
+
+kubectl top no
+kubectl top po --all-namespaces

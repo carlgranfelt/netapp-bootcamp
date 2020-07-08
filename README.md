@@ -1,3 +1,5 @@
+<p align="center"><img src="images/k8s-header.png"></p>
+
 # LabNetApp
 
 ## A. Trident with K8s (with CSI)

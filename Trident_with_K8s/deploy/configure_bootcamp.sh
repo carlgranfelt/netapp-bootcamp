@@ -376,6 +376,10 @@ echo ""
 echo "[root@rhel3 ~]# kubectl create -f dashboard-clusterrolebinding.yaml"
 kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/dashboard-clusterrolebinding.yaml
 
+echo ""
+echo "[root@rhel3 ~]# kubectl -n kubernetes-dashboard patch service/kubernetes-dashboard -p '{"spec":{"type":"LoadBalancer"}}'
+kubectl -n kubernetes-dashboard patch service/kubernetes-dashboard -p '{"spec":{"type":"LoadBalancer"}}'
+
 echo "#######################################################################################################"
 echo "Install Kubernetes Metrics Server for kubectl top and pod autoscaler"
 echo "#######################################################################################################"

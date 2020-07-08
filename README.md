@@ -1,3 +1,5 @@
+![NetApp k8s Bootcamp](images/k8s-header.png)
+
 # LabNetApp
 
 ## A. Trident with K8s (with CSI)

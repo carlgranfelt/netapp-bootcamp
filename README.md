@@ -1,4 +1,4 @@
-<p align="center">![NetApp k8s Bootcamp](images/k8s-header.png)</p>
+<p align="center"><img src="images/k8s-header.png"></p>
 
 # LabNetApp
 

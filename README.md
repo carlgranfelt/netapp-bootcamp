@@ -70,7 +70,9 @@ To access the dashboard from your local workstation you must create a secure cha
 `kubectl proxy`
 
 Access the k8s dashboard from a web browser at:  
-<http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/>.
+<https://192.168.0.142/>.  
+
+Click on **Advanced** in the 'Your connecton is not private' window, follwed by 'Proceed to 192.168.0.142 (unsafe)'.
 
 Getting a Bearer Token  
 Now we need to find token we can use to log in. Execute following command in the original terminal window:  

@@ -25,36 +25,42 @@ pip install --upgrade pip
 pip install netapp-lib --user
 
 cat <<EOF >> /etc/ansible/hosts
-[k8s-prod]
-rhel[1:4]
-
-[k8s-prod-master]
-rhel3
-
-[k8s-prod-workers]
-rhel[2:4]
-
-[k8s-dev]
-rhel[5:6]
-
-[k8s-dev-master]
-rhel5
-
-[k8s-dev-worker]
 rhel6
+[k8sservers]
+rhel1
+rhel2
 EOF
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 
 echo "#######################################################################################################"
-echo "Configuring SVM1 for iSCSI using Ansible playbooks"
+echo "Configuring NetApp volumes for examples using Ansible playbooks"
 echo "#######################################################################################################"
 
-ansible-playbook ./ansible_files/day0-1.yaml
+ansible-playbook ./ansible_files/legacy-website.yaml
+ansible-playbook ./ansible_files/datalake.yaml
+
+echo "#######################################################################################################"
+echo "Run web server within docker for one example"
+echo "#######################################################################################################"
+
+mkdir /mnt/web_content
+mount -t nfs 192.168.0.132:/web_content /mnt/web_content
+cp -r netapp_website/v1/* /mnt/web_content
+docker -H ssh://root@rhel6 run --name docker-nginx -p 80:80 -d -v /mnt/web_content:/usr/share/nginx/html nginx
 
 echo "#######################################################################################################"
 echo "Delete the configured K8S Storage Classes, Trident backends, and uninstall Trident"
 echo "#######################################################################################################"
+
+# kubectl delete sc storage-class-nas
+# kubectl delete sc storage-class-ssd
+# kubectl delete sc storage-class-storagepool
+# kubectl delete sc sf-gold
+# kubectl delete sc sf-silver
+# tridentctl delete backend BackendForNAS -n trident
+# tridentctl delete backend BackendForSolidFire -n trident
+# tridentctl uninstall -n trident
 
 # Echo existing version
 echo ""
@@ -79,6 +85,11 @@ cd
 mv trident-installer/ trident-installer_19.07
 wget -nv https://github.com/NetApp/trident/releases/download/v20.04.0/trident-installer-20.04.0.tar.gz
 tar -xf trident-installer-20.04.0.tar.gz
+
+#
+# Do I need to cd to the directory?
+# Do i need to specify the namespace?
+#
 
 # Run twice the obliviate alpha-snapshot-crd command due to a known issue
 tridentctl -n trident obliviate alpha-snapshot-crd

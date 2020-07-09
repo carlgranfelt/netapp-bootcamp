@@ -84,21 +84,21 @@ Copy the token and paste it into Enter token field on the login screen.
 ### Tasks
 
 ---------
-[1.](Trident_with_K8s/Tasks/Task_1) Install/Upgrade Trident with an Operator  
-[2.](Trident_with_K8s/Tasks/Task_2) Install Prometheus & incorporate Trident's metrics  
-[3.](Trident_with_K8s/Tasks/Task_3) Configure Grafana & add your first graphs  
-[4.](Trident_with_K8s/Tasks/Task_4) Configure your first NAS backends & storage classes  
-[5.](Trident_with_K8s/Tasks/Task_5) Deploy your first app with File storage  
-[6.](Trident_with_K8s/Tasks/Task_6) Configure your first iSCSI backends & storage classes  
-[7.](Trident_with_K8s/Tasks/Task_7) Deploy your first app with Block storage  
-[8.](Trident_with_K8s/Tasks/Task_8) Use the 'import' feature of Trident  
-[9.](Trident_with_K8s/Tasks/Task_9) Consumption control  
-[10.](Trident_with_K8s/Tasks/Task_10) Resize a NFS CSI PVC  
-[11.](Trident_with_K8s/Tasks/Task_11) Using Virtual Storage Pools  
-[12.](Trident_with_K8s/Tasks/Task_12) StatefulSets & Storage consumption  
-[13.](Trident_with_K8s/Tasks/Task_13) Resize a iSCSI CSI PVC  
-[14.](Trident_with_K8s/Tasks/Task_14) On-Demand Snapshots & Create PVC from Snapshot  
-[15.](Trident_with_K8s/Tasks/Task_15) Dynamic export policy management  
+[1.](Trident_with_K8s/tasks/task_1) Install/Upgrade Trident with an Operator  
+[2.](Trident_with_K8s/tasks/task_2) Install Prometheus & incorporate Trident's metrics  
+[3.](Trident_with_K8s/tasks/task_3) Configure Grafana & add your first graphs  
+[4.](Trident_with_K8s/tasks/task_4) Configure your first NAS backends & storage classes  
+[5.](Trident_with_K8s/tasks/task_5) Deploy your first app with File storage  
+[6.](Trident_with_K8s/tasks/task_6) Configure your first iSCSI backends & storage classes  
+[7.](Trident_with_K8s/tasks/task_7) Deploy your first app with Block storage  
+[8.](Trident_with_K8s/tasks/task_8) Use the 'import' feature of Trident  
+[9.](Trident_with_K8s/tasks/task_9) Consumption control  
+[10.](Trident_with_K8s/tasks/task_10) Resize a NFS CSI PVC  
+[11.](Trident_with_K8s/tasks/task_11) Using Virtual Storage Pools  
+[12.](Trident_with_K8s/tasks/task_12) StatefulSets & Storage consumption  
+[13.](Trident_with_K8s/tasks/task_13) Resize a iSCSI CSI PVC  
+[14.](Trident_with_K8s/tasks/task_14) On-Demand Snapshots & Create PVC from Snapshot  
+[15.](Trident_with_K8s/tasks/task_15) Dynamic export policy management  
 
 ### Addendum
 

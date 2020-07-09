@@ -173,21 +173,21 @@ echo "##########################################################################
 echo "Initialize and configure rhel4 to join prod kubernetes cluster"
 echo "#######################################################################################################"
 
-ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/Trident_with_K8s/deploy/01_prepare_k8s_servers.sh
-ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/Trident_with_K8s/deploy/03_join_prod_k8s_workers.sh
+ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/Trident_with_K8s/deploy/01_prepare_k8s_server_rhel4.sh
+ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/Trident_with_K8s/deploy/02_join_prod_k8s_cluster_rhel4.sh
 
 echo "#######################################################################################################"
 echo "Initialize and configure the dev kubernetes cluster"
 echo "#######################################################################################################"
 
-ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/01_prepare_k8s_servers.sh
-ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/01_prepare_k8s_servers.sh
+ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/03_prepare_dev_k8s_servers.sh
+ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/03_prepare_dev_k8s_servers.sh
 
-ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/02_init_dev_k8s_master.sh
+ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/04_init_dev_k8s_master_rhel5.sh
 
-ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/03_join_dev_k8s_workers.sh
+ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/05_join_dev_k8s_cluster_rhel6.sh
 
-ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/04_configure_dev_k8s_cluster.sh
+ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/06_configure_dev_k8s_cluster.sh
 
 echo "#######################################################################################################"
 echo "Install and configure Prometheus and Grafana dashboards"
@@ -387,3 +387,10 @@ sleep 30
 
 kubectl top no
 kubectl top po --all-namespaces
+
+echo "#######################################################################################################"
+echo "Generate new bootstrap token to be used by rhel4 to join the cluster due to kubernetes issue #89882"
+echo "#######################################################################################################"
+
+kubeadm init phase bootstrap-token
+kubeadm token list | tail -1 | cut -d " " -f 1 > kubeadm_token.txt

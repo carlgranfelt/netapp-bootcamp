@@ -25,17 +25,6 @@ kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/metallb-conf
 # echo "Installing Trident with an Operator"
 # echo "#######################################################################################################"
 
-# echo tridentctl -n trident version
-
-# kubectl create ns trident
-# tridentctl install -n trident
-
-# echo "#######################################################################################################"
-# echo "Create K8S backend y Storage class"
-# echo "#######################################################################################################"
-
-# tridentctl create backend --filename demo-trident/demo/k8s_files/backend-nas.json -n trident
-# kubectl apply -f demo-trident/demo/k8s_files/sc-nas-silver.yaml
 
 
 

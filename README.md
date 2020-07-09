@@ -66,9 +66,6 @@ Vim is a “modal” text editor based on the vi editor. In Vim, the mode that t
 For more information about the kuberenetes dashboard, please see:  
 <https://github.com/kubernetes/dashboard>.
 
-To access the dashboard from your local workstation you must create a secure channel to your Kubernetes cluster. Open a new SSH terminal to rhel3 and run the following command:  
-`kubectl proxy`
-
 Access the k8s dashboard from a web browser at:  
 <https://192.168.0.142/>.  
 

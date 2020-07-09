@@ -9,13 +9,11 @@ echo "##########################################################################
 # tar -xf trident-installer-20.04.0.tar.gz
 
 # MUST REMOVE COMMENT ONCE REPO IS PUBLIC!!!
-# git clone https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s
+# git clone <https://github.com/carlgranfelt/NetApp-LoD.git>
 scp -r -q -o "StrictHostKeyChecking no" root@rhel3:/root/NetApp-LoD/ /root
 
-chmod 744 * /root/NetApp-LoD/Trident_with_K8s/deploy/*.sh
-
 echo "#######################################################################################################"
-echo "Setting net.bridge.bridge-nf-call-iptables to 1"
+echo "Preparing the host - firewall and security"
 echo "#######################################################################################################"
 
 cat <<EOF > /etc/sysctl.d/k8s.conf
@@ -23,7 +21,8 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
 sysctl --system
-# echo 1 > /proc/sys/net/bridge/bridge-nf-call-iptables
+
+setenforce 0
 
 echo "#######################################################################################################"
 echo "Disabling swap"
@@ -42,7 +41,7 @@ cat <<EOF > /etc/fstab
 UUID=69278624-810b-4c7a-97e4-9d236b939b2a /boot                   xfs     defaults        0 0
 #/dev/mapper/rhel-swap   swap                    swap    defaults        0 0
 /dev/sdb1    /var/lib/docker                    xfs     defaults        0 0
-192.168.0.132:/web_content /mnt/web_content nfs defaults 0 0
+192.168.0.132:/registry /mnt/registry           nfs     defaults        0 0
 EOF
 
 echo "#######################################################################################################"
@@ -59,25 +58,25 @@ repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 
-echo "#######################################################################################################"
-echo "Setting the Trident path"
-echo "#######################################################################################################"
+#echo "#######################################################################################################"
+#echo "Setting the Trident path"
+#echo "#######################################################################################################"
 
-cat <<EOF > ~/.bash_profile
+#cat <<EOF > ~/.bash_profile
 # .bash_profile
 
 # Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-        . ~/.bashrc
-fi
+#if [ -f ~/.bashrc ]; then
+#        . ~/.bashrc
+#fi
 
 # User specific environment and startup programs
 
-PATH=$PATH:$HOME/bin
-PATH="/root/trident-installer:$PATH"
+#PATH=$PATH:$HOME/bin
+#PATH="/root/trident-installer:$PATH"
 
-export PATH
-EOF
+#export PATH
+#EOF
 
 echo "#######################################################################################################"
 echo "Installing kubelet, kubeadm and kubectl"

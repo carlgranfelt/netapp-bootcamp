@@ -51,7 +51,7 @@ echo "##########################################################################
 echo "Configuring NetApp SVM for iSCSI using Ansible playbooks"
 echo "#######################################################################################################"
 
-ansible-playbook ./ansible_files/legacy-website.yaml
+ansible-playbook ./ansible_files/day0-1.yaml
 
 echo "#######################################################################################################"
 echo "Delete the configured K8S Storage Classes, Trident backends, and uninstall Trident"

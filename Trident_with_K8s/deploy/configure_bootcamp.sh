@@ -394,7 +394,7 @@ git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git
 # Create Kubernetes Metrics Server
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f kubernetes-metrics-server/"
-kubectl create -f kubectl create -f kubernetes-metrics-server/
+kubectl create -f kubernetes-metrics-server/
 
 sleep 30
 

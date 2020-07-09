@@ -48,7 +48,7 @@ EOF
 export ANSIBLE_HOST_KEY_CHECKING=False
 
 echo "#######################################################################################################"
-echo "Configuring NetApp volumes for examples using Ansible playbooks"
+echo "Configuring NetApp SVM for iSCSI using Ansible playbooks"
 echo "#######################################################################################################"
 
 ansible-playbook ./ansible_files/legacy-website.yaml

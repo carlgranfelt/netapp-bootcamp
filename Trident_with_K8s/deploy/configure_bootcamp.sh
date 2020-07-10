@@ -25,23 +25,28 @@ pip install --upgrade pip
 pip install netapp-lib --user
 
 cat <<EOF >> /etc/ansible/hosts
-[k8s-prod-cluster]
-rhel[1:4]
-
-[k8s-prod-master]
+[k8s_prod_cluster]
+rhel1
+rhel2
 rhel3
-
-[k8s-prod-workers]
-rhel[1:2]
 rhel4
 
-[k8s-dev-cluster]
-rhel[5:6]
+[k8s_prod_master]
+rhel3
 
-[k8s-dev-master]
+[k8s_prod_workers]
+rhel1
+rhel2
+rhel4
+
+[k8s_dev_cluster]
+rhel5
+rhel6
+
+[k8s_dev_master]
 rhel5
 
-[k8s-dev-worker]
+[k8s_dev_worker]
 rhel6
 EOF
 
@@ -168,26 +173,6 @@ ssh -o "StrictHostKeyChecking no" root@rhel2 yum install -y kubelet-1.18.0-0 kub
 ssh -o "StrictHostKeyChecking no" root@rhel2 systemctl restart kubelet
 ssh -o "StrictHostKeyChecking no" root@rhel2 systemctl daemon-reload
 sleep 30s
-
-echo "#######################################################################################################"
-echo "Initialize and configure rhel4 to join prod kubernetes cluster"
-echo "#######################################################################################################"
-
-ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/Trident_with_K8s/deploy/01_prepare_k8s_server_rhel4.sh
-ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/Trident_with_K8s/deploy/02_join_prod_k8s_cluster_rhel4.sh
-
-echo "#######################################################################################################"
-echo "Initialize and configure the dev kubernetes cluster"
-echo "#######################################################################################################"
-
-ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/03_prepare_dev_k8s_servers.sh
-ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/03_prepare_dev_k8s_servers.sh
-
-ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/04_init_dev_k8s_master_rhel5.sh
-
-ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/05_join_dev_k8s_cluster_rhel6.sh
-
-ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/06_configure_dev_k8s_cluster.sh
 
 echo "#######################################################################################################"
 echo "Install and configure Prometheus and Grafana dashboards"
@@ -394,3 +379,23 @@ echo "##########################################################################
 
 kubeadm init phase bootstrap-token
 kubeadm token list | tail -1 | cut -d " " -f 1 > kubeadm_token.txt
+
+echo "#######################################################################################################"
+echo "Initialize and configure rhel4 to join prod kubernetes cluster"
+echo "#######################################################################################################"
+
+ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/Trident_with_K8s/deploy/01_prepare_prod_k8s_server_rhel4.sh
+ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/Trident_with_K8s/deploy/02_join_prod_k8s_cluster_rhel4.sh
+
+echo "#######################################################################################################"
+echo "Initialize and configure the dev kubernetes cluster"
+echo "#######################################################################################################"
+
+ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/03_prepare_dev_k8s_servers.sh
+ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/03_prepare_dev_k8s_servers.sh
+
+ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/04_init_dev_k8s_master_rhel5.sh
+
+ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/‌‌05_join_dev_k8s_cluster_rhel6.sh
+
+ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/06_configure_dev_k8s_cluster.sh

@@ -1,4 +1,4 @@
-# Configure ONTAP SVM for NFS & iSCSI protocol
+# Re-configure ONTAP SVM for NFS & iSCSI protocol
 
 - name: Configure ONTAP SVM for iSCSI protocol
   hosts: localhost
@@ -23,13 +23,13 @@
     - name: Create interface
       na_ontap_interface:
         state: present
-        interface_name: svm1_iscsi
+        interface_name: svm1_iscsi_01
         home_port: e0d
         home_node: cluster1-01
         role: data
         protocols: iscsi
         admin_status: up
-        address: 192.168.0.133
+        address: 192.168.0.122
         netmask: 255.255.255.0
         vserver: svm1
         hostname: "{{ netapp_hostname }}"

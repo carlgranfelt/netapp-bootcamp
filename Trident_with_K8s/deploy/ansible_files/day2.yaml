@@ -1,7 +1,7 @@
 # Configure a destination ONTAP SVM and run a SnapMirror relationship
 # Replace <replace_here> with the volume name in the source volume to protect variable
 
-- name: Configure a snapmirror relationship
+- name: Configure a SnapMirror relationship
   hosts: localhost
   gather_facts: no
   connection: local

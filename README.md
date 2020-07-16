@@ -101,3 +101,14 @@ Copy the token and paste it into Enter token field on the login screen.
 [13.](Trident_with_K8s/tasks/task_13) Resize a iSCSI CSI PVC  
 [14.](Trident_with_K8s/tasks/task_14) On-Demand Snapshots & Create PVC from Snapshot  
 [15.](Trident_with_K8s/tasks/task_15) Dynamic export policy management  
+
+### Dev K8s Cluster Tasks
+
+---------
+[0.](Kubernetes_v2/Addendum/Addenda00) Useful commands  
+[1.](Kubernetes_v2/Addendum/Addenda01) Add a node to the cluster  
+[2.](Kubernetes_v2/Addendum/Addenda02) Specify a default storage class  
+[3.](Kubernetes_v2/Addendum/Addenda03) Allow user PODs on the master node  
+[4.](Kubernetes_v2/Addendum/Addenda04) Upgrade your Kubernetes cluster (1.15 => 1.16 => 1.17 => 1.18)  
+[5.](Kubernetes_v2/Addendum/Addenda05) Prepare ONTAP for block storage  
+[6.](Kubernetes_v2/Addendum/Addenda06) Install Ansible on RHEL3 (Kubernetes Master)  

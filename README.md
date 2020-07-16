@@ -13,7 +13,9 @@ The section has been tested with the Lab-on-Demand Using "Trident with Kubernete
 - Install and configure Prometheus and Grafana dashboards
 - Install and configure Trident with an Operator
 
-<<< Overview diagram by Horner>>>
+### Bootcamp Environment Diagram
+
+<p align="center"><img src="images/lab-diagram.png"></p>
 
 :boom:  
 Most labs will be done by connecting with Putty to the RHEL3 host (root/Netapp1!).  

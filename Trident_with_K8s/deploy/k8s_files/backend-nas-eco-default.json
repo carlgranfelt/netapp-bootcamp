@@ -1,7 +1,7 @@
 {
     "version": 1,
     "storageDriverName": "ontap-nas-economy",
-    "backendName": "NAS_ECO-default",
+    "backendName": "ontap-file-rwx-eco",
     "managementLIF": "192.168.0.135",
     "storagePrefix": "nas2_",
     "svm": "svm1",

@@ -304,14 +304,19 @@ echo "##########################################################################
 echo "Create Trident backend & k8s storage classes"
 echo "#######################################################################################################"
 
-# Create Trident backends
+# Create Trident backends file and block
 echo ""
 echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-nas-default.json"
 tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-nas-default.json
 echo ""
 echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-nas-eco-default.json"
 tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-nas-eco-default.json
-
+echo ""
+echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-san-default.json"
+tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-san-default.json
+echo ""
+echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-san-eco-default.json"
+tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-san-eco-default.json
 echo ""
 echo "[root@rhel3 ~]# kubectl get -n trident tridentbackends"
 kubectl get -n trident tridentbackends
@@ -320,11 +325,15 @@ kubectl get -n trident tridentbackends
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f sc-csi-ontap-nas.yaml"
 kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/sc-csi-ontap-nas.yaml
-
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f sc-csi-ontap-nas-eco.yaml"
 kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/sc-csi-ontap-nas-eco.yaml
-
+echo ""
+echo "[root@rhel3 ~]# kubectl create -f sc-csi-ontap-nas.yaml"
+kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/sc-csi-ontap-san.yaml
+echo ""
+echo "[root@rhel3 ~]# kubectl create -f sc-csi-ontap-nas-eco.yaml"
+kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/sc-csi-ontap-san-eco.yaml
 echo ""
 echo "[root@rhel3 ~]# kubectl get sc"
 kubectl get sc

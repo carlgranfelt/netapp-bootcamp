@@ -1,9 +1,9 @@
 #!/bin/bash
 echo "#######################################################################################################"
-echo "kubeadm init the dev k8s master node"
+echo "kubeadm init rhel5 master on the dev k8s cluster"
 echo "#######################################################################################################"
 
-systemctl daemon-reload && systemctl enable kubelet && systemctl start kubelet
+systemctl enable kubelet && systemctl start kubelet
 kubeadm init --token abcdef.0123456789abcdef
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config

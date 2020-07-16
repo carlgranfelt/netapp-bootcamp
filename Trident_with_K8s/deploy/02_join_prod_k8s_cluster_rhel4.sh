@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "#######################################################################################################"
-echo "kubeadm join rhel4 worker node to prod k8s cluster"
+echo "kubeadm join rhel4 worker node to the prod k8s cluster"
 echo "#######################################################################################################"
 
 systemctl enable kubelet && systemctl start kubelet

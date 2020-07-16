@@ -41,7 +41,6 @@ cat <<EOF > /etc/fstab
 UUID=69278624-810b-4c7a-97e4-9d236b939b2a /boot                   xfs     defaults        0 0
 #/dev/mapper/rhel-swap   swap                    swap    defaults        0 0
 /dev/sdb1    /var/lib/docker                    xfs     defaults        0 0
-192.168.0.132:/registry /mnt/registry           nfs     defaults        0 0
 EOF
 
 echo "#######################################################################################################"

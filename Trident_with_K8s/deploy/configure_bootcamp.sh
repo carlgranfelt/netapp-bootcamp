@@ -405,6 +405,5 @@ ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s
 
 ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/04_init_dev_k8s_master_rhel5.sh
 
-ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/‌‌05_join_dev_k8s_cluster_rhel6.sh
-
+ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/05_join_dev_k8s_cluster_rhel6.sh
 ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/06_configure_dev_k8s_cluster.sh

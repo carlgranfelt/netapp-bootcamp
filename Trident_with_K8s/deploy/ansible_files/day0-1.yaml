@@ -49,7 +49,7 @@
         https: true
         validate_certs: false        
     - name: Create iGroup
-      netapp.ontap.na_ontap_igroup:
+      na_ontap_igroup:
         state: present
         name: trident
         vserver: "{{ netapp_vserver }}"

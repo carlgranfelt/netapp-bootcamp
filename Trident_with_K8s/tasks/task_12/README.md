@@ -5,7 +5,7 @@
 StatefulSets was introduced to be able to run stateful applications with the following benefits:  
 
 - A stable pod hostname (instead of podname-randomstring)  
-  ○ The podname will have a sticky identity, using an index, e.g. podname-0 podname-1 and podname-2 (and when a pod gets rescheduled, it’ll keep that identity)  
+  - The podname will have a sticky identity, using an index, e.g. podname-0 podname-1 and podname-2 (and when a pod gets rescheduled, it’ll keep that identity)  
 - StatefulSets allows stateful applications stable storage with volumes based on their ordinal number (podname-x)  
   ○ Deleting and/or scaling a StatefulSets down will not delete the volumes associated with the StatefulSet (preserving data)
 

@@ -26,7 +26,7 @@ NAME                            READY   STATUS    RESTARTS   AGE
 pod/blog-san-58979448dd-6k9ds   1/1     Running   0          21s
 
 NAME               TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-service/blog-san   NodePort   10.99.208.171   <none>        80:30081/TCP   17s
+service/blog-san   NodePort   10.99.208.171   <none>        80:30080/TCP   17s
 
 NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/blog-san   1/1     1            1           21s
@@ -36,10 +36,10 @@ replicaset.apps/blog-san-58979448dd   1         1         1       21s
 
 # kubectl get pvc,pv -n ghostsan
 NAME                                     STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
-persistentvolumeclaim/blog-content-san   Bound    pvc-8ff8c1b3-48da-400e-893c-23bc9ec459ff   10Gi       RWO            storage-class-san   4m16s
+persistentvolumeclaim/blog-content-san   Bound    pvc-8ff8c1b3-48da-400e-893c-23bc9ec459ff   10Gi       RWO            sc-block-rwo   4m16s
 
 NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                       STORAGECLASS        REASON   AGE
-persistentvolume/pvc-8ff8c1b3-48da-400e-893c-23bc9ec459ff   10Gi       RWO            Delete           Bound    ghostsan/blog-content-san   storage-class-san            4m15s
+persistentvolume/pvc-8ff8c1b3-48da-400e-893c-23bc9ec459ff   10Gi       RWO            Delete           Bound    ghostsan/blog-content-san   sc-block-rwo            4m15s
 ```
 
 ## B. Access the app
@@ -47,7 +47,7 @@ persistentvolume/pvc-8ff8c1b3-48da-400e-893c-23bc9ec459ff   10Gi       RWO      
 It takes about 40 seconds for the POD to be in a *running* state
 The Ghost service is configured with a NodePort type, which means you can access it from every node of the cluster on port 30081.
 Give it a try !
-=> <http://192.168.0.63:30081>
+=> <http://192.168.0.63:30080>
 
 ## C. Explore the app container
 

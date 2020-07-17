@@ -12,18 +12,18 @@ This also allows you not to set the storage class parameter in the Volume Claim 
 # kubectl get sc
 NAME                        PROVISIONER             AGE
 
-storage-class-nas           csi.trident.netapp.io   3d18h
-storage-class-nas-economy   csi.trident.netapp.io   3d18h
+sc-file-rwx                 csi.trident.netapp.io   3d18h
+sc-file-rwx-eco             csi.trident.netapp.io   3d18h
 
-# kubectl patch storageclass storage-class-nas -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
-storageclass.storage.k8s.io/storage-class-nas patched
+# kubectl patch storageclass sc-file-rwx -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+storageclass.storage.k8s.io/sc-file-rwx patched
 
 # kubectl get sc
 NAME                          PROVISIONER             AGE
-storage-class-nas (default)   csi.trident.netapp.io   3d18h
-storage-class-nas-economy     csi.trident.netapp.io   3d18h
+sc-file-rwx (default)         csi.trident.netapp.io   3d18h
+sc-file-rwx-eco               csi.trident.netapp.io   3d18h
 ```
-As you can see, _storage-class-nas_ is now refered as the default SC for this cluster.
+As you can see, _sc-file-rwx_ is now refered as the default SC for this cluster.
 
 ## B. Try this new setup
 
@@ -34,10 +34,10 @@ persistentvolumeclaim/pvc-without-sc created
 
 # kubectl get pvc,pv
 NAME                                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
-persistentvolumeclaim/pvc-without-sc   Bound    pvc-517348e4-8201-4ac0-a9e1-4adfa5c38f1e   5Gi        RWX            storage-class-nas   6s
+persistentvolumeclaim/pvc-without-sc   Bound    pvc-517348e4-8201-4ac0-a9e1-4adfa5c38f1e   5Gi        RWX            sc-file-rwx         6s
 
 NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                    STORAGECLASS        REASON   AGE
-persistentvolume/pvc-517348e4-8201-4ac0-a9e1-4adfa5c38f1e   5Gi        RWX            Delete           Bound    default/pvc-without-sc   storage-class-nas            5s
+persistentvolume/pvc-517348e4-8201-4ac0-a9e1-4adfa5c38f1e   5Gi        RWX            Delete           Bound    default/pvc-without-sc   sc-file-rwx                  5s
 ```
 If you take a closer look at the _get pv_ result, you will see that it shows the storage class against which it was created, which is also the default one.
 ```

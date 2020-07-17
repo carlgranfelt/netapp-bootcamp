@@ -36,7 +36,7 @@ Namespace:                                                            quota
 Resource                                                              Used  Hard
 --------                                                              ----  ----
 persistentvolumeclaims                                                0     5
-storage-class-nas.storageclass.storage.k8s.io/persistentvolumeclaims  0     3
+sc-file-rwx.storageclass.storage.k8s.io/persistentvolumeclaims        0     3
 ```
 Now let's start creating some PVC against the storage class _quota_ & check the resource quota usage
 ![Scenario09_1](Images/scenario09_1.JPG "Scenario09_1")
@@ -53,7 +53,7 @@ Namespace:                                                            quota
 Resource                                                              Used  Hard
 --------                                                              ----  ----
 persistentvolumeclaims                                                2     5
-storage-class-nas.storageclass.storage.k8s.io/persistentvolumeclaims  2     3
+sc-file-rwx.storageclass.storage.k8s.io/persistentvolumeclaims        2     3
 
 # kubectl create -n quota -f pvc-quotasc-3.yaml
 persistentvolumeclaim/quotasc-3 created
@@ -64,12 +64,12 @@ Namespace:                                                            quota
 Resource                                                              Used  Hard
 --------                                                              ----  ----
 persistentvolumeclaims                                                3     5
-storage-class-nas.storageclass.storage.k8s.io/persistentvolumeclaims  3     3
+sc-file-rwx.storageclass.storage.k8s.io/persistentvolumeclaims        3     3
 ```
 Logically, you got the maximum number of PVC allowed for this storage class. Let's see what happens next...
 ```
 # kubectl create -n quota -f pvc-quotasc-4.yaml
-Error from server (Forbidden): error when creating "quotasc-4.yaml": persistentvolumeclaims "quotasc-4" is forbidden: exceeded quota: pvc-count-limit, requested: storage-class-nas.storageclass.storage.k8s.io/persistentvolumeclaims=1, used: storage-class-nas.storageclass.storage.k8s.io/persistentvolumeclaims=3, limited: storage-class-nas.storageclass.storage.k8s.io/persistentvolumeclaims=3
+Error from server (Forbidden): error when creating "quotasc-4.yaml": persistentvolumeclaims "quotasc-4" is forbidden: exceeded quota: pvc-count-limit, requested: sc-file-rwx.storageclass.storage.k8s.io/persistentvolumeclaims=1, used: sc-file-rwx.storageclass.storage.k8s.io/persistentvolumeclaims=3, limited: sc-file-rwx.storageclass.storage.k8s.io/persistentvolumeclaims=3
 ```
 As expected, you cannot create a new PVC in this storage class...
 Let's clean up the PVC
@@ -90,7 +90,7 @@ Namespace:                                                      quota
 Resource                                                        Used  Hard
 --------                                                        ----  ----
 requests.storage                                                0     10Gi
-storage-class-nas.storageclass.storage.k8s.io/requests.storage  0     8Gi
+sc-file-rwx.storageclass.storage.k8s.io/requests.storage        0     8Gi
 ```
 Each PVC you are going to use is 5GB.
 ```
@@ -103,12 +103,12 @@ Namespace:                                                      quota
 Resource                                                        Used  Hard
 --------                                                        ----  ----
 requests.storage                                                5Gi   10Gi
-storage-class-nas.storageclass.storage.k8s.io/requests.storage  5Gi   8Gi
+sc-file-rwx.storageclass.storage.k8s.io/requests.storage        5Gi   8Gi
 ```
 Seeing the size of the second PVC file, the creation should fail in this namespace
 ```
 # kubectl create -n quota -f pvc-5Gi-2.yaml
-Error from server (Forbidden): error when creating "pvc-5Gi-2.yaml": persistentvolumeclaims "5gb-2" is forbidden: exceeded quota: sc-resource-limit, requested: storage-class-nas.storageclass.storage.k8s.io/requests.storage=5Gi, used: storage-class-nas.storageclass.storage.k8s.io/requests.storage=5Gi, limited: storage-class-nas.storageclass.storage.k8s.io/requests.storage=8Gi
+Error from server (Forbidden): error when creating "pvc-5Gi-2.yaml": persistentvolumeclaims "5gb-2" is forbidden: exceeded quota: sc-resource-limit, requested: sc-file-rwx.storageclass.storage.k8s.io/requests.storage=5Gi, used: sc-file-rwx.storageclass.storage.k8s.io/requests.storage=5Gi, limited: sc-file-rwx.storageclass.storage.k8s.io/requests.storage=8Gi
 ```
 
 Before starting the second part of this scenarion, let's clean up
@@ -220,9 +220,9 @@ persistentvolumeclaim/quotasc-3 created
 
 # kubectl get pvc  -l scenario=quotas
 NAME        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
-quotasc-1   Bound     pvc-a74622aa-bb26-4796-a624-bf6d72955de8   1Gi        RWX            storage-class-nas   92s
-quotasc-2   Bound     pvc-f2bd901a-35e8-45a1-8294-2135b56abe19   1Gi        RWX            storage-class-nas   22s
-quotasc-3   Pending                                                                        storage-class-nas   4s
+quotasc-1   Bound     pvc-a74622aa-bb26-4796-a624-bf6d72955de8   1Gi        RWX            sc-file-rwx        92s
+quotasc-2   Bound     pvc-f2bd901a-35e8-45a1-8294-2135b56abe19   1Gi        RWX            sc-file-rwx        22s
+quotasc-3   Pending                                                                        sc-file-rwx        4s
 ```
 The PVC will remain in the _Pending_ state. You need to look either in the PVC logs or Trident's
 ```

@@ -36,10 +36,10 @@ replicaset.apps/blog-57d7d4886   1         1         1       50s
 
 # kubectl get pvc,pv -n ghost
 NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
-persistentvolumeclaim/blog-content   Bound    pvc-ce8d812b-d976-43f9-8320-48a49792c972   5Gi        RWX            storage-class-nas   4m3s
+persistentvolumeclaim/blog-content   Bound    pvc-ce8d812b-d976-43f9-8320-48a49792c972   5Gi        RWX            sc-file-rwx         4m3s
 
 NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                       STORAGECLASS        REASON   AGE
-persistentvolume/pvc-ce8d812b-d976-43f9-8320-48a49792c972   5Gi        RWX            Delete           Bound    ghost/blog-content          storage-class-nas            4m2s
+persistentvolume/pvc-ce8d812b-d976-43f9-8320-48a49792c972   5Gi        RWX            Delete           Bound    ghost/blog-content          sc-file-rwx                  4m2s
 ```
 Because moving on, let's check we can access the app:  
 => http://192.168.0.63:30080
@@ -91,7 +91,7 @@ blog-snapshot   true         blog-content                           5Gi         
 +------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
 |                   NAME                   |  SIZE   |   STORAGE CLASS   | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
 +------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
-| pvc-b2113a4f-7359-4ab2-b771-a86272e3d11d | 5.0 GiB | storage-class-nas | file     | bdc8ce93-2268-4820-9fc5-45a8d9dead2a | online | true    |
+| pvc-b2113a4f-7359-4ab2-b771-a86272e3d11d | 5.0 GiB | sc-file-rwx       | file     | bdc8ce93-2268-4820-9fc5-45a8d9dead2a | online | true    |
 +------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
 
 # tridentctl -n trident get snapshot
@@ -132,12 +132,12 @@ persistentvolumeclaim/pvc-from-snap created
 
 # kubectl get pvc,pv -n ghost
 NAME            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
-blog-content    Bound    pvc-b2113a4f-7359-4ab2-b771-a86272e3d11d   5Gi        RWX            storage-class-nas   20h
-pvc-from-snap   Bound    pvc-4d6e8738-a419-405e-96fc-9cf3a0840b56   5Gi        RWX            storage-class-nas   6s
+blog-content    Bound    pvc-b2113a4f-7359-4ab2-b771-a86272e3d11d   5Gi        RWX            sc-file-rwx         20h
+pvc-from-snap   Bound    pvc-4d6e8738-a419-405e-96fc-9cf3a0840b56   5Gi        RWX            sc-file-rwx         6s
 
 NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS        REASON   AGE
-pvc-4d6e8738-a419-405e-96fc-9cf3a0840b56   5Gi        RWX            Delete           Bound    ghost/pvc-from-snap   storage-class-nas            19s
-pvc-b2113a4f-7359-4ab2-b771-a86272e3d11d   5Gi        RWX            Delete           Bound    ghost/blog-content    storage-class-nas            20h
+pvc-4d6e8738-a419-405e-96fc-9cf3a0840b56   5Gi        RWX            Delete           Bound    ghost/pvc-from-snap   sc-file-rwx                  19s
+pvc-b2113a4f-7359-4ab2-b771-a86272e3d11d   5Gi        RWX            Delete           Bound    ghost/blog-content    sc-file-rwx                  20h
 ```
 Your clone has been created, but what does it translate to at the storage level?  
 With ONTAP, you will end up with a *FlexClone*, which is instantaneous & space efficient!  

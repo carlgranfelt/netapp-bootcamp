@@ -10,7 +10,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: storage-class-nas
+  storageClassName: sc-file-rwx
   dataSource:
     name: blog-snapshot
     kind: VolumeSnapshot

@@ -9,4 +9,4 @@ nas-pvc-to-import:
     spec:
       accessModes:
       - ReadWriteMany
-      storageClassName: storage-class-nas
+      storageClassName: sc-file-rwx

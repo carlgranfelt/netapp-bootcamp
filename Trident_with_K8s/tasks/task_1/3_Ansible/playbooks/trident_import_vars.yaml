@@ -15,5 +15,5 @@ pvc_to_import_yaml:
     spec:
       accessModes:
       - ReadWriteMany
-      storageClassName: storage-class-nas
+      storageClassName: sc-file-rwx
  # Add additional PVCs as needed

@@ -11,7 +11,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: storage-class-nas
+  storageClassName: sc-file-rwx
 
 ---
 apiVersion: apps/v1

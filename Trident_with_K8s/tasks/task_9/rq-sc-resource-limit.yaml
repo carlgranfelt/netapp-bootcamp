@@ -5,4 +5,4 @@ metadata:
 spec:
   hard:
     requests.storage: 10Gi
-    storage-class-nas.storageclass.storage.k8s.io/requests.storage: 8Gi
+    sc-file-rwx.storageclass.storage.k8s.io/requests.storage: 8Gi

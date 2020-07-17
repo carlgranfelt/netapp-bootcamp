@@ -61,15 +61,15 @@ You can decide to use all of them, only a subset of them or modify them as you w
 
 ```
 # kubectl create -f sc-csi-ontap-nas.yaml
-storageclass.storage.k8s.io/storage-class-nas created
+storageclass.storage.k8s.io/sc-file-rwx created
 
 # kubectl create -f sc-csi-ontap-nas-eco.yaml
-storageclass.storage.k8s.io/storage-class-nas-economy created
+storageclass.storage.k8s.io/sc-file-rwx-eco created
 
 # kubectl get sc
 NAME                        PROVISIONER             AGE
-storage-class-nas           csi.trident.netapp.io   2d18h
-storage-class-nas-economy   csi.trident.netapp.io   2d18h
+sc-file-rwx           csi.trident.netapp.io   2d18h
+sc-file-rwx-eco       csi.trident.netapp.io   2d18h
 ```
 
 At this point, end-users can now create PVC against one of theses storage classes.  

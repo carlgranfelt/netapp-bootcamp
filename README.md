@@ -31,7 +31,7 @@ Open the PuTTY console and connect to the kubernetes master node as root@rhel3. 
 
 ```bash
 git clone https://github.com/carlgranfelt/NetApp-LoD.git  
-cd /NetApp-LoD/Trident_with_K8s/deploy/  
+cd NetApp-LoD/Trident_with_K8s/deploy/  
 chmod 744 *.sh  
 . ./configure_bootcamp.sh
 ```

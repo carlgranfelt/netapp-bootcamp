@@ -7,20 +7,20 @@ StatefulSets was introduced to be able to run stateful applications with the fol
 - A stable pod hostname (instead of podname-randomstring)  
   - The podname will have a sticky identity, using an index, e.g. podname-0 podname-1 and podname-2 (and when a pod gets rescheduled, it’ll keep that identity)  
 - StatefulSets allows stateful applications stable storage with volumes based on their ordinal number (podname-x)  
-  ○ Deleting and/or scaling a StatefulSets down will not delete the volumes associated with the StatefulSet (preserving data)
+  - Deleting and/or scaling a StatefulSets down will not delete the volumes associated with the StatefulSet (preserving data)
 
 A StatefulSet will also allow the stateful application to order the start-up and teardown:
 
 - Instead of randomly terminating one pod (an instance of the application), the order is pre-determined
-  ○ When scaling up it goes from 0 to n-1 (n = replication factor)
-  ○ When scaling down it starts with the highest number (n-1) to 0
+  - When scaling up it goes from 0 to n-1 (n = replication factor)
+  - When scaling down it starts with the highest number (n-1) to 0
 - This is useful to drain the data from a node before it can be shut down
 
 For more information please see StatefulSets official documentation: <https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/>
 
-**StatefulSets work differently that Deployments or DaemonSets when it comes to storage.  
+***StatefulSets work differently that Deployments or DaemonSets when it comes to storage.  
 Deployments & DaemonSets use PVC defined outside of them, whereas StatefulSets include the storage in their definition (cf _volumeClaimTemplates_).  
-Said differently, you can see a StatefulSet as a couple (POD + Storage). When it is scaled, both objects will be automatically created.**
+Said differently, you can see a StatefulSet as a couple (POD + Storage). When it is scaled, both objects will be automatically created.***
 
 In this exercise, we will create a MySQL StatefulSet & scale it.  
 

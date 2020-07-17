@@ -56,10 +56,10 @@ You can decide to use all of them, only a subset of them or modify them as you w
 
 ```
 # kubectl create -f sc-csi-ontap-san.yaml
-storageclass.storage.k8s.io/storage-class-san created
+storageclass.storage.k8s.io/sc-block-rwo created
 
 # kubectl create -f sc-csi-ontap-san-eco.yaml
-storageclass.storage.k8s.io/storage-class-san-economy created
+storageclass.storage.k8s.io/sc-block-rwo-eco created
 ```
 
 If you have configured Grafana, you can go back to your dashboard, to check what is happening (cf http://192.168.0.63:30001).

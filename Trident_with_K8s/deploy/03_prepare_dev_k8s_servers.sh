@@ -23,25 +23,14 @@ EOF
 sysctl --system
 
 setenforce 0
+sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
 echo "#######################################################################################################"
 echo "Disabling swap"
 echo "#######################################################################################################"
 
 swapoff -a
-cat <<EOF > /etc/fstab
-#
-# /etc/fstab
-# Created by anaconda on Tue Jun 16 18:54:04 2015
-#
-# Accessible filesystems, by reference, are maintained under '/dev/disk'
-# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
-#
-/dev/mapper/rhel-root   /                       xfs     defaults        0 0
-UUID=69278624-810b-4c7a-97e4-9d236b939b2a /boot                   xfs     defaults        0 0
-#/dev/mapper/rhel-swap   swap                    swap    defaults        0 0
-/dev/sdb1    /var/lib/docker                    xfs     defaults        0 0
-EOF
+sed -i '/swap/s/^/#/' /etc/fstab
 
 echo "#######################################################################################################"
 echo "Enabling the Kubernetes repository"

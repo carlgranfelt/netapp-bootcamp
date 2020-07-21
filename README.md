@@ -21,8 +21,6 @@ You will be using Vim to edit configuration files as part of this bootcamp.  If 
 
 ### Prod k8s Cluster Tasks
 
-
-
 [1.](trident_with_k8s/tasks/verify_lab) Verify and navigate the lab environment  
 [2.](trident_with_k8s/tasks/file_app) Deploy your first app with File storage  
 [3.](trident_with_k8s/tasks/block_app) Deploy your first app with Block storage  
@@ -39,7 +37,6 @@ You will be using Vim to edit configuration files as part of this bootcamp.  If 
 
 ### Dev k8s Cluster Tasks
 If you would like to carry out some of the tasks performed for you by the configure_bootcamp.sh script, below are the commands required.  These can be useful if you wish to become familar with tasks such as installing Trident or defining storage classes
-
 
 [0.](trident_with_k8s/tasks/useful_commands) Useful commands  
 [1.](trident_with_k8s/tasks/install_trident) Install/Upgrade Trident with an Operator  

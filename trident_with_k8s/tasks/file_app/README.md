@@ -14,7 +14,7 @@ The .yaml files provided are for:
 - A DEPLOYMENT that will define how to manage the app
 - A SERVICE to expose the app
 
-Feel free to familiarise yourself with the contents of these .yaml files if you wish.  You will see in the pvc.yaml file that it specifies ReadWriteMany storage as the access mode, which will result in k8s and Trident providing an NFS based backend for the request.  A diagram is provided below to illustrate how the PVC, deployment, service and surrounding infrastructure all hang together:
+Feel free to familiarise yourself with the contents of these .yaml files if you wish.  You will see in the 1_pvc.yaml file that it specifies ReadWriteMany as the access mode, which will result in k8s and Trident providing an NFS based backend for the request.  A diagram is provided below to illustrate how the PVC, deployment, service and surrounding infrastructure all hang together:
 
 ![Task5](Images/task_5.jpg "Task5")
 
@@ -33,7 +33,7 @@ namespace/ghost created
 ```
 Next, we apply the .yaml configuration within the new namespace:
 ```bash
-# kubectl create -n ghost -f Ghost/
+# kubectl create -n ghost -f ../Ghost/
 ```
 Expected output example:
 ```bash
@@ -109,12 +109,12 @@ settings
 themes
 ```
 
-It is recommended that you also monitor your environment from the pre-created dashboard in Grafana: (<http://192.168.0.63:30001>).  If you carried out the tasks in the [verifying your environment](../verify_lab) task, then you should already have your Grafana username and password.
+It is recommended that you also monitor your environment from the pre-created dashboard in Grafana: (<http://192.168.0.141>).  If you carried out the tasks in the [verifying your environment](../verify_lab) task, then you should already have your Grafana username and password which is ```admin:admin```
 
 ## D. Cleanup (optional)
 
 :boom:  
-**The PVC will be reused in the '[Importing a PV](../Task_8)' task. Only clean-up if you dont plan to do the scenario8.**  
+**The PVC will be reused in the '[Importing a PV](../pv_import)' task. Only clean-up if you dont plan to do the 'Importing a PV' task.**  
 
 If you still want to go ahead and clean-up, instead of deleting each object one by one, you can directly delete the namespace which will then remove all of its associated objects.  
 :boom:  

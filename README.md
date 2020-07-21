@@ -12,17 +12,44 @@ The configure_bootcamp.sh script may be run by the NetApp Lab On Demand team ahe
 
 <p align="center"><img src="images/lab-diagram.png"></p>
 
-:boom:  
-Most labs will be done by connecting with Putty to the RHEL3 host (root/Netapp1!).  
-I assume each scenario will be run in its own directory. Also, you will find a README file for each scenario.  
-
-Last, there are plenty of commands to write or copy/paste.  
-Most of them start with a '#', usually followed by the result you would get.  
-:boom:  
+To familiarise yourself with the environment and check that everything is raedy for you to begin, please follow the instructions in [Task 1](trident_with_k8s/tasks/validate_lab).  Once you are happy with your lab, you can choose to jump into any of the tasks listed below.  They do not need to be followed in any particular order, but if persistent storage is a new concept for you within k8s, it is recomended to folow them one-by-one.  If you do jumop ahead, any pre-requisite tasks will be called out for you.
 
 ### Vim 101 commands
 
-We will be using Vim to edit configuration files as part of this bootcamp.  If you are unfamiliar with Vim, we have created a [basic set of instructions](trident_with_k8s/tasks/vim) that you should keep open in a separate browser tab for reference
+We will be using Vim to edit configuration files as part of this bootcamp.  If you are unfamiliar with Vim, a [basic set of instructions](trident_with_k8s/tasks/vim) has been created for you to keep open in a separate browser tab for reference
+
+### Prod k8s Cluster Tasks
+
+---------
+
+[1.](trident_with_k8s/tasks/verify_lab)Verify and navigate the lab environment
+[2.](trident_with_k8s/tasks/file_app) Deploy your first app with File storage  
+[3.](trident_with_k8s/tasks/block_app) Deploy your first app with Block storage  
+[4.](trident_with_k8s/tasks/pv_import) Use the 'import' feature of Trident  
+[5.](trident_with_k8s/tasks/quotas) Consumption control  
+[6.](trident_with_k8s/tasks/file_resize) Resize a NFS CSI PVC  
+[7.](trident_with_k8s/tasks/storage_pools) Using Virtual Storage Pools  
+[8.](trident_with_k8s/tasks/statefulsets) StatefulSets & Storage consumption  
+[9.](trident_with_k8s/tasks/resize_block) Resize a iSCSI CSI PVC  
+[10.](trident_with_k8s/tasks/snapshots_clones) On-Demand Snapshots & Create PVC from Snapshot  
+[11.](trident_with_k8s/tasks/dynamic_exports) Dynamic export policy management  
+
+### Dev k8s Cluster Tasks
+If you would like to carry out some of the tasks performed for you by the configure_bootcamp.sh script, below are the commands required.  These can be useful if you wish to become familar with tasks such as installing Trident or defining storage classes
+
+---------
+[0.](trident_with_k8s/tasks/useful_commands) Useful commands  
+[1.](trident_with_k8s/tasks/install_trident) Install/Upgrade Trident with an Operator  
+[2.](trident_with_k8s/tasks/config_prometheus) Install Prometheus & incorporate Trident's metrics  
+[3.](trident_with_k8s/tasks/config_grafana) Configure Grafana & add your first graphs  
+[4.](trident_with_k8s/tasks/config_file) Configure your first NAS backends & storage classes  
+[5.](trident_with_k8s/tasks/config_block) Configure your first iSCSI backends & storage classes  
+[6.](trident_with_k8s/tasks/default_sc) Specify a default storage class  
+[7.](trident_with_k8s/tasks/ontap_block) Prepare ONTAP for block storage on dev cluster 
+
+# Below should be moved to the lab varification section
+
+```
 
 ### Kubernetes web-based UI
 
@@ -44,29 +71,4 @@ It should display something similar to below:
 Copy the token and paste it into Enter token field on the login screen.
 ![Kubernetes Dashboard Sign in](images/dashboard-sign-in.jpg "Kubernetes Dashboard Sign in")
 
-### Tasks
-
----------
-
-[1.](trident_with_k8s/tasks/file_app) Deploy your first app with File storage  
-[2.](trident_with_k8s/tasks/block_app) Deploy your first app with Block storage  
-[3.](trident_with_k8s/tasks/pv_import) Use the 'import' feature of Trident  
-[4.](trident_with_k8s/tasks/quotas) Consumption control  
-[5.](trident_with_k8s/tasks/file_resize) Resize a NFS CSI PVC  
-[6.](trident_with_k8s/tasks/storage_pools) Using Virtual Storage Pools  
-[7.](trident_with_k8s/tasks/statefulsets) StatefulSets & Storage consumption  
-[8.](trident_with_k8s/tasks/resize_block) Resize a iSCSI CSI PVC  
-[19.](trident_with_k8s/tasks/snapshots_clones) On-Demand Snapshots & Create PVC from Snapshot  
-[10.](trident_with_k8s/tasks/dynamic_exports) Dynamic export policy management  
-
-### Dev K8s Cluster Tasks
-
----------
-[0.](trident_with_k8s/tasks/useful_commands) Useful commands  
-[1.](trident_with_k8s/tasks/install_trident) Install/Upgrade Trident with an Operator - remove tridentctl  
-[2.](trident_with_k8s/tasks/config_prometheus) Install Prometheus & incorporate Trident's metrics  
-[3.](trident_with_k8s/tasks/config_grafana) Configure Grafana & add your first graphs  
-[4.](trident_with_k8s/tasks/config_file) Configure your first NAS backends & storage classes  
-[5.](trident_with_k8s/tasks/config_block) Configure your first iSCSI backends & storage classes  
-[6.](trident_with_k8s/tasks/default_sc) Specify a default storage class  
-[7.](trident_with_k8s/tasks/ontap_block) Prepare ONTAP for block storage on dev cluster  
+ ```

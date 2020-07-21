@@ -38,7 +38,7 @@ chmod 744 *.sh
 
 ### Vim 101 commands
 
-We will be using Vim to edit configuration files as part of this bootcamp.  If you are unfamiliar with Vim, we have created a [basic set of instructions](tasks/vim/README.md) that you should keep open in a separate browser tab for reference
+We will be using Vim to edit configuration files as part of this bootcamp.  If you are unfamiliar with Vim, we have created a [basic set of instructions](trident_with_k8s/tasks/vim/README.md) that you should keep open in a separate browser tab for reference
 
 ### Kubernetes web-based UI
 

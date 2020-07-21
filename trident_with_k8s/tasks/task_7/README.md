@@ -85,4 +85,4 @@ namespace "ghostsan" deleted
 Now that you have tried working with SAN backends, you can try to resize a PVC:
 - [Task_13](../Task_13): Resize a iSCSI CSI PVC  
 
-[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_7#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/trident_with_k8s/Tasks/Task_7#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

@@ -31,7 +31,7 @@ Open the PuTTY console and connect to the kubernetes master node as root@rhel3. 
 
 ```bash
 git clone https://github.com/carlgranfelt/NetApp-LoD.git  
-cd NetApp-LoD/Trident_with_K8s/deploy/  
+cd NetApp-LoD/trident_with_k8s/deploy/  
 chmod 744 *.sh  
 . ./configure_bootcamp.sh
 ```
@@ -86,21 +86,21 @@ Copy the token and paste it into Enter token field on the login screen.
 ### Tasks
 
 ---------
-[1.](Trident_with_K8s/tasks/task_1) Install/Upgrade Trident with an Operator - remove tridentctl 0  
-[2.](Trident_with_K8s/tasks/task_2) Install Prometheus & incorporate Trident's metrics0  
-[3.](Trident_with_K8s/tasks/task_3) Configure Grafana & add your first graphs0  
-[4.](Trident_with_K8s/tasks/task_4) Configure your first NAS backends & storage classes0  
-[5.](Trident_with_K8s/tasks/task_5) Deploy your first app with File storage  
-[6.](Trident_with_K8s/tasks/task_6) Configure your first iSCSI backends & storage classes0  
-[7.](Trident_with_K8s/tasks/task_7) Deploy your first app with Block storage  
-[8.](Trident_with_K8s/tasks/task_8) Use the 'import' feature of Trident  
-[9.](Trident_with_K8s/tasks/task_9) Consumption control  
-[10.](Trident_with_K8s/tasks/task_10) Resize a NFS CSI PVC  
-[11.](Trident_with_K8s/tasks/task_11) Using Virtual Storage Pools  
-[12.](Trident_with_K8s/tasks/task_12) StatefulSets & Storage consumption  
-[13.](Trident_with_K8s/tasks/task_13) Resize a iSCSI CSI PVC  
-[14.](Trident_with_K8s/tasks/task_14) On-Demand Snapshots & Create PVC from Snapshot  
-[15.](Trident_with_K8s/tasks/task_15) Dynamic export policy management  
+[1.](trident_with_k8s/tasks/task_1) Install/Upgrade Trident with an Operator - remove tridentctl 0  
+[2.](trident_with_k8s/tasks/task_2) Install Prometheus & incorporate Trident's metrics0  
+[3.](trident_with_k8s/tasks/task_3) Configure Grafana & add your first graphs0  
+[4.](trident_with_k8s/tasks/task_4) Configure your first NAS backends & storage classes0  
+[5.](trident_with_k8s/tasks/task_5) Deploy your first app with File storage  
+[6.](trident_with_k8s/tasks/task_6) Configure your first iSCSI backends & storage classes0  
+[7.](trident_with_k8s/tasks/task_7) Deploy your first app with Block storage  
+[8.](trident_with_k8s/tasks/task_8) Use the 'import' feature of Trident  
+[9.](trident_with_k8s/tasks/task_9) Consumption control  
+[10.](trident_with_k8s/tasks/task_10) Resize a NFS CSI PVC  
+[11.](trident_with_k8s/tasks/task_11) Using Virtual Storage Pools  
+[12.](trident_with_k8s/tasks/task_12) StatefulSets & Storage consumption  
+[13.](trident_with_k8s/tasks/task_13) Resize a iSCSI CSI PVC  
+[14.](trident_with_k8s/tasks/task_14) On-Demand Snapshots & Create PVC from Snapshot  
+[15.](trident_with_k8s/tasks/task_15) Dynamic export policy management  
 
 ### Dev K8s Cluster Tasks
 

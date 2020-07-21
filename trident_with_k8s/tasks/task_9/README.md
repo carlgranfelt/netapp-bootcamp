@@ -250,4 +250,4 @@ You can now move on to:
 - [Task 11](../Task_11): Using Virtual Storage Pools  
 - [Task 12](../Task_12): StatefulSets & Storage consumption  
 
-[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_9#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/trident_with_k8s/Tasks/Task_9#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

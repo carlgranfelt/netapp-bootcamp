@@ -14,7 +14,7 @@ As the LabOnDemand runs Kubernetes 1.15, you first need to upgrade its version.
 This can be achieved by following the [Addenda4](../../Addendum/Addenda04).  
 
 Also, you will also need to configure your environment for iSCSI if not done yet.  
-That part is described in the [Addenda5](../../Addendum/Addenda05).  
+That part is described in the [Addenda5](../../tasks/ontap_block).  
 :boom:  
 
 ## A. Create a new storage class with the option allowVolumeExpansion
@@ -129,4 +129,4 @@ You can now move on to:
 - [Task 14](../Task_14): On-Demand Snapshots & Create PVC from Snapshot  
 - [Task 15](../Task_15): Dynamic export policy management  
 
-[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_13#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/trident_with_k8s/Tasks/Task_13#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

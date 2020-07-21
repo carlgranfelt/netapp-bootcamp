@@ -192,4 +192,4 @@ You can now move on to:
 
 - [Task 15](../Task_15): Dynamic export policy management  
 
-[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_14#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/trident_with_k8s/Tasks/Task_14#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

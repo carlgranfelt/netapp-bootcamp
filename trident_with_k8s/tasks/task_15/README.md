@@ -149,4 +149,4 @@ Tadaaaa !
 
 You may have gone through all tasks.  
 Maybe you could learn something in the different [addenda](https://github.com/carlgranfelt/NetApp-LoD#addendum)?
-[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_15#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/trident_with_k8s/Tasks/Task_15#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

@@ -104,4 +104,4 @@ You can now move on to:
 - [Task 12](../Task_12): StatefulSets & Storage consumption  
 - [Task 13](../Task_13): Resize a iSCSI CSI PVC  
 
-[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_10#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/trident_with_k8s/Tasks/Task_10#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

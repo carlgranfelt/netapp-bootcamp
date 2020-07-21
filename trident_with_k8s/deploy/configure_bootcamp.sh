@@ -97,7 +97,7 @@ echo "##########################################################################
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.9.3/manifests/metallb.yaml
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
-kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/metallb-configmap-k8s-prod.yaml
+kubectl apply -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/metallb-configmap-k8s-prod.yaml
 
 echo "#######################################################################################################"
 echo "Upgrading to K8s 1.16"
@@ -194,26 +194,26 @@ helm install prom-operator stable/prometheus-operator --namespace monitoring
 # Recreate the Prometheus service using a LoadBalancer type
 
 kubectl delete -n monitoring svc prom-operator-prometheus-o-prometheus
-kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/monitoring/prometheus/service-prom-operator-prometheus.yaml
+kubectl apply -f /root/NetApp-LoD/trident_with_k8s/deploy/monitoring/prometheus/service-prom-operator-prometheus.yaml
 
 # Create a Service Monitor for Trident
 
-kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/monitoring/prometheus/servicemonitor.yaml
+kubectl apply -f /root/NetApp-LoD/trident_with_k8s/deploy/monitoring/prometheus/servicemonitor.yaml
 
 # Recreate the Grafana service using a LoadBalancer type
 
 kubectl delete -n monitoring svc prom-operator-grafana
-kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/monitoring/grafana/service-prom-operator-grafana.yaml
+kubectl apply -f /root/NetApp-LoD/trident_with_k8s/deploy/monitoring/grafana/service-prom-operator-grafana.yaml
 
 # Create configmap resources with the Grafana datasource and dashboards
 
-kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/monitoring/grafana/cm-grafana-datasources.yaml
-kubectl create configmap cm-grafana-dashboard -n monitoring --from-file=/root/NetApp-LoD/Trident_with_K8s/deploy/monitoring/grafana/dashboards/
+kubectl apply -f /root/NetApp-LoD/trident_with_k8s/deploy/monitoring/grafana/cm-grafana-datasources.yaml
+kubectl create configmap cm-grafana-dashboard -n monitoring --from-file=/root/NetApp-LoD/trident_with_k8s/deploy/monitoring/grafana/dashboards/
 
 # Recreate the Grafana deployment using the previuos configmap resources to avoid manual configuration
 
 kubectl delete deployment prom-operator-grafana -n monitoring
-kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/monitoring/grafana/deployment-prom-operator-grafana.yaml
+kubectl apply -f /root/NetApp-LoD/trident_with_k8s/deploy/monitoring/grafana/deployment-prom-operator-grafana.yaml
 
 # Modify the Grafana GUI password setting 'admin'
 
@@ -306,17 +306,17 @@ echo "##########################################################################
 
 # Create Trident backends file and block
 echo ""
-echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-nas-default.json"
-tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-nas-default.json
+echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/backend-nas-default.json"
+tridentctl -n trident create backend -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/backend-nas-default.json
 echo ""
-echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-nas-eco-default.json"
-tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-nas-eco-default.json
+echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/backend-nas-eco-default.json"
+tridentctl -n trident create backend -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/backend-nas-eco-default.json
 echo ""
-echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-san-default.json"
-tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-san-default.json
+echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/backend-san-default.json"
+tridentctl -n trident create backend -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/backend-san-default.json
 echo ""
-echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-san-eco-default.json"
-tridentctl -n trident create backend -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/backend-san-eco-default.json
+echo "[root@rhel3 ~]# tridentctl -n trident create backend -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/backend-san-eco-default.json"
+tridentctl -n trident create backend -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/backend-san-eco-default.json
 echo ""
 echo "[root@rhel3 ~]# kubectl get -n trident tridentbackends"
 kubectl get -n trident tridentbackends
@@ -324,16 +324,16 @@ kubectl get -n trident tridentbackends
 # Create kubernetes storage class objects pointing at the backends
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f sc-csi-ontap-nas.yaml"
-kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/sc-csi-ontap-nas.yaml
+kubectl create -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/sc-csi-ontap-nas.yaml
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f sc-csi-ontap-nas-eco.yaml"
-kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/sc-csi-ontap-nas-eco.yaml
+kubectl create -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/sc-csi-ontap-nas-eco.yaml
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f sc-csi-ontap-nas.yaml"
-kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/sc-csi-ontap-san.yaml
+kubectl create -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/sc-csi-ontap-san.yaml
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f sc-csi-ontap-nas-eco.yaml"
-kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/sc-csi-ontap-san-eco.yaml
+kubectl create -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/sc-csi-ontap-san-eco.yaml
 echo ""
 echo "[root@rhel3 ~]# kubectl get sc"
 kubectl get sc
@@ -351,11 +351,11 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.3/a
 # Create a Service Account
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f dashboard-service-account.yaml"
-kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/dashboard-service-account.yaml
+kubectl create -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/dashboard-service-account.yaml
 
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f dashboard-clusterrolebinding.yaml"
-kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/dashboard-clusterrolebinding.yaml
+kubectl create -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/dashboard-clusterrolebinding.yaml
 
 echo ""
 echo "[root@rhel3 ~]# kubectl -n kubernetes-dashboard patch service/kubernetes-dashboard -p '{"spec":{"type":"LoadBalancer"}}'"
@@ -393,17 +393,17 @@ echo "##########################################################################
 echo "Initialize and configure rhel4 to join prod kubernetes cluster"
 echo "#######################################################################################################"
 
-ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/Trident_with_K8s/deploy/01_prepare_prod_k8s_server_rhel4.sh
-ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/Trident_with_K8s/deploy/02_join_prod_k8s_cluster_rhel4.sh
+ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/trident_with_k8s/deploy/01_prepare_prod_k8s_server_rhel4.sh
+ssh -o "StrictHostKeyChecking no" root@rhel4 < /root/NetApp-LoD/trident_with_k8s/deploy/02_join_prod_k8s_cluster_rhel4.sh
 
 echo "#######################################################################################################"
 echo "Initialize and configure the dev kubernetes cluster"
 echo "#######################################################################################################"
 
-ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/03_prepare_dev_k8s_servers.sh
-ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/03_prepare_dev_k8s_servers.sh
+ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/trident_with_k8s/deploy/03_prepare_dev_k8s_servers.sh
+ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/trident_with_k8s/deploy/03_prepare_dev_k8s_servers.sh
 
-ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/04_init_dev_k8s_master_rhel5.sh
+ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/trident_with_k8s/deploy/04_init_dev_k8s_master_rhel5.sh
 
-ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/Trident_with_K8s/deploy/05_join_dev_k8s_cluster_rhel6.sh
-ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/Trident_with_K8s/deploy/06_configure_dev_k8s_cluster.sh
+ssh -o "StrictHostKeyChecking no" root@rhel6 < /root/NetApp-LoD/trident_with_k8s/deploy/05_join_dev_k8s_cluster_rhel6.sh
+ssh -o "StrictHostKeyChecking no" root@rhel5 < /root/NetApp-LoD/trident_with_k8s/deploy/06_configure_dev_k8s_cluster.sh

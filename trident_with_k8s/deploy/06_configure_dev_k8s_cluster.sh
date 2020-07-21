@@ -19,7 +19,7 @@ echo "##########################################################################
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.9.3/manifests/metallb.yaml
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
-kubectl apply -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/metallb-configmap-k8s-dev.yaml
+kubectl apply -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/metallb-configmap-k8s-dev.yaml
 
 echo "#######################################################################################################"
 echo "Install Kubernetes Dashboard"
@@ -34,11 +34,11 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.3/a
 # Create a Service Account
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f dashboard-service-account.yaml"
-kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/dashboard-service-account.yaml
+kubectl create -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/dashboard-service-account.yaml
 
 echo ""
 echo "[root@rhel3 ~]# kubectl create -f dashboard-clusterrolebinding.yaml"
-kubectl create -f /root/NetApp-LoD/Trident_with_K8s/deploy/k8s_files/dashboard-clusterrolebinding.yaml
+kubectl create -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/dashboard-clusterrolebinding.yaml
 
 echo ""
 echo "[root@rhel3 ~]# kubectl -n kubernetes-dashboard patch service/kubernetes-dashboard -p '{"spec":{"type":"LoadBalancer"}}'"

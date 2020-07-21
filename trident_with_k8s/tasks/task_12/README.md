@@ -28,11 +28,6 @@ We consider that a backend & a storage class have already been created. ([ex: Sc
 
 ![Scenario12](Images/scenario12.jpg "Scenario12")
 
-To best benefit from the scenario, you would first need to go through the following Addendum:  
-[1.](../../Addendum/Addenda01) Add a node to the cluster  
-[2.](../../Addendum/Addenda02) Specify a default storage class  
-[3.](../../Addendum/Addenda03) Allow user PODs on the master node  
-
 ## A. Let's start by creating the application
 
 This application is based on 3 elements:
@@ -205,4 +200,4 @@ You can now move on to:
 - [Task 14](../Task_14): On-Demand Snapshots & Create PVC from Snapshot  
 - [Task 15](../Task_15): Dynamic export policy management  
 
-[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_12#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/trident_with_k8s/Tasks/Task_12#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

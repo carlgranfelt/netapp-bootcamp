@@ -139,4 +139,4 @@ You can now move on to:
 - [Task 14](../Task_14): On-Demand Snapshots & Create PVC from Snapshot  
 - [Task 15](../Task_15): Dynamic export policy management  
 
-[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/Trident_with_K8s/Tasks/Task_11#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)
+[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/trident_with_k8s/Tasks/Task_11#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)

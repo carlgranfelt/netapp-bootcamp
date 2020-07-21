@@ -105,7 +105,7 @@ Copy the token and paste it into Enter token field on the login screen.
 ### Dev K8s Cluster Tasks
 
 ---------
-[0.](Kubernetes_v2/Addendum/Addenda00) Useful commands  
+[0.](trident_with_k8s/tasks/useful_commands) Useful commands  
 [1.](Kubernetes_v2/Addendum/Addenda01) Add a node to the cluster - delete  
 [2.](Kubernetes_v2/Addendum/Addenda02) Specify a default storage class  
 [3.](Kubernetes_v2/Addendum/Addenda03) Allow user PODs on the master node - delete  

@@ -31,7 +31,7 @@ Open the PuTTY console and connect to the kubernetes master node as root@rhel3. 
 
 ```bash
 git clone https://github.com/carlgranfelt/NetApp-LoD.git  
-cd NetApp-LoD/Trident_with_K8s/deploy/  
+cd NetApp-LoD/trident_with_k8s/deploy/  
 chmod 744 *.sh  
 . ./configure_bootcamp.sh
 ```
@@ -86,29 +86,26 @@ Copy the token and paste it into Enter token field on the login screen.
 ### Tasks
 
 ---------
-[1.](Trident_with_K8s/tasks/task_1) Install/Upgrade Trident with an Operator  
-[2.](Trident_with_K8s/tasks/task_2) Install Prometheus & incorporate Trident's metrics  
-[3.](Trident_with_K8s/tasks/task_3) Configure Grafana & add your first graphs  
-[4.](Trident_with_K8s/tasks/task_4) Configure your first NAS backends & storage classes  
-[5.](Trident_with_K8s/tasks/task_5) Deploy your first app with File storage  
-[6.](Trident_with_K8s/tasks/task_6) Configure your first iSCSI backends & storage classes  
-[7.](Trident_with_K8s/tasks/task_7) Deploy your first app with Block storage  
-[8.](Trident_with_K8s/tasks/task_8) Use the 'import' feature of Trident  
-[9.](Trident_with_K8s/tasks/task_9) Consumption control  
-[10.](Trident_with_K8s/tasks/task_10) Resize a NFS CSI PVC  
-[11.](Trident_with_K8s/tasks/task_11) Using Virtual Storage Pools  
-[12.](Trident_with_K8s/tasks/task_12) StatefulSets & Storage consumption  
-[13.](Trident_with_K8s/tasks/task_13) Resize a iSCSI CSI PVC  
-[14.](Trident_with_K8s/tasks/task_14) On-Demand Snapshots & Create PVC from Snapshot  
-[15.](Trident_with_K8s/tasks/task_15) Dynamic export policy management  
+
+[1.](trident_with_k8s/tasks/file_app) Deploy your first app with File storage  
+[2.](trident_with_k8s/tasks/block_app) Deploy your first app with Block storage  
+[3.](trident_with_k8s/tasks/pv_import) Use the 'import' feature of Trident  
+[4.](trident_with_k8s/tasks/quotas) Consumption control  
+[5.](trident_with_k8s/tasks/file_resize) Resize a NFS CSI PVC  
+[6.](trident_with_k8s/tasks/storage_pools) Using Virtual Storage Pools  
+[7.](trident_with_k8s/tasks/statefulsets) StatefulSets & Storage consumption  
+[8.](trident_with_k8s/tasks/resize_block) Resize a iSCSI CSI PVC  
+[19.](trident_with_k8s/tasks/snapshots_clones) On-Demand Snapshots & Create PVC from Snapshot  
+[10.](trident_with_k8s/tasks/dynamic_exports) Dynamic export policy management  
 
 ### Dev K8s Cluster Tasks
 
 ---------
-[0.](Kubernetes_v2/Addendum/Addenda00) Useful commands  
-[1.](Kubernetes_v2/Addendum/Addenda01) Add a node to the cluster  
-[2.](Kubernetes_v2/Addendum/Addenda02) Specify a default storage class  
-[3.](Kubernetes_v2/Addendum/Addenda03) Allow user PODs on the master node  
-[4.](Kubernetes_v2/Addendum/Addenda04) Upgrade your Kubernetes cluster (1.15 => 1.16 => 1.17 => 1.18)  
-[5.](Kubernetes_v2/Addendum/Addenda05) Prepare ONTAP for block storage  
-[6.](Kubernetes_v2/Addendum/Addenda06) Install Ansible on RHEL3 (Kubernetes Master)  
+[0.](trident_with_k8s/tasks/useful_commands) Useful commands  
+[1.](trident_with_k8s/tasks/install_trident) Install/Upgrade Trident with an Operator - remove tridentctl  
+[2.](trident_with_k8s/tasks/config_prometheus) Install Prometheus & incorporate Trident's metrics  
+[3.](trident_with_k8s/tasks/config_grafana) Configure Grafana & add your first graphs  
+[4.](trident_with_k8s/tasks/config_file) Configure your first NAS backends & storage classes  
+[5.](trident_with_k8s/tasks/config_block) Configure your first iSCSI backends & storage classes  
+[6.](trident_with_k8s/tasks/default_sc) Specify a default storage class  
+[7.](trident_with_k8s/tasks/ontap_block) Prepare ONTAP for block storage on dev cluster  

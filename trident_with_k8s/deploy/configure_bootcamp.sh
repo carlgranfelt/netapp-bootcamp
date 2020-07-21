@@ -217,7 +217,7 @@ kubectl apply -f /root/NetApp-LoD/trident_with_k8s/deploy/monitoring/grafana/dep
 
 # Modify the Grafana GUI password setting 'admin'
 
-kubectl patch secret -n monitoring prom-operator-grafana -p='{"data":{"admin-password": "YWRtaW4="}}' -v=1
+# kubectl patch secret -n monitoring prom-operator-grafana -p='{"data":{"admin-password": "YWRtaW4="}}' -v=1
 
 
 echo "#######################################################################################################"

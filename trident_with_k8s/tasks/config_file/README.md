@@ -9,15 +9,17 @@ This information sits in objects called backends. It basically contains:
 - how to connect to the driver (IP, login, password ...)
 - some default parameters
 
-For additional information, please refer to:
-- https://netapp-trident.readthedocs.io/en/stable-v20.01/kubernetes/deploying.html#create-and-verify-your-first-backend 
-- https://netapp-trident.readthedocs.io/en/stable-v20.01/kubernetes/operations/tasks/backends/index.html 
+For additional information, please refer to the official NetApp Trident documentation on Read the Docs:
 
-Once you have configured backend, the end user will create PVC against Storage Classes.  
-A storage class contains the definition of what an app can expect in terms of storage, defined by some properties (access, media, driver ...)
+- <https://netapp-trident.readthedocs.io/en/latest/kubernetes/tridentctl-install.html#create-and-verify-your-first-backend>
+- <https://netapp-trident.readthedocs.io/en/latest/kubernetes/operations/tasks/backends/index.html>
+
+Once you have configured backend, the end user will create Persistent Volume Claims (PVCs) against Storage Classes.  
+A storage class contains the definition of what an app can expect in terms of storage, defined by some properties (access type, media, driver ...)
 
 For additional information, please refer to:
-- https://netapp-trident.readthedocs.io/en/stable-v20.01/kubernetes/concepts/objects.html#kubernetes-storageclass-objects
+
+- <https://netapp-trident.readthedocs.io/en/latest/kubernetes/concepts/objects.html#kubernetes-storageclass-objects>
 
 Also, installing & configuring Trident + creating Kubernetes Storage Classe is what is expected to be done by the Admin.
 

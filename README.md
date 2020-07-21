@@ -86,12 +86,12 @@ Copy the token and paste it into Enter token field on the login screen.
 ### Tasks
 
 ---------
-[1.](Trident_with_K8s/tasks/task_1) Install/Upgrade Trident with an Operator  
-[2.](Trident_with_K8s/tasks/task_2) Install Prometheus & incorporate Trident's metrics  
-[3.](Trident_with_K8s/tasks/task_3) Configure Grafana & add your first graphs  
-[4.](Trident_with_K8s/tasks/task_4) Configure your first NAS backends & storage classes  
+[1.](Trident_with_K8s/tasks/task_1) Install/Upgrade Trident with an Operator - remove tridentctl and move to 0  
+[2.](Trident_with_K8s/tasks/task_2) Install Prometheus & incorporate Trident's metrics0  
+[3.](Trident_with_K8s/tasks/task_3) Configure Grafana & add your first graphs0  
+[4.](Trident_with_K8s/tasks/task_4) Configure your first NAS backends & storage classes0  
 [5.](Trident_with_K8s/tasks/task_5) Deploy your first app with File storage  
-[6.](Trident_with_K8s/tasks/task_6) Configure your first iSCSI backends & storage classes  
+[6.](Trident_with_K8s/tasks/task_6) Configure your first iSCSI backends & storage classes0  
 [7.](Trident_with_K8s/tasks/task_7) Deploy your first app with Block storage  
 [8.](Trident_with_K8s/tasks/task_8) Use the 'import' feature of Trident  
 [9.](Trident_with_K8s/tasks/task_9) Consumption control  
@@ -106,9 +106,9 @@ Copy the token and paste it into Enter token field on the login screen.
 
 ---------
 [0.](Kubernetes_v2/Addendum/Addenda00) Useful commands  
-[1.](Kubernetes_v2/Addendum/Addenda01) Add a node to the cluster  
+[1.](Kubernetes_v2/Addendum/Addenda01) Add a node to the cluster - delete  
 [2.](Kubernetes_v2/Addendum/Addenda02) Specify a default storage class  
-[3.](Kubernetes_v2/Addendum/Addenda03) Allow user PODs on the master node  
-[4.](Kubernetes_v2/Addendum/Addenda04) Upgrade your Kubernetes cluster (1.15 => 1.16 => 1.17 => 1.18)  
-[5.](Kubernetes_v2/Addendum/Addenda05) Prepare ONTAP for block storage  
-[6.](Kubernetes_v2/Addendum/Addenda06) Install Ansible on RHEL3 (Kubernetes Master)  
+[3.](Kubernetes_v2/Addendum/Addenda03) Allow user PODs on the master node - delete  
+[4.](Kubernetes_v2/Addendum/Addenda04) Upgrade your Kubernetes cluster (1.15 => 1.16 => 1.17 => 1.18) - delete  
+[5.](Kubernetes_v2/Addendum/Addenda05) Prepare ONTAP for block storage on dev cluster  
+[6.](Kubernetes_v2/Addendum/Addenda06) Install Ansible on RHEL3 (Kubernetes Master) - delete  

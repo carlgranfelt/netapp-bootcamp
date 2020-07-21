@@ -4,4 +4,4 @@ metadata:
   name: sc-file-rwx
 provisioner: csi.trident.netapp.io
 parameters:
-  backendType: "ontap-file-rwx"
+  backendType: "ontap-nas"

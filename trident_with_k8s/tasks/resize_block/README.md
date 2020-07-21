@@ -130,5 +130,5 @@ You can now move on to:
 - [Task 15](../Task_15): Dynamic export policy management  
 
 ---
-**Page navigation  **  
+**Page navigation**  
 [Top of Page](#top) | [Home](/README.md)

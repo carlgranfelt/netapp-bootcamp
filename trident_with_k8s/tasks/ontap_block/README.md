@@ -30,5 +30,5 @@ vserver iscsi create -target-alias svm1 -vserver svm1
 ## What's next
 
 ---
-**Page navigation  **  
+**Page navigation**  
 [Top of Page](#top) | [Home](/README.md)

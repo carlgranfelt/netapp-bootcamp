@@ -49,5 +49,5 @@ persistentvolumeclaim "pvc-without-sc" deleted
 ## C. What's next
 
 ---
-**Page navigation  **  
+**Page navigation**  
 [Top of Page](#top) | [Home](/README.md)

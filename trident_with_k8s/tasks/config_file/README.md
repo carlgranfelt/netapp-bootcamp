@@ -81,5 +81,5 @@ Now, you have some NAS Backends & some storage classes configured. You can proce
 - [Scenario05](../Scenario05): Deploy your first app with File storage  
 
 ---
-**Page navigation  **  
+**Page navigation**  
 [Top of Page](#top) | [Home](/README.md)

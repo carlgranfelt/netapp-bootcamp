@@ -100,5 +100,5 @@ I hope you are getting more familiar with Trident now. You can move on to:
 - [Task 10](../Task_10): Resize a NFS CSI PVC  
 
 ---
-**Page navigation  **  
+**Page navigation**  
 [Top of Page](#top) | [Home](/README.md)

@@ -70,5 +70,5 @@ Now, you have some SAN Backends & some storage classes configured. You can proce
 - [Scenario07](../Scenario07): Deploy your first app with Block storage  
 
 ---
-**Page navigation  **  
+**Page navigation**  
 [Top of Page](#top) | [Home](/README.md)

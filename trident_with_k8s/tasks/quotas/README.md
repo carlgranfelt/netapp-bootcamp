@@ -251,5 +251,5 @@ You can now move on to:
 - [Task 12](../Task_12): StatefulSets & Storage consumption  
 
 ---
-**Page navigation  **  
+**Page navigation**  
 [Top of Page](#top) | [Home](/README.md)

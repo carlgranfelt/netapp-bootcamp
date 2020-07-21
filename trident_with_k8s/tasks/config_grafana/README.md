@@ -159,5 +159,5 @@ OK, you have everything to monitor Trident, let's continue with the creation of 
 - [Scenario15](../Scenario15): Dynamic export policy management  
 
 ---
-**Page navigation  **  
+**Page navigation**  
 [Top of Page](#top) | [Home](/README.md)

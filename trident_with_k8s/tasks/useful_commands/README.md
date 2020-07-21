@@ -94,5 +94,5 @@ What is interesting to notice is that when upgrading Kubernetes, new sidecars ar
 ## C. What's next
 
 ---
-**Page navigation  **  
+**Page navigation**  
 [Top of Page](#top) | [Home](/README.md)

@@ -105,5 +105,5 @@ You can now move on to:
 - [Task 13](../Task_13): Resize a iSCSI CSI PVC  
 
 ---
-**Page navigation  **  
+**Page navigation**  
 [Top of Page](#top) | [Home](/README.md)

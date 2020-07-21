@@ -350,7 +350,7 @@ For more information about the kuberenetes dashboard itself, please see:
 
 Hopefully you are now more familiar with the lab environment and the Trident setup. You can move on to:  
 
-- [Next task](../block_app): Deploy your first app using file storage  
+- [Next task](../file_app): Deploy your first app using file storage  
 
 ---
 **Page navigation**  

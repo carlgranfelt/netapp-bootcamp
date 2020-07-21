@@ -15,3 +15,7 @@ Also, if it your first time playing with Trident, I would recommend going the Op
 :boom:  
 
 Also, whatever way you choose to install Trident, the remaining scenarios wont be impacted. They work the same way in both architectures.
+
+---
+**Page navigation  **  
+[Top of Page](#top) | [Home](/README.md)

@@ -86,7 +86,5 @@ Now that you have tried working with SAN backends, you can try to resize a PVC:
 - [Task_13](../Task_13): Resize a iSCSI CSI PVC  
 
 ---
-
-[Top of page](#top) or [Home](/README.md)
-
-
+**Page navigation  **  
+[Top of Page](#top) | [Home](/README.md)

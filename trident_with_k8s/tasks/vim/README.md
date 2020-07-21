@@ -26,3 +26,7 @@ Vim is a “modal” text editor based on the vi editor. In Vim, the mode that t
 | Esc + :q!              | Force quit Vim discarding all changes |
 
 If you need any further assistenace, feel free to ask your bootcamp host.
+
+---
+**Page navigation  **  
+[Top of Page](#top) | [Home](/README.md)

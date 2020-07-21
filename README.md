@@ -22,7 +22,7 @@ We will be using Vim to edit configuration files as part of this bootcamp.  If y
 
 ---------
 
-[1.](trident_with_k8s/tasks/verify_lab) Verify and navigate the lab environment
+[1.](trident_with_k8s/tasks/verify_lab) Verify and navigate the lab environment  
 [2.](trident_with_k8s/tasks/file_app) Deploy your first app with File storage  
 [3.](trident_with_k8s/tasks/block_app) Deploy your first app with Block storage  
 [4.](trident_with_k8s/tasks/pv_import) Use the 'import' feature of Trident  

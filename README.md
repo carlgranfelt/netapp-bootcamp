@@ -106,9 +106,5 @@ Copy the token and paste it into Enter token field on the login screen.
 
 ---------
 [0.](trident_with_k8s/tasks/useful_commands) Useful commands  
-[1.](Kubernetes_v2/Addendum/Addenda01) Add a node to the cluster - delete  
-[2.](Kubernetes_v2/Addendum/Addenda02) Specify a default storage class  
-[3.](Kubernetes_v2/Addendum/Addenda03) Allow user PODs on the master node - delete  
-[4.](Kubernetes_v2/Addendum/Addenda04) Upgrade your Kubernetes cluster (1.15 => 1.16 => 1.17 => 1.18) - delete  
-[5.](Kubernetes_v2/Addendum/Addenda05) Prepare ONTAP for block storage on dev cluster  
-[6.](Kubernetes_v2/Addendum/Addenda06) Install Ansible on RHEL3 (Kubernetes Master) - delete  
+[2.](trident_with_k8s/tasks/default_sc) Specify a default storage class  
+[5.](trident_with_k8s/tasks/ontap_block) Prepare ONTAP for block storage on dev cluster  

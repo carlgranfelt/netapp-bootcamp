@@ -12,7 +12,7 @@ This bootcamp requires the [NetApp Lab-on-Demand](https://labondemand.netapp.com
 
 <p align="center"><img src="images/lab-diagram.png"></p>
 
-To familiarise yourself with the environment and check that everything is raedy for you to begin, please follow the instructions in [Task 1](trident_with_k8s/tasks/validate_lab).  Once you are happy with your lab, you can choose to jump into any of the tasks listed below.  They do not need to be followed in any particular order, but if persistent storage is a new concept for you within k8s, it is recomended to folow them one-by-one.  If you do jumop ahead, any pre-requisite tasks will be called out for you.
+To familiarise yourself with the environment and check that everything is ready for you to begin, please follow the instructions in [Task 1](trident_with_k8s/tasks/validate_lab).  Once you are happy with your lab, you can choose to jump into any of the tasks listed below.  They do not need to be followed in any particular order, but if persistent storage is a new concept for you within k8s, it is recomended to folow them one-by-one.  If you do jumop ahead, any pre-requisite tasks will be called out for you.
 
 ### Vim 101 commands
 
@@ -22,7 +22,7 @@ We will be using Vim to edit configuration files as part of this bootcamp.  If y
 
 ---------
 
-[1.](trident_with_k8s/tasks/verify_lab)Verify and navigate the lab environment
+[1.](trident_with_k8s/tasks/verify_lab) Verify and navigate the lab environment
 [2.](trident_with_k8s/tasks/file_app) Deploy your first app with File storage  
 [3.](trident_with_k8s/tasks/block_app) Deploy your first app with Block storage  
 [4.](trident_with_k8s/tasks/pv_import) Use the 'import' feature of Trident  
@@ -47,7 +47,7 @@ If you would like to carry out some of the tasks performed for you by the config
 [6.](trident_with_k8s/tasks/default_sc) Specify a default storage class  
 [7.](trident_with_k8s/tasks/ontap_block) Prepare ONTAP for block storage on dev cluster 
 
-# Below should be moved to the lab varification section
+# Below should be moved to the lab verification section
 
 ```
 

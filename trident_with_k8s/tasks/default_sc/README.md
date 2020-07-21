@@ -48,4 +48,6 @@ persistentvolumeclaim "pvc-without-sc" deleted
 
 ## C. What's next
 
-Back to the [frontpage](https://github.com/YvosOnTheHub/LabNetApp)?
+---
+**Page navigation  **  
+[Top of Page](#top) | [Home](/README.md)

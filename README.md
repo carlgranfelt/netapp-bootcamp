@@ -86,7 +86,7 @@ Copy the token and paste it into Enter token field on the login screen.
 ### Tasks
 
 ---------
-[1.](Trident_with_K8s/tasks/task_1) Install/Upgrade Trident with an Operator - remove tridentctl and move to 0  
+[1.](Trident_with_K8s/tasks/task_1) Install/Upgrade Trident with an Operator - remove tridentctl 0  
 [2.](Trident_with_K8s/tasks/task_2) Install Prometheus & incorporate Trident's metrics0  
 [3.](Trident_with_K8s/tasks/task_3) Configure Grafana & add your first graphs0  
 [4.](Trident_with_K8s/tasks/task_4) Configure your first NAS backends & storage classes0  

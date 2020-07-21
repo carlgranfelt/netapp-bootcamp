@@ -17,7 +17,7 @@ git clone https://github.com/carlgranfelt/NetApp-LoD.git
 Change the permissions of the shell script to allow execution:
 
 ```bash
-chmod 744 NetApp-LoD/trident_with_k8s/deploy/*.sh 744
+chmod 744 NetApp-LoD/trident_with_k8s/deploy/*.sh
 ```
 
 Run the configuration script

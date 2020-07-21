@@ -1,14 +1,14 @@
-# Verifying the Lab EnvironmentT
+# Verifying the Lab Environment
 
 The objective for this first task is to familiarize yourself with the environment and verify all pre-installed kubernetes objects are present and ready.
 
 ## A. Production Kubernetes Cluster
 
 The production k8s cluster contains a single master node (rhel3) and three worker nodes ( rhel1, rhel2 and rhel4).
-To verify the nodes:
+To verify the nodes:  
 `kubectl get nodes -o wide`
 
-Your output should be similar to below, all nodes with a "Ready" status and k8s 1.18 installed.  
+Your output should be similar to below, all nodes with a "Ready" status with kubernetes 1.18 installed.  
 
 ```bash
 [root@rhel3 ~]# kubectl get nodes -o wide
@@ -20,11 +20,11 @@ rhel4   Ready    <none>   179m   v1.18.0   192.168.0.64   <none>        Red Hat 
 [root@rhel3 ~]#
 ```
 
-To verify your k8s cluster is ready for use:
-`kubectl cluster-info`
+To verify your k8s cluster is ready for use:  
+`kubectl cluster-info`  
 `kubectl get componentstatus`
 
-Your output should be similar to below, Kubernetes master running at <https://192.168.0.63:6443> and all components in a "Healthy" state status and k8s 1.18 installed.  
+Your output should be similar to below, Kubernetes master running at <https://192.168.0.63:6443> and all components with a "Healthy" status.  
 
 ```bash
 [root@rhel3 ~]# kubectl cluster-info
@@ -40,10 +40,10 @@ etcd-0               Healthy   {"health":"true"}
 [root@rhel3 ~]#
 ```
 
-To list all namespaces:
+To list all namespaces:  
 `kubectl get namespaces`
 
-The default and k8s specific kube-* should be listed together with the additionally created namespaces for the kubernetes dashboard, metallb load-balancer, monitoring for Prometheus & Grafana and Trident.  
+The default and kubernetes specific kube-* should be listed together with the additionally created namespaces for the kubernetes dashboard, metallb load-balancer, monitoring for Prometheus & Grafana and Trident.  
 
 ```bash
 [root@rhel3 ~]# kubectl get namespaces
@@ -62,7 +62,6 @@ trident                Active   3h33m
 ## B. Trident Operator
 
 Trident 20.04 introduced a new way to manage its lifecycle: Operators.  
-
 With Trident 20.04, there are new objects in the picture:
 
 - Trident Operator, which will dynamically manage Trident's resources, automate setup, fix broken elements  
@@ -93,8 +92,7 @@ tridentvolumes.trident.netapp.io          2020-07-21T08:01:29Z
 ...
 ```
 
-Next observe the status of the TridentProvisioner
-The status should be _installed_ for the provisioner CRD
+Next observe the status of the TridentProvisioner. The status should be _installed_ for the provisioner CRD:
 
 ```bash
 [root@rhel3 ~]# kubectl get tprov -n trident
@@ -146,8 +144,7 @@ Events:
   Normal  Installed  3m34s (x117 over 9h)  trident-operator.netapp.io  Trident installed
 ```
 
-You can also confirm if the Trident install completed by taking a look at the pods that have been created.
-confirm that the Trident Operator, Provisioner and a CSI driver per node (part of the deamonset) are all up & running:
+You can also confirm if the Trident install completed by taking a look at the pods that have been created. Confirm that the Trident Operator, Provisioner and a CSI driver per node (part of the deamonset) are all up & running:
 
 ```bash
 [root@rhel3 ~]# kubectl get all -n trident
@@ -175,7 +172,7 @@ replicaset.apps/trident-operator-668bf8cdff   1         1         1       8h
 [root@rhel3 ~]#
 ```
 
-You can also use tridentctl to check the version of Trident installed.
+You can also use tridentctl to check the version of Trident installed:
 
 ```bash
 [root@rhel3 ~]# tridentctl -n trident version
@@ -187,7 +184,7 @@ You can also use tridentctl to check the version of Trident installed.
 [root@rhel3 ~]#
 ```
 
-Because of the CRD extension of the Kubernetes API we can also use kubectl to interact with Trident and for example check the version of Trident installed.
+Because of the CRD extension of the Kubernetes API we can also use kubectl to interact with Trident and for example check the version of Trident installed:
 
 ```bash
 [root@rhel3 ~]# kubectl -n trident get tridentversions
@@ -216,10 +213,11 @@ For additional information, please refer to:
 
 - <https://netapp-trident.readthedocs.io/en/latest/kubernetes/concepts/objects.html#kubernetes-storageclass-objects>
 
-Installing & configuring Trident as well as creating Kubernetes Storage Classes is what is expected to be done upfront by the Admin and has already been done in this lab for you.
+Installing & configuring Trident as well as creating Kubernetes Storage Classes is what is expected to be done upfront by the Admin and as such has already been done in this lab for you.
 
 Next let's verify what backends have been pre-created for us.  
-**Note:** We can use both kubectl and tridentctl to get the information:  
+
+**Note:** Again we can use both kubectl and tridentctl to get the information.  
 
 ```bash
 [root@rhel3 ~]# kubectl -n trident get tridentbackends
@@ -239,7 +237,7 @@ tbe-zkwtj   ontap-file-rwx-eco    e6abe7bd-82fa-433c-a8d9-422a0b9dd635
 +---------------------+-------------------+--------------------------------------+--------+---------+
 ```
 
-We also need storage classes pointing to each backend
+We also need storage classes pointing to each backend:
 
 ```bash
 [root@rhel3 ~]# kubectl get sc
@@ -259,15 +257,15 @@ sc-file-rwx-eco         csi.trident.netapp.io   Delete          Immediate       
 +------------------+
 ```
 
-At this point we can confirm that end-users are all set to create applications with persistent storage requirements in our lab environment :-)
+At this point we can confirm that end-users are all set to create applications with persistent storage requirements in our lab environment :thumbsup:
 
 ## D. Prometheus & Grafana
 
 Trident includes  metrics that can be integrated into Prometheus for an open-source monitoring solution. Grafana again is an open-source visualization software, allowing us to create a graph with many different metrics.  
 
-Prometheus has been installed using the Helm prometheus-operator chart and exposed using the MetalLB load-balancer. For Prometheus to retrieve the metrics that Trident exposes, a ServiceMonitor has been created to watch the trident-csi service. Grafana in turn was setup by the Prometheus-operator, configured to use Prometheus as a data source and again exposed using the MetalLB load-balancer. Finally we import a dashboard for Trident.  
+Prometheus has been installed using the Helm prometheus-operator chart and exposed using the MetalLB load-balancer. For Prometheus to retrieve the metrics that Trident exposes, a ServiceMonitor has been created to watch the trident-csi service. Grafana in turn was setup by the Prometheus-operator, configured to use Prometheus as a data source and again exposed using the MetalLB load-balancer. Finally we have imported a custom dashboard for Trident into Grafana.  
 
-To get the IP address for the Grafana service:
+To get the IP address for the Grafana service:  
 `kubectl -n monitoring svc prom-operator-grafana`
 
 ```bash
@@ -281,9 +279,7 @@ You can now access the Grafana GUI from a browser on the jumhost at <http://192.
 
 ### Accessing Grafana
 
-The first time to enter Grafana, you are requested to login with a username & a password ...
-But how does one find out what they are?
-
+The first time to enter Grafana, you are requested to login with a username & a password... But how does one find out what they are?  
 Let's find the grafana pod and have a look at the pod definition, maybe there is a hint for us...
 
 ```bash
@@ -299,7 +295,7 @@ prom-operator-grafana-5dd648d5bc-2g6dn   3/3     Running   0          7h40m
 ...
 ```
 
-Let's see what grafana secrets there are in this cluster
+Let's see what grafana secrets there are in this cluster:
 
 ```bash
 [root@rhel3 ~]# kubectl get secrets -n monitoring -l app.kubernetes.io/name=grafana
@@ -316,7 +312,7 @@ admin-password:  5 bytes
 ...
 ```
 
-OK, so the data is there, and is encrypted... However, the admin can retrieve this information
+OK, so the data is there, but its encrypted... However, the admin can retrieve this information:
 
 ```bash
 [root@rhel3 ~]# kubectl get secret -n monitoring prom-operator-grafana -o jsonpath="{.data.admin-user}" | base64 --decode ; echo

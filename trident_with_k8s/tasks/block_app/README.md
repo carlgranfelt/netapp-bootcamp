@@ -1,27 +1,52 @@
-#########################################################################################
-# SCENARIO 7: Create your first App with Block storage
-#########################################################################################
+# Create your first App with Block (RWO) storage
 
 **GOAL:**  
-We will deploy the same App as in the scenario 5, but instead of using File Storage, we will use Block Storage.
+We will deploy the same App as in file-base application task, but instead of using RWX storage, we will use RWO Block Storage.
+
+For this task you will be deploying Ghost (a light weight web portal) utlilising RWO (Read Write Once) file-based persistent storage over iSCSI.  You will find a few .yaml files in the Ghost directory, so ensure that your putty terminal on the lab is set to the correct directory for this task:
+
+```bash
+# cd /root/NetApp-LoD/trident_with_k8s/tasks/block_app/Ghost
+```
+The .yaml files provided are for:
+
+- A PVC to manage the persistent storage of this app
+- A DEPLOYMENT that will define how to manage the app
+- A SERVICE to expose the app
+
+Feel free to familiarise yourself with the contents of these .yaml files if you wish.  You will see in the ```1_pvc.yaml``` file that it specifies ReadWriteOnce as the access mode, which will result in k8s and Trident providing an iSCSI based backend for the request.  A diagram is provided below to illustrate how the PVC, deployment, service and surrounding infrastructure all hang together:
 
 ![Scenario7](Images/scenario7.jpg "Scenario7")
 
-## A. Create the app
+## Create the App
 
-We will create this app in its own namespace (also very useful to clean up everything).  
-We consider that the ONTAP-SAN backend & storage class have already been created. ([cf Scenario06](../Scenario06))
+It is assumed that the required backend & storage class have [already been created](../config_file) either by you or your bootcamp fascilitator.
 
-```
+We will create this app in its own namespace (which also makes clean-up easier).
+```bash
 # kubectl create namespace ghostsan
-namespace/ghostsan created
+```
 
-# kubectl create -n ghostsan -f Ghost/
+Expected output example:
+```bash
+namespace/ghostsan created
+```
+Next, we apply the .yaml configuration within the new namespace:
+```bash
+# kubectl create -n ghostsan -f ../Ghost/
+```
+Expected output example:
+```bash
 persistentvolumeclaim/blog-content created
 deployment.apps/blog created
 service/blog created
-
+```
+Display all resources for the ghost namespace
+```bash
 # kubectl get all -n ghostsan
+```
+Expected output example:
+```bash
 NAME                            READY   STATUS    RESTARTS   AGE
 pod/blog-san-58979448dd-6k9ds   1/1     Running   0          21s
 
@@ -33,8 +58,12 @@ deployment.apps/blog-san   1/1     1            1           21s
 
 NAME                                  DESIRED   CURRENT   READY   AGE
 replicaset.apps/blog-san-58979448dd   1         1         1       21s
-
+```
+```bash
 # kubectl get pvc,pv -n ghostsan
+```
+Expected output example:
+```bash
 NAME                                     STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
 persistentvolumeclaim/blog-content-san   Bound    pvc-8ff8c1b3-48da-400e-893c-23bc9ec459ff   10Gi       RWO            sc-block-rwo   4m16s
 

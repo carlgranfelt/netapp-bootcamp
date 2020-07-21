@@ -23,8 +23,8 @@ You will be using Vim to edit configuration files as part of this bootcamp.  If 
 ### Prod k8s Cluster Tasks
 
 [1.](trident_with_k8s/tasks/verify_lab) Verify and navigate the lab environment  
-[2.](trident_with_k8s/tasks/file_app) Deploy your first app with File storage  
-[3.](trident_with_k8s/tasks/block_app) Deploy your first app with Block storage  
+[2.](trident_with_k8s/tasks/file_app) Deploy your first application with File storage  
+[3.](trident_with_k8s/tasks/block_app) Deploy your first application with Block storage  
 [4.](trident_with_k8s/tasks/pv_import) Use the 'import' feature of Trident  
 [5.](trident_with_k8s/tasks/quotas) Consumption control  
 [6.](trident_with_k8s/tasks/file_resize) Resize a NFS CSI PVC  

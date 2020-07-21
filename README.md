@@ -86,25 +86,26 @@ Copy the token and paste it into Enter token field on the login screen.
 ### Tasks
 
 ---------
-[1.](trident_with_k8s/tasks/install_trident) Install/Upgrade Trident with an Operator - remove tridentctl 0  
-[2.](trident_with_k8s/tasks/config_prometheus) Install Prometheus & incorporate Trident's metrics0  
-[3.](trident_with_k8s/tasks/config_grafana) Configure Grafana & add your first graphs0  
-[4.](trident_with_k8s/tasks/config_file) Configure your first NAS backends & storage classes0  
-[5.](trident_with_k8s/tasks/file_app) Deploy your first app with File storage  
-[6.](trident_with_k8s/tasks/config_block) Configure your first iSCSI backends & storage classes0  
-[7.](trident_with_k8s/tasks/block_app) Deploy your first app with Block storage  
-[8.](trident_with_k8s/tasks/pv_import) Use the 'import' feature of Trident  
-[9.](trident_with_k8s/tasks/quotas) Consumption control  
-[10.](trident_with_k8s/tasks/file_resize) Resize a NFS CSI PVC  
-[11.](trident_with_k8s/tasks/storage_pools) Using Virtual Storage Pools  
-[12.](trident_with_k8s/tasks/statefulsets) StatefulSets & Storage consumption  
-[13.](trident_with_k8s/tasks/resize_block) Resize a iSCSI CSI PVC  
-[14.](trident_with_k8s/tasks/snapshots_clones) On-Demand Snapshots & Create PVC from Snapshot  
-[15.](trident_with_k8s/tasks/dyanmic_exports) Dynamic export policy management  
+
+[1.](trident_with_k8s/tasks/file_app) Deploy your first app with File storage  
+[2.](trident_with_k8s/tasks/block_app) Deploy your first app with Block storage  
+[3.](trident_with_k8s/tasks/pv_import) Use the 'import' feature of Trident  
+[4.](trident_with_k8s/tasks/quotas) Consumption control  
+[5.](trident_with_k8s/tasks/file_resize) Resize a NFS CSI PVC  
+[6.](trident_with_k8s/tasks/storage_pools) Using Virtual Storage Pools  
+[7.](trident_with_k8s/tasks/statefulsets) StatefulSets & Storage consumption  
+[8.](trident_with_k8s/tasks/resize_block) Resize a iSCSI CSI PVC  
+[19.](trident_with_k8s/tasks/snapshots_clones) On-Demand Snapshots & Create PVC from Snapshot  
+[10.](trident_with_k8s/tasks/dynamic_exports) Dynamic export policy management  
 
 ### Dev K8s Cluster Tasks
 
 ---------
 [0.](trident_with_k8s/tasks/useful_commands) Useful commands  
-[2.](trident_with_k8s/tasks/default_sc) Specify a default storage class  
-[5.](trident_with_k8s/tasks/ontap_block) Prepare ONTAP for block storage on dev cluster  
+[1.](trident_with_k8s/tasks/install_trident) Install/Upgrade Trident with an Operator - remove tridentctl  
+[2.](trident_with_k8s/tasks/config_prometheus) Install Prometheus & incorporate Trident's metrics  
+[3.](trident_with_k8s/tasks/config_grafana) Configure Grafana & add your first graphs  
+[4.](trident_with_k8s/tasks/config_file) Configure your first NAS backends & storage classes  
+[5.](trident_with_k8s/tasks/config_block) Configure your first iSCSI backends & storage classes  
+[6.](trident_with_k8s/tasks/default_sc) Specify a default storage class  
+[7.](trident_with_k8s/tasks/ontap_block) Prepare ONTAP for block storage on dev cluster  

@@ -39,3 +39,7 @@ Once running, the script will take ~15 minutes to complete.  Tasks the script ca
   * WE MUST BE MISSING SOME STEPS HERE
 
 The Dev cluster has purposely been only configured with an upgraded k8s cluster and MetalLB.  This leaves you with a separate cluster if you wish to carry out tasks such as [installing Trident](/trident_with_k8s/tasks/install_trident) and [configuring storage backends](/trident_with_k8s/tasks/config_file).
+
+---
+
+[Back to main page](/README.md)

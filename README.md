@@ -1,10 +1,10 @@
 <p align="center"><img src="images/k8s-header.png"></p>
 
-# LabNetApp
+# NetApp Trident Bootcamp
 
 ## A. Trident with K8s (with CSI)
 
-The section has been tested with the Lab-on-Demand Using "Trident with Kubernetes and ONTAP v3.1" which comes by default with Trident 19.07 already installed on Kubernetes 1.15.3. The configure_bootcamp.sh will modify the environment by:
+The bootcamp requires the [NetApp Lab-on-Demand](https://labondemand.netapp.com/) "Trident with Kubernetes and ONTAP v3.1" lab which comes by default with Trident 19.07 already installed on Kubernetes 1.15.3. The provided [configure_bootcamp.sh](trident_with_k8s/deploy/configure_bootcamp.sh) within this repo will modify the environment by:
 
 - Installing and creating a MetalLB configuration
 - Upgading k8s to 1.18
@@ -12,6 +12,8 @@ The section has been tested with the Lab-on-Demand Using "Trident with Kubernete
 - Initialize and configure a 2nd k8s cluster (nodes rhel5 and rhel6)
 - Install and configure Prometheus and Grafana dashboards
 - Install and configure Trident with an Operator
+
+The configure_bootcamp.sh script may be run by the NetApp Lab On Demand team ahead of you connecting to the lab environment, so please confirm this with the person running your particular bootcamp.  If it has not been run, it can take ~15 minutes to complete, so please run it now by following the instructions [here](trident_with_k8s/tasks/configure_bootcamp)
 
 ### Bootcamp Environment Diagram
 
@@ -25,20 +27,9 @@ Last, there are plenty of commands to write or copy/paste.
 Most of them start with a '#', usually followed by the result you would get.  
 :boom:  
 
-### Configuring the bootcamp k8s environment
-
-Open the PuTTY console and connect to the kubernetes master node as root@rhel3. Run the below commands to configure the kubernetes clusters for the bootcamp:  
-
-```bash
-git clone https://github.com/carlgranfelt/NetApp-LoD.git  
-cd NetApp-LoD/trident_with_k8s/deploy/  
-chmod 744 *.sh  
-. ./configure_bootcamp.sh
-```
-
 ### Vim 101 commands
 
-We will be using Vim to edit configuration files as part of this bootcamp.  If you are unfamiliar with Vim, we have created a [basic set of instructions](trident_with_k8s/tasks/vim/README.md) that you should keep open in a separate browser tab for reference
+We will be using Vim to edit configuration files as part of this bootcamp.  If you are unfamiliar with Vim, we have created a [basic set of instructions](trident_with_k8s/tasks/vim) that you should keep open in a separate browser tab for reference
 
 ### Kubernetes web-based UI
 

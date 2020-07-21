@@ -111,4 +111,6 @@ Now that Trident is integrated into Prometheus, you can retrieve metrics or buil
 Now that Trident is connected to Prometheus, you can proceed with :  
 - [Scenario03](../Scenario03):  Configure Grafana & add your first graphs  
 
-or go back to the [FrontPage](https://github.com/carlgranfelt/NetApp-LoD)
+---
+**Page navigation  **  
+[Top of Page](#top) | [Home](/README.md)

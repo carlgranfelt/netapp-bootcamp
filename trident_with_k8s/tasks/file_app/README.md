@@ -99,4 +99,6 @@ I hope you are getting more familiar with Trident now. You can move on to:
 - [Task 9](../Task_9): Consumption control  
 - [Task 10](../Task_10): Resize a NFS CSI PVC  
 
-[Top of page](https://github.com/carlgranfelt/NetApp-LoD/tree/master/trident_with_k8s/Tasks/Task_5#top) or [Home](https://github.com/carlgranfelt/NetApp-LoD)
+---
+**Page navigation  **  
+[Top of Page](#top) | [Home](/README.md)

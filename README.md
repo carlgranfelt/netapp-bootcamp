@@ -1,8 +1,8 @@
 <p align="center"><img src="images/k8s-header.png"></p>
 
-# LabNetApp
+# NetApp Trident Bootcamp
 
-## A. Trident with K8s (with CSI)
+## Trident with k8s
 
 The section has been tested with the Lab-on-Demand Using "Trident with Kubernetes and ONTAP v3.1" which comes by default with Trident 19.07 already installed on Kubernetes 1.15.3. The configure_bootcamp.sh will modify the environment by:
 
@@ -13,7 +13,7 @@ The section has been tested with the Lab-on-Demand Using "Trident with Kubernete
 - Install and configure Prometheus and Grafana dashboards
 - Install and configure Trident with an Operator
 
-### Bootcamp Environment Diagram
+## Bootcamp Environment Diagram
 
 <p align="center"><img src="images/lab-diagram.png"></p>
 
@@ -25,7 +25,7 @@ Last, there are plenty of commands to write or copy/paste.
 Most of them start with a '#', usually followed by the result you would get.  
 :boom:  
 
-### Configuring the bootcamp k8s environment
+## Configuring the bootcamp k8s environment
 
 Open the PuTTY console and connect to the kubernetes master node as root@rhel3. Run the below commands to configure the kubernetes clusters for the bootcamp:  
 

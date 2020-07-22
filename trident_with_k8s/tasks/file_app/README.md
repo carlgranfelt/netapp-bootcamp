@@ -26,27 +26,18 @@ From this point on, it is assumed that the required backend & storage class have
 We will create this app in its own namespace (which also makes clean-up easier). 
 ```bash
 [root@rhel3 ~]# kubectl create namespace ghost
-```
-Expected output example:
-```bash
 namespace/ghost created
 ```
 Next, we apply the .yaml configuration within the new namespace:
 ```bash
 [root@rhel3 ~]# kubectl create -n ghost -f ../Ghost/
-```
-Expected output example:
-```bash
 persistentvolumeclaim/blog-content created
 deployment.apps/blog created
 service/blog created
 ```
-Display all resources for the ghost namespace
+Display all resources for the ghost namespace (your specific pod name of blog-XXXXXXXX-XXXX will be unique to your deployment and will need to be used again layter in this task):
 ```bash
 [root@rhel3 ~]# kubectl get all -n ghost
-```
-Expected output example (your specific pod name of blog-XXXXXXXX-XXXX will be unique to your deployment and will need to be used again layter in this task):
-```bash
 NAME                       READY   STATUS              RESTARTS   AGE
 pod/blog-57d7d4886-5bsml   1/1     Running             0          50s
 
@@ -62,9 +53,6 @@ replicaset.apps/blog-57d7d4886   1         1         1       50s
 List the PVC and PV associated with the ghost namespace:
 ```bash
 [root@rhel3 ~]# kubectl get pvc,pv -n ghost
-```
-Expected output example:
-```bash
 NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
 persistentvolumeclaim/blog-content   Bound    pvc-ce8d812b-d976-43f9-8320-48a49792c972   5Gi        RWX            sc-file-rwx         4m3s
 
@@ -87,9 +75,6 @@ Let's see if the */var/lib/ghost/content* folder is indeed mounted to the NFS PV
 
 ```bash
 [root@rhel3 ~]# kubectl exec -n ghost blog-57d7d4886-5bsml -- df /var/lib/ghost/content
-```
-Expected output example:
-```bash
 Filesystem           1K-blocks      Used Available Use% Mounted on
 192.168.0.135:/ansible_pvc_ce8d812b_d976_43f9_8320_48a49792c972
                        5242880       704   5242176   0% /var/lib/ghost/content
@@ -97,9 +82,6 @@ Filesystem           1K-blocks      Used Available Use% Mounted on
 List out the files found in the ghost/content directory within the PV (don't forget to use your specific blog-XXXXXXXX-XXXX details found in the earlier CLI output):
 ```bash
 [root@rhel3 ~]# kubectl exec -n ghost blog-57d7d4886-5bsml -- ls /var/lib/ghost/content
-```
-Expected output example:
-```bash
 apps
 data
 images

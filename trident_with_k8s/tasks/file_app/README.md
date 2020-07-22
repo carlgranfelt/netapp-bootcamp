@@ -6,7 +6,7 @@ Now that you have a lab with Trident configured and storage classes, you can req
 For this task you will be deploying Ghost (a light weight web portal) utlilising RWX (Read Write Many) file-based persistent storage over NFS.  You will find a few .yaml files in the Ghost directory, so ensure that your putty terminal on the lab is set to the correct directory for this task:
 
 ```bash
-[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/file_app/Ghost
+[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/file_app/ghost
 ```
 The .yaml files provided are for:
 
@@ -30,7 +30,7 @@ namespace/ghost created
 ```
 Next, we apply the .yaml configuration within the new namespace:
 ```bash
-[root@rhel3 ~]# kubectl create -n ghost -f ../Ghost/
+[root@rhel3 ~]# kubectl create -n ghost -f ../ghost/
 persistentvolumeclaim/blog-content created
 deployment.apps/blog created
 service/blog created

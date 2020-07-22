@@ -16,7 +16,7 @@ The .yaml files provided are for:
 
 Feel free to familiarise yourself with the contents of these .yaml files if you wish.  You will see in the ```1_pvc.yaml``` file that it specifies ReadWriteOnce as the access mode, which will result in k8s and Trident providing an iSCSI based backend for the request.  A diagram is provided below to illustrate how the PVC, deployment, service and surrounding infrastructure all hang together:
 
-![Scenario7](Images/scenario7.jpg "Scenario7")
+<p align="center"><img src="Images/block_app.png" width="650px"></p>
 
 ## Create the App
 
@@ -34,7 +34,7 @@ persistentvolumeclaim/blog-content created
 deployment.apps/blog created
 service/blog created
 ```
-Display all resources for the ghost namespace (your specific pod name of blog-XXXXXXXX-XXXX will be unique to your deployment and will need to be used again layter in this task):
+Display all resources for the ghost namespace (your specific pod name of blog-XXXXXXXX-XXXX will be unique to your deployment and will need to be used again later in this task):
 ```bash
 [root@rhel3 ~]# kubectl get all -n ghostsan
 NAME                            READY   STATUS    RESTARTS   AGE
@@ -94,7 +94,7 @@ It is recommended that you also monitor your environment from the pre-created da
 
 Instead of deleting each object one by one, you can directly delete the namespace which will then remove all of its objects.
 
-```
+```bash
 [root@rhel3 ~]# kubectl delete ns ghostsan
 namespace "ghostsan" deleted
 ```

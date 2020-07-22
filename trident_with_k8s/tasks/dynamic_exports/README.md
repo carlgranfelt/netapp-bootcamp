@@ -148,7 +148,7 @@ Tadaaaa !
 ## E. What's next
 
 You may have gone through all tasks.  
-Maybe you could learn something in the different [addenda](https://github.com/carlgranfelt/NetApp-LoD#addendum)?
+Why not try and set up the Dev cluster from scratch with a [new Trident install](../install_trident) and different [storage-classes](../config_file)?
 
 ---
 **Page navigation**  

@@ -6,7 +6,7 @@ Now that you have a lab with Trident configured and storage classes, you can req
 For this task you will be deploying Ghost (a light weight web portal) utlilising RWX (Read Write Many) file-based persistent storage over NFS.  You will find a few .yaml files in the Ghost directory, so ensure that your putty terminal on the lab is set to the correct directory for this task:
 
 ```bash
-# cd /root/NetApp-LoD/trident_with_k8s/tasks/file_app/Ghost
+[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/file_app/Ghost
 ```
 The .yaml files provided are for:
 
@@ -25,7 +25,7 @@ From this point on, it is assumed that the required backend & storage class have
 
 We will create this app in its own namespace (which also makes clean-up easier). 
 ```bash
-# kubectl create namespace ghost
+[root@rhel3 ~]# kubectl create namespace ghost
 ```
 Expected output example:
 ```bash
@@ -33,7 +33,7 @@ namespace/ghost created
 ```
 Next, we apply the .yaml configuration within the new namespace:
 ```bash
-# kubectl create -n ghost -f ../Ghost/
+[root@rhel3 ~]# kubectl create -n ghost -f ../Ghost/
 ```
 Expected output example:
 ```bash
@@ -43,7 +43,7 @@ service/blog created
 ```
 Display all resources for the ghost namespace
 ```bash
-# kubectl get all -n ghost
+[root@rhel3 ~]# kubectl get all -n ghost
 ```
 Expected output example (your specific pod name of blog-XXXXXXXX-XXXX will be unique to your deployment and will need to be used again layter in this task):
 ```bash
@@ -61,7 +61,7 @@ replicaset.apps/blog-57d7d4886   1         1         1       50s
 ```
 List the PVC and PV associated with the ghost namespace:
 ```bash
-# kubectl get pvc,pv -n ghost
+[root@rhel3 ~]# kubectl get pvc,pv -n ghost
 ```
 Expected output example:
 ```bash
@@ -86,7 +86,7 @@ Let's see if the */var/lib/ghost/content* folder is indeed mounted to the NFS PV
 **You need to customize the following commands with the POD name you have in your environment.**
 
 ```bash
-# kubectl exec -n ghost blog-57d7d4886-5bsml -- df /var/lib/ghost/content
+[root@rhel3 ~]# kubectl exec -n ghost blog-57d7d4886-5bsml -- df /var/lib/ghost/content
 ```
 Expected output example:
 ```bash
@@ -96,7 +96,7 @@ Filesystem           1K-blocks      Used Available Use% Mounted on
 ```
 List out the files found in the ghost/content directory within the PV (don't forget to use your specific blog-XXXXXXXX-XXXX details found in the earlier CLI output):
 ```bash
-# kubectl exec -n ghost blog-57d7d4886-5bsml -- ls /var/lib/ghost/content
+[root@rhel3 ~]# kubectl exec -n ghost blog-57d7d4886-5bsml -- ls /var/lib/ghost/content
 ```
 Expected output example:
 ```bash
@@ -119,7 +119,7 @@ If you still want to go ahead and clean-up, instead of deleting each object one 
 
 
 ```
-# kubectl delete ns ghost
+[root@rhel3 ~]# kubectl delete ns ghost
 namespace "ghost" deleted
 ```
 

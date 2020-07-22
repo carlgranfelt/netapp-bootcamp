@@ -34,7 +34,7 @@ persistentvolumeclaim/blog-content created
 deployment.apps/blog created
 service/blog created
 ```
-Display all resources for the ghost namespace (your specific pod name of blog-XXXXXXXX-XXXX will be unique to your deployment and will need to be used again layter in this task):
+Display all resources for the ghost namespace (your specific pod name of blog-XXXXXXXX-XXXX will be unique to your deployment and will need to be used again later in this task):
 ```bash
 [root@rhel3 ~]# kubectl get all -n ghostsan
 NAME                            READY   STATUS    RESTARTS   AGE
@@ -94,7 +94,7 @@ It is recommended that you also monitor your environment from the pre-created da
 
 Instead of deleting each object one by one, you can directly delete the namespace which will then remove all of its objects.
 
-```
+```bash
 [root@rhel3 ~]# kubectl delete ns ghostsan
 namespace "ghostsan" deleted
 ```

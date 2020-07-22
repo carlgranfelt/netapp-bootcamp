@@ -1,6 +1,13 @@
 # Verifying the Lab Environment
 
-The objective for this first task is to familiarize yourself with the environment and verify all pre-installed kubernetes objects are present and ready.
+The objective for this first task is to familiarise yourself with the environment and validate that all pre-installed kubernetes objects are present and in a ready state.
+
+Most tasks will be carried from a PuTTY console. Open the PuTTY console on the jumphost within the lab and connect to the kubernetes master node (RHEL3) as root@rhel3. The session is already set up for you in PuTTY.
+
+Each subsequent task will be run from its own directory from the GitHub repository fetched locally. There is a README file with instructions for each task.
+
+Lastly, there are plenty of commands to type or alternatively copy & paste.
+Most of the commands start with a '[root@rhel3 ~]#', usually followed by the results you would observe.
 
 ## A. Production Kubernetes Cluster
 

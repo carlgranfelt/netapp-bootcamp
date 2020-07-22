@@ -6,7 +6,7 @@ We will deploy the same App as in file-base application task, but instead of usi
 For this task you will be deploying Ghost (a light weight web portal) utlilising RWO (Read Write Once) file-based persistent storage over iSCSI.  You will find a few .yaml files in the Ghost directory, so ensure that your putty terminal on the lab is set to the correct directory for this task:
 
 ```bash
-# cd /root/NetApp-LoD/trident_with_k8s/tasks/block_app/Ghost
+[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/block_app/ghost
 ```
 The .yaml files provided are for:
 
@@ -22,31 +22,21 @@ Feel free to familiarise yourself with the contents of these .yaml files if you 
 
 It is assumed that the required backend & storage class have [already been created](../config_file) either by you or your bootcamp fascilitator.
 
-We will create this app in its own namespace (which also makes clean-up easier).
+We will create this app in its own namespace (which also makes clean-up easier):
 ```bash
-# kubectl create namespace ghostsan
-```
-
-Expected output example:
-```bash
+[root@rhel3 ~]# kubectl create namespace ghostsan
 namespace/ghostsan created
 ```
 Next, we apply the .yaml configuration within the new namespace:
 ```bash
-# kubectl create -n ghostsan -f ../Ghost/
-```
-Expected output example:
-```bash
+[root@rhel3 ~]# kubectl create -n ghostsan -f ../ghost/
 persistentvolumeclaim/blog-content created
 deployment.apps/blog created
 service/blog created
 ```
-Display all resources for the ghost namespace
+Display all resources for the ghost namespace (your specific pod name of blog-XXXXXXXX-XXXX will be unique to your deployment and will need to be used again layter in this task):
 ```bash
-# kubectl get all -n ghostsan
-```
-Expected output example:
-```bash
+[root@rhel3 ~]# kubectl get all -n ghostsan
 NAME                            READY   STATUS    RESTARTS   AGE
 pod/blog-san-58979448dd-6k9ds   1/1     Running   0          21s
 
@@ -59,11 +49,9 @@ deployment.apps/blog-san   1/1     1            1           21s
 NAME                                  DESIRED   CURRENT   READY   AGE
 replicaset.apps/blog-san-58979448dd   1         1         1       21s
 ```
+Display the PV and PVC associated with your app:
 ```bash
-# kubectl get pvc,pv -n ghostsan
-```
-Expected output example:
-```bash
+[root@rhel3 ~]# kubectl get pvc,pv -n ghostsan
 NAME                                     STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
 persistentvolumeclaim/blog-content-san   Bound    pvc-8ff8c1b3-48da-400e-893c-23bc9ec459ff   10Gi       RWO            sc-block-rwo   4m16s
 
@@ -76,7 +64,7 @@ persistentvolume/pvc-8ff8c1b3-48da-400e-893c-23bc9ec459ff   10Gi       RWO      
 It takes about 40 seconds for the POD to be in a *running* state
 The Ghost service is configured with a NodePort type, which means you can access it from every node of the cluster on port 30080.
 Give it a try !
-=> <http://192.168.0.63:30080>
+=> <http://192.168.0.63:30090>
 
 ## C. Explore the app container
 
@@ -84,11 +72,13 @@ Let's see if the */var/lib/ghost/content* folder is indeed mounted to the SAN PV
 **You need to customize the following commands with the POD name you have in your environment.**
 
 ```
-# kubectl exec -n ghostsan blog-san-58979448dd-6k9ds -- df /var/lib/ghost/content
+[root@rhel3 ~]# kubectl exec -n ghostsan blog-san-58979448dd-6k9ds -- df /var/lib/ghost/content
 Filesystem           1K-blocks      Used Available Use% Mounted on
 /dev/sdc              10190100     37368   9612060   0% /var/lib/ghost/content
-
-# kubectl exec -n ghostsan blog-san-58979448dd-6k9ds -- ls /var/lib/ghost/content
+```
+List out the files found in the ghost/content directory within the PV (don't forget to use your specific blog-XXXXXXXX-XXXX details found in the earlier CLI output):
+```bash
+[root@rhel3 ~]# kubectl exec -n ghostsan blog-san-58979448dd-6k9ds -- ls /var/lib/ghost/content
 apps
 data
 images
@@ -98,14 +88,14 @@ settings
 themes
 ```
 
-If you have configured Grafana, you can go back to your dashboard, to check what is happening (cf http://192.168.0.63:30001).  
+It is recommended that you also monitor your environment from the pre-created dashboard in Grafana: (<http://192.168.0.141>).  If you carried out the tasks in the [verifying your environment](../verify_lab) task, then you should already have your Grafana username and password which is ```admin:admin``` by default and you will be promted for a new password on 1st login.
 
 ## D. Cleanup
 
 Instead of deleting each object one by one, you can directly delete the namespace which will then remove all of its objects.
 
 ```
-# kubectl delete ns ghostsan
+[root@rhel3 ~]# kubectl delete ns ghostsan
 namespace "ghostsan" deleted
 ```
 

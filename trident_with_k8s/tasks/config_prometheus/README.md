@@ -99,7 +99,7 @@ servicemonitor.monitoring.coreos.com/trident-sm created
 On the browser in the LoD, you can now connect to the address http://192.168.0.63:30000 in order to access Prometheus
 You can check that the Trident endpoint is taken into account & in the right state by going to the menu STATUS => TARGETS
 
-![Trident Status in Prometheus](/images/Trident_status_in_prometheus.jpg "Trident Status in Prometheus")
+![Trident Status in Prometheus](../../../images/Trident_status_in_prometheus.jpg "Trident Status in Prometheus")
 
 ## F. Play around
 

@@ -26,7 +26,7 @@ In this exercise, we will create a MySQL StatefulSet & scale it.
 
 We consider that a backend & a storage class have already been created. ([ex: Scenario04](../Scenario04)).  
 
-![Scenario12](/images/scenario12.jpg "Scenario12")
+![Scenario12](../../../images/scenario12.jpg "Scenario12")
 
 ## A. Let's start by creating the application
 

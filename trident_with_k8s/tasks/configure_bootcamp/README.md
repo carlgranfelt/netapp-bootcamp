@@ -50,4 +50,4 @@ The Dev cluster has purposely been only configured with an upgraded k8s cluster 
 
 ---
 **Page navigation**  
-[Top of Page](#top) | [Home](/README.md)
+[Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#prod-k8s-cluster-tasks)

@@ -51,4 +51,4 @@ If you would like to carry out some of the tasks performed for you by the config
 
 ---------
 **Page navigation**  
-[Top of Page](#top) | [Home](/README.md)
+[Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#prod-k8s-cluster-tasks)

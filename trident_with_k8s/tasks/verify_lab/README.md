@@ -289,7 +289,7 @@ prom-operator-grafana   LoadBalancer   10.108.152.56   192.168.0.141   80:30707/
 [root@rhel3 ~]#
 ```
 
-You can now access the Grafana GUI from a browser on the jumhost at <http://192.168.0.141>
+You can now access the Grafana GUI from a browser on the jumhost at <http://192.168.0.141>.  It's worth keeping Grafana open as you walk through the tasks in this bootcamp, as it is a good way of tracking the Persistent Volumes you have created.
 
 ### Accessing Grafana
 
@@ -352,10 +352,10 @@ Now we need to find token we can use to log in. Execute following command in the
 `kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')`
 
 It should display something similar to below:
-![Admin user token](images/dashboard-token.jpg "Admin user token")
+![Admin user token](../../../images/dashboard-token.jpg "Admin user token")
 
 Copy the token and paste it into Enter token field on the login screen.
-![Kubernetes Dashboard Sign in](images/dashboard-sign-in.jpg "Kubernetes Dashboard Sign in")
+![Kubernetes Dashboard Sign in](../../../images/dashboard-sign-in.jpg "Kubernetes Dashboard Sign in")
 
 For more information about the kuberenetes dashboard itself, please see:  
 <https://github.com/kubernetes/dashboard>.

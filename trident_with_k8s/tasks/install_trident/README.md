@@ -18,4 +18,4 @@ Also, whatever way you choose to install Trident, the remaining scenarios wont b
 
 ---
 **Page navigation**  
-[Top of Page](#top) | [Home](/README.md)
+[Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#prod-k8s-cluster-tasks)

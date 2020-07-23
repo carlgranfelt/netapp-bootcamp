@@ -14,16 +14,21 @@ Download the contents of the bootcamp GitHub repo to the k8s master:
 git clone https://github.com/carlgranfelt/NetApp-LoD.git
 ```
 
+Change directory to the deploy directory:
+```bash
+cd /root/NetApp-LoD/trident_with_k8s/deploy/
+```
+
 Change the permissions of the shell script to allow execution:
 
 ```bash
-chmod 744 NetApp-LoD/trident_with_k8s/deploy/*.sh
+chmod 744 *.sh
 ```
 
 Run the configuration script
 
 ```bash
-. NetApp-LoD/trident_with_k8s/deploy/configure_bootcamp.sh
+time . ./configure_bootcamp.sh &>> configure_bootcamp.log
 ```
 
 Once running, the script will take ~15 minutes to complete.  Tasks the script carries out are:

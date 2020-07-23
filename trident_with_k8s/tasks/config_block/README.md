@@ -10,7 +10,7 @@ It is now time to add more backends that can be used for block storage.
 :boom: **In order to go through this scenario, you first need to configure iSCSI on the ONTAP backend.** :boom:  
 If not done so, please refer to the [Addenda5](../../tasks/ontap_block).  
 
-![Scenario6](Images/scenario6.jpg "Scenario6")
+![Scenario6](../../../images/scenario6.jpg "Scenario6")
 
 ## A. Create your first SAN backends
 
@@ -71,4 +71,4 @@ Now, you have some SAN Backends & some storage classes configured. You can proce
 
 ---
 **Page navigation**  
-[Top of Page](#top) | [Home](/README.md)
+[Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#prod-k8s-cluster-tasks)

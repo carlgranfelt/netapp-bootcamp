@@ -28,8 +28,13 @@ rhel4   Ready    <none>   179m   v1.18.0   192.168.0.64   <none>        Red Hat 
 ```
 
 To verify your k8s cluster is ready for use:  
-`kubectl cluster-info`  
-`kubectl get componentstatus`
+```bash
+[root@rhel3 ~]# kubectl cluster-info
+```
+
+```bash
+[root@rhel3 ~]# kubectl get componentstatus
+```
 
 Your output should be similar to below, Kubernetes master running at <https://192.168.0.63:6443> and all components with a "Healthy" status.  
 
@@ -48,7 +53,9 @@ etcd-0               Healthy   {"health":"true"}
 ```
 
 To list all namespaces:  
-`kubectl get namespaces`
+```bash
+[root@rhel3 ~]# kubectl get namespaces
+```
 
 The default and kubernetes specific kube-* should be listed together with the additionally created namespaces for the kubernetes dashboard, metallb load-balancer, monitoring for Prometheus & Grafana and Trident.  
 
@@ -75,7 +82,7 @@ With Trident 20.04, there are new objects in the picture:
 - Trident Provisioner, which is a Custom Resource, and is the object you will use to interact with the Trident Operator for specific tasks (upgrades, enable/disable Trident options, such as _debug_ mode, uninstall)  
 
 You can visualize the *Operator* as being the *Control Tower*, and the *Provisioner* as being the *Mailbox* in which you post configuration requests.
-Other operations, such as Backend management or viewing logs are currently still managed by Tridentctl.
+Other operations, such as Backend management or viewing logs are currently still managed by Trident's own `Tridentctl`.
 
 :mag:  
 *A* **resource** *is an endpoint in the Kubernetes API that stores a collection of API objects of a certain kind; for example, the built-in pods resource contains a collection of Pod objects.*  
@@ -151,7 +158,7 @@ Events:
   Normal  Installed  3m34s (x117 over 9h)  trident-operator.netapp.io  Trident installed
 ```
 
-You can also confirm if the Trident install completed by taking a look at the pods that have been created. Confirm that the Trident Operator, Provisioner and a CSI driver per node (part of the deamonset) are all up & running:
+You can also confirm if the Trident install completed by taking a look at the pods that have been created. Confirm that the Trident Operator, Provisioner and a CSI driver per node (part of the daemonset) are all up & running:
 
 ```bash
 [root@rhel3 ~]# kubectl get all -n trident
@@ -213,14 +220,14 @@ For additional information, please refer to the official NetApp Trident document
 - <https://netapp-trident.readthedocs.io/en/latest/kubernetes/tridentctl-install.html#create-and-verify-your-first-backend>
 - <https://netapp-trident.readthedocs.io/en/latest/kubernetes/operations/tasks/backends/index.html>
 
-Once you have configured backend, the end user will create Persistent Volume Claims (PVCs) against Storage Classes.  
+Once you have configured a backend, the end user will create Persistent Volume Claims (PVCs) against Storage Classes.  
 A storage class contains the definition of what an app can expect in terms of storage, defined by some properties (access type, media, driver ...)
 
 For additional information, please refer to:
 
 - <https://netapp-trident.readthedocs.io/en/latest/kubernetes/concepts/objects.html#kubernetes-storageclass-objects>
 
-Installing & configuring Trident as well as creating Kubernetes Storage Classes is what is expected to be done upfront by the Admin and as such has already been done in this lab for you.
+Installing & configuring Trident as well as creating Kubernetes Storage Classes is what is expected to be done upfront by the k8s Admin and as such has already been done in this lab for you.
 
 Next let's verify what backends have been pre-created for us.  
 
@@ -273,7 +280,6 @@ Trident includes  metrics that can be integrated into Prometheus for an open-sou
 Prometheus has been installed using the Helm prometheus-operator chart and exposed using the MetalLB load-balancer. For Prometheus to retrieve the metrics that Trident exposes, a ServiceMonitor has been created to watch the trident-csi service. Grafana in turn was setup by the Prometheus-operator, configured to use Prometheus as a data source and again exposed using the MetalLB load-balancer. Finally we have imported a custom dashboard for Trident into Grafana.  
 
 To get the IP address for the Grafana service:  
-`kubectl -n monitoring svc prom-operator-grafana`
 
 ```bash
 [root@rhel3 ~]# kubectl -n monitoring get svc prom-operator-grafana
@@ -282,54 +288,7 @@ prom-operator-grafana   LoadBalancer   10.108.152.56   192.168.0.141   80:30707/
 [root@rhel3 ~]#
 ```
 
-You can now access the Grafana GUI from a browser on the jumhost at <http://192.168.0.141>
-
-### Accessing Grafana
-
-The first time to enter Grafana, you are requested to login with a username & a password... But how does one find out what they are?  
-Let's find the grafana pod and have a look at the pod definition, maybe there is a hint for us...
-
-```bash
-[root@rhel3 ~]# kubectl get pod -n monitoring -l app.kubernetes.io/name=grafana
-NAME                                     READY   STATUS    RESTARTS   AGE
-prom-operator-grafana-5dd648d5bc-2g6dn   3/3     Running   0          7h40m
-
-[root@rhel3 ~]# kubectl describe pod prom-operator-grafana-5dd648d5bc-2g6dn -n monitoring
-...
- Environment:
-      GF_SECURITY_ADMIN_USER:      <set to the key 'admin-user' in secret 'prom-operator-grafana'>      Optional: false
-      GF_SECURITY_ADMIN_PASSWORD:  <set to the key 'admin-password' in secret 'prom-operator-grafana'>  Optional: false
-...
-```
-
-Let's see what grafana secrets there are in this cluster:
-
-```bash
-[root@rhel3 ~]# kubectl get secrets -n monitoring -l app.kubernetes.io/name=grafana
-NAME                    TYPE     DATA   AGE
-prom-operator-grafana   Opaque   3      7h50m
-
-[root@rhel3 ~]# kubectl describe secrets -n monitoring prom-operator-grafana
-Name:         prom-operator-grafana
-...
-Data
-====
-admin-user:      5 bytes
-admin-password:  5 bytes
-...
-```
-
-OK, so the data is there, but its encrypted... However, the admin can retrieve this information:
-
-```bash
-[root@rhel3 ~]# kubectl get secret -n monitoring prom-operator-grafana -o jsonpath="{.data.admin-user}" | base64 --decode ; echo
-admin
-[root@rhel3 ~]# kubectl get secret -n monitoring prom-operator-grafana -o jsonpath="{.data.admin-user}" | base64 --decode ; echo
-prom-operator
-[root@rhel3 ~]#
-```
-
-Now we have the necessary clear text credentials to login to the Grafana UI at <http://192.168.0.141>.
+You can now access the Grafana GUI from a browser on the jumhost at <http://192.168.0.141> (username `admin` and password `prom-operator`.  It's worth keeping Grafana open as you walk through the tasks in this bootcamp, as it is a good way of tracking the Persistent Volumes you have created.
 
 ## E. Kubernetes web-based UI
 
@@ -345,10 +304,10 @@ Now we need to find token we can use to log in. Execute following command in the
 `kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')`
 
 It should display something similar to below:
-![Admin user token](images/dashboard-token.jpg "Admin user token")
+![Admin user token](../../../images/dashboard-token.jpg "Admin user token")
 
 Copy the token and paste it into Enter token field on the login screen.
-![Kubernetes Dashboard Sign in](images/dashboard-sign-in.jpg "Kubernetes Dashboard Sign in")
+![Kubernetes Dashboard Sign in](../../../images/dashboard-sign-in.jpg "Kubernetes Dashboard Sign in")
 
 For more information about the kuberenetes dashboard itself, please see:  
 <https://github.com/kubernetes/dashboard>.

@@ -4,7 +4,7 @@
 Trident allows you to import a volume sitting in a NetApp backend into Kubernetes.  
 We will first copy the volume we used in the [Scenario05](../Scenario05), import it, and create a new Ghost instance  
 
-![Scenario8](Images/scenario8.jpg "Scenario8")
+![Scenario8](../../../images/scenario8.jpg "Scenario8")
 
 ## A. Identify & copy the volume on the NetApp backend
 
@@ -110,4 +110,4 @@ You can now move on to:
 
 ---
 **Page navigation**  
-[Top of Page](#top) | [Home](/README.md)
+[Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#prod-k8s-cluster-tasks)

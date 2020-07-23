@@ -16,7 +16,7 @@ The .yaml files provided are for:
 
 Feel free to familiarise yourself with the contents of these .yaml files if you wish.  You will see in the ```1_pvc.yaml``` file that it specifies ReadWriteOnce as the access mode, which will result in k8s and Trident providing an iSCSI based backend for the request.  A diagram is provided below to illustrate how the PVC, deployment, service and surrounding infrastructure all hang together:
 
-<p align="center"><img src="Images/block_app.png" width="650px"></p>
+<p align="center"><img src="../../../images/block_app.png" width="650px"></p>
 
 ## Create the App
 
@@ -34,6 +34,8 @@ persistentvolumeclaim/blog-content created
 deployment.apps/blog created
 service/blog created
 ```
+Feel free to refresh your Grafan dashboard to see it now shows another volume is managed.
+
 Display all resources for the ghost namespace (your specific pod name of blog-XXXXXXXX-XXXX will be unique to your deployment and will need to be used again later in this task):
 ```bash
 [root@rhel3 ~]# kubectl get all -n ghostsan
@@ -102,8 +104,10 @@ namespace "ghostsan" deleted
 ## E. What's next
 
 Now that you have tried working with SAN backends, you can try to resize a PVC:
-- [Task_13](../Task_13): Resize a iSCSI CSI PVC  
+- Next task: [Import an existing volume wth Trident](../import)  
+or jump ahead to...
+- [Resize a iSCSI CSI PVC](../resize_block)   
 
 ---
 **Page navigation**  
-[Top of Page](#top) | [Home](/README.md)
+[Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#prod-k8s-cluster-tasks)

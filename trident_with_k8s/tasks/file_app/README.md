@@ -63,10 +63,17 @@ persistentvolume/pvc-ce8d812b-d976-43f9-8320-48a49792c972   5Gi        RWX      
 
 ## B. Access the app
 
-It takes about 40 seconds for the POD to be in a *running* state
-The Ghost service is configured with a NodePort type, which means you can access it from every node of the cluster on port 30080.
-Give it a try !
-=> <http://192.168.0.63:30080>
+It takes about 40 seconds for the POD to be in a *running* state.
+
+The Ghost service is configured with a LoadBalancer type, which means you need to find the **external IP** for your application so that you can connect to it via a web browser in your lab:
+
+```bash
+[root@rhel3 ~]# kubectl get svc -n ghost
+NAME   TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
+blog   LoadBalancer   10.105.11.122   192.168.0.143   80:30080/TCP   3h14m
+```
+
+Grab the external IP from the output and check to see if you can browse to your new ghost application with persistent NFS storage.
 
 ## C. Explore the app container
 
@@ -76,7 +83,7 @@ Let's see if the */var/lib/ghost/content* folder is indeed mounted to the NFS PV
 ```bash
 [root@rhel3 ~]# kubectl exec -n ghost blog-57d7d4886-5bsml -- df /var/lib/ghost/content
 Filesystem           1K-blocks      Used Available Use% Mounted on
-192.168.0.135:/ansible_pvc_ce8d812b_d976_43f9_8320_48a49792c972
+192.168.0.135:/ansible_pvc_ce8d812b_d976_43f9_8320_48a49792c972more mo  
                        5242880       704   5242176   0% /var/lib/ghost/content
 ```
 List out the files found in the ghost/content directory within the PV (don't forget to use your specific blog-XXXXXXXX-XXXX details found in the earlier CLI output):

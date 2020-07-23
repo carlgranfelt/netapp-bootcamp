@@ -104,7 +104,7 @@ namespace "ghostsan" deleted
 ## E. What's next
 
 Now that you have tried working with SAN backends, you can try to resize a PVC:
-- Next task: [Import an existing volume wth Trident](../import)  
+- Next task: [Import an existing volume wth Trident](../pv_import)  
 or jump ahead to...
 - [Resize a iSCSI CSI PVC](../resize_block)   
 

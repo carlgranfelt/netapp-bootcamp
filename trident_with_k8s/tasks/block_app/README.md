@@ -34,6 +34,8 @@ persistentvolumeclaim/blog-content created
 deployment.apps/blog created
 service/blog created
 ```
+Feel free to refresh your Grafan dashboard to see it now shows another volume is managed.
+
 Display all resources for the ghost namespace (your specific pod name of blog-XXXXXXXX-XXXX will be unique to your deployment and will need to be used again later in this task):
 ```bash
 [root@rhel3 ~]# kubectl get all -n ghostsan
@@ -102,7 +104,9 @@ namespace "ghostsan" deleted
 ## E. What's next
 
 Now that you have tried working with SAN backends, you can try to resize a PVC:
-- [Task_13](../Task_13): Resize a iSCSI CSI PVC  
+- Next task: [Import an existing volume wth Trident](../import)  
+or jump ahead to...
+- [Resize a iSCSI CSI PVC](../resize_block)   
 
 ---
 **Page navigation**  

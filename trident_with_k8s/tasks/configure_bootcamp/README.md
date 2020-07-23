@@ -19,7 +19,7 @@ Change directory to the deploy directory:
 cd /root/NetApp-LoD/trident_with_k8s/deploy/
 ```
 
-Change the permissions of the shell script to allow execution:
+Change the permissions of the shell scripts:
 
 ```bash
 chmod 744 *.sh

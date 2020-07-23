@@ -160,8 +160,6 @@ What is interesting to notice is that with newer releases of Kubernetes, new sid
 - Kubernetes 1.16: Volume Expansion (CSI Resizer) was promoted to Beta status (cf <https://kubernetes-csi.github.io/docs/volume-expansion.html>)
 - Kubernetes 1.17: Snapshot & Restore (CSI Snapshotter) was promoted to Beta status (cf <https://kubernetes-csi.github.io/docs/snapshot-restore-feature.html>)
 
-## E. What's next
-
 ---
 **Page navigation**  
 [Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#dev-k8s-cluster-tasks)

@@ -147,7 +147,7 @@ Now, where can you find this dashboard:
 - Click on the 'Manage' button  
 - You then access a list of dashboards. You can either research 'Trident' or find the link be at the bottom of the page  
 
-![Trident Dashboard](Images/trident_dashboard.jpg "Trident Dashboard")
+![Trident Dashboard](/images/trident_dashboard.jpg "Trident Dashboard")
 
 
 ## H. What's next

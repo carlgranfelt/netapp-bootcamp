@@ -4,7 +4,7 @@
 Kubernetes 1.17 promoted [CSI Snapshots to Beta](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/).  
 This is fully supported by Trident 20.01.1.  
 
-![Scenario14](Images/scenario14.jpg "Scenario14")
+![Scenario14](../../../images/scenario14.jpg "Scenario14")
 
 ## A. Prepare the environment
 

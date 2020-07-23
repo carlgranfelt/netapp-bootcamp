@@ -1,7 +1,8 @@
-# SCENARIO 8: Use the import feature of Trident
+# Importing Existing Volumes Using Trident
 
 **GOAL:**  
-Trident allows you to import a volume sitting in a NetApp backend into Kubernetes.  
+Trident allows you to import an existing volume sitting on a NetApp backend into Kubernetes.  This could be useful for applications that are being re-factored which previously had data from an NFS mount into a Virtual Machine and you now want that same data to be accessed by a container in k8s.
+
 We will first copy the volume we used in the [Scenario05](../Scenario05), import it, and create a new Ghost instance  
 
 ![Scenario8](../../../images/scenario8.jpg "Scenario8")

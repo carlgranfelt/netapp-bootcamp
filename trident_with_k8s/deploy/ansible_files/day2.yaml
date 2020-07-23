@@ -60,3 +60,25 @@
         password: "{{ netapp_password }}"
         https: true
         validate_certs: false
+    - name: Create FlexVol
+      na_ontap_volume:
+        state: present
+        name: existing_volume
+        is_infinite: False
+        aggregate_name: aggr2
+        size: 100
+        size_unit: mb
+        space_guarantee: none
+#       tiering_policy: auto
+        policy: default
+#       percent_snapshot_space: 60
+#       qos_policy_group: max_performance_gold
+        vserver: svm1
+        wait_for_completion: True
+#       nvfail_enabled: False
+        comment: ansible created volume for pv import
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false

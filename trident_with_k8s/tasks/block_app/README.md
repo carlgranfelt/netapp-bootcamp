@@ -63,10 +63,17 @@ persistentvolume/pvc-8ff8c1b3-48da-400e-893c-23bc9ec459ff   10Gi       RWO      
 
 ## B. Access the app
 
-It takes about 40 seconds for the POD to be in a *running* state
-The Ghost service is configured with a NodePort type, which means you can access it from every node of the cluster on port 30080.
-Give it a try !
-=> <http://192.168.0.63:30090>
+It takes about 40 seconds for the POD to be in a *running* state.
+
+The Ghost service is configured with a LoadBalancer type, which means you need to find the **external IP** for your application so that you can connect to it via a web browser in your lab:
+
+```bash
+[root@rhel3 ~]# kubectl get svc -n ghost
+NAME   TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
+blog   LoadBalancer   10.105.11.122   192.168.0.144   80:30090/TCP   3h14m
+```
+
+Grab the external IP from the output and check to see if you can browse to your new ghost application with persistent iSCSI storage.
 
 ## C. Explore the app container
 
@@ -104,7 +111,7 @@ namespace "ghostsan" deleted
 ## E. What's next
 
 Now that you have tried working with SAN backends, you can try to resize a PVC:
-- Next task: [Import an existing volume wth Trident](../import)  
+- Next task: [Import an existing volume wth Trident](../pv_import)  
 or jump ahead to...
 - [Resize a iSCSI CSI PVC](../resize_block)   
 

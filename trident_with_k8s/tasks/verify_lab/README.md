@@ -28,8 +28,13 @@ rhel4   Ready    <none>   179m   v1.18.0   192.168.0.64   <none>        Red Hat 
 ```
 
 To verify your k8s cluster is ready for use:  
-`kubectl cluster-info`  
-`kubectl get componentstatus`
+```bash
+[root@rhel3 ~]# kubectl cluster-info
+```
+
+```bash
+[root@rhel3 ~]# kubectl get componentstatus
+```
 
 Your output should be similar to below, Kubernetes master running at <https://192.168.0.63:6443> and all components with a "Healthy" status.  
 
@@ -48,7 +53,9 @@ etcd-0               Healthy   {"health":"true"}
 ```
 
 To list all namespaces:  
-`kubectl get namespaces`
+```bash
+[root@rhel3 ~]# kubectl get namespaces
+```
 
 The default and kubernetes specific kube-* should be listed together with the additionally created namespaces for the kubernetes dashboard, metallb load-balancer, monitoring for Prometheus & Grafana and Trident.  
 
@@ -75,7 +82,7 @@ With Trident 20.04, there are new objects in the picture:
 - Trident Provisioner, which is a Custom Resource, and is the object you will use to interact with the Trident Operator for specific tasks (upgrades, enable/disable Trident options, such as _debug_ mode, uninstall)  
 
 You can visualize the *Operator* as being the *Control Tower*, and the *Provisioner* as being the *Mailbox* in which you post configuration requests.
-Other operations, such as Backend management or viewing logs are currently still managed by Tridentctl.
+Other operations, such as Backend management or viewing logs are currently still managed by Trident's own `Tridentctl`.
 
 :mag:  
 *A* **resource** *is an endpoint in the Kubernetes API that stores a collection of API objects of a certain kind; for example, the built-in pods resource contains a collection of Pod objects.*  
@@ -151,7 +158,7 @@ Events:
   Normal  Installed  3m34s (x117 over 9h)  trident-operator.netapp.io  Trident installed
 ```
 
-You can also confirm if the Trident install completed by taking a look at the pods that have been created. Confirm that the Trident Operator, Provisioner and a CSI driver per node (part of the deamonset) are all up & running:
+You can also confirm if the Trident install completed by taking a look at the pods that have been created. Confirm that the Trident Operator, Provisioner and a CSI driver per node (part of the daemonset) are all up & running:
 
 ```bash
 [root@rhel3 ~]# kubectl get all -n trident
@@ -213,14 +220,14 @@ For additional information, please refer to the official NetApp Trident document
 - <https://netapp-trident.readthedocs.io/en/latest/kubernetes/tridentctl-install.html#create-and-verify-your-first-backend>
 - <https://netapp-trident.readthedocs.io/en/latest/kubernetes/operations/tasks/backends/index.html>
 
-Once you have configured backend, the end user will create Persistent Volume Claims (PVCs) against Storage Classes.  
+Once you have configured a backend, the end user will create Persistent Volume Claims (PVCs) against Storage Classes.  
 A storage class contains the definition of what an app can expect in terms of storage, defined by some properties (access type, media, driver ...)
 
 For additional information, please refer to:
 
 - <https://netapp-trident.readthedocs.io/en/latest/kubernetes/concepts/objects.html#kubernetes-storageclass-objects>
 
-Installing & configuring Trident as well as creating Kubernetes Storage Classes is what is expected to be done upfront by the Admin and as such has already been done in this lab for you.
+Installing & configuring Trident as well as creating Kubernetes Storage Classes is what is expected to be done upfront by the k8s Admin and as such has already been done in this lab for you.
 
 Next let's verify what backends have been pre-created for us.  
 

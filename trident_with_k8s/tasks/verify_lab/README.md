@@ -24,15 +24,12 @@ rhel1   Ready    <none>   316d   v1.18.0   192.168.0.61   <none>        Red Hat 
 rhel2   Ready    <none>   316d   v1.18.0   192.168.0.62   <none>        Red Hat Enterprise Linux Server 7.5 (Maipo)   3.10.0-862.el7.x86_64   docker://18.9.1
 rhel3   Ready    master   316d   v1.18.0   192.168.0.63   <none>        Red Hat Enterprise Linux Server 7.5 (Maipo)   3.10.0-862.el7.x86_64   docker://18.9.1
 rhel4   Ready    <none>   179m   v1.18.0   192.168.0.64   <none>        Red Hat Enterprise Linux Server 7.5 (Maipo)   3.10.0-862.el7.x86_64   docker://18.9.1
-[root@rhel3 ~]#
 ```
 
 To verify your k8s cluster is ready for use:  
-```bash
-[root@rhel3 ~]# kubectl cluster-info
-```
 
 ```bash
+[root@rhel3 ~]# kubectl cluster-info
 [root@rhel3 ~]# kubectl get componentstatus
 ```
 
@@ -49,10 +46,10 @@ NAME                 STATUS    MESSAGE             ERROR
 scheduler            Healthy   ok
 controller-manager   Healthy   ok
 etcd-0               Healthy   {"health":"true"}
-[root@rhel3 ~]#
 ```
 
 To list all namespaces:  
+
 ```bash
 [root@rhel3 ~]# kubectl get namespaces
 ```
@@ -70,7 +67,6 @@ kubernetes-dashboard   Active   3h31m
 metallb-system         Active   3h43m
 monitoring             Active   3h33m
 trident                Active   3h33m
-[root@rhel3 ~]#
 ```
 
 ## B. Trident Operator
@@ -183,7 +179,6 @@ deployment.apps/trident-operator   1/1     1            1           8h
 NAME                                          DESIRED   CURRENT   READY   AGE
 replicaset.apps/trident-csi-788b4d865c        1         1         1       8h
 replicaset.apps/trident-operator-668bf8cdff   1         1         1       8h
-[root@rhel3 ~]#
 ```
 
 You can also use tridentctl to check the version of Trident installed:
@@ -195,7 +190,6 @@ You can also use tridentctl to check the version of Trident installed:
 +----------------+----------------+
 | 20.04.0        | 20.04.0        |
 +----------------+----------------+
-[root@rhel3 ~]#
 ```
 
 Because of the CRD extension of the Kubernetes API we can also use kubectl to interact with Trident and for example check the version of Trident installed:
@@ -204,7 +198,12 @@ Because of the CRD extension of the Kubernetes API we can also use kubectl to in
 [root@rhel3 ~]# kubectl -n trident get tridentversions
 NAME      VERSION
 trident   20.04.0
-[root@rhel3 ~]#
+```
+
+To see what other kubectl commands can be used to interact with Trident, the supported API resources can be viewed in a single easy command:
+
+```bash
+[root@rhel3 ~]# kubectl api-resources --api-group=trident.netapp.io -o wide
 ```
 
 ## C. Backends and StorageClasses
@@ -285,7 +284,6 @@ To get the IP address for the Grafana service:
 [root@rhel3 ~]# kubectl -n monitoring get svc prom-operator-grafana
 NAME                    TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
 prom-operator-grafana   LoadBalancer   10.108.152.56   192.168.0.141   80:30707/TCP   7h21m
-[root@rhel3 ~]#
 ```
 
 You can now access the Grafana GUI from a browser on the jumhost at <http://192.168.0.141> (username `admin` and password `prom-operator`.  It's worth keeping Grafana open as you walk through the tasks in this bootcamp, as it is a good way of tracking the Persistent Volumes you have created.

@@ -39,7 +39,7 @@ echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permane
 
 Below are a number of kubectl commands that might come handy in general, viewing additional resource information or assist in troubleshooting various scenarios:
 
-### get
+### kubectl get
 
 Prints a table of the most important information about the specified resources. You can filter the list using a label selector and the --selector flag. If the desired resource type is namespaced you will only see results in your current namespace unless you pass --all-namespaces (shorthand -A) or specify the namespace using --namespace *specific-namespace* (shorthand -n *specific-namespace*).  
 
@@ -54,7 +54,7 @@ Example:
 [root@rhel3 ~]# kubectl get all
 ```
 
-### describe
+### kubectl describe
 
 Print a detailed description of the selected resources, including related resources such as events or controllers. You may select a single object by name, all objects of that type, provide a name prefix, or label selector.  
 
@@ -69,7 +69,7 @@ Example:
 [root@rhel3 ~]# kubectl describe pods trident-csi-788b4d865c-xdzn7 -n trident
 ```
 
-### logs
+### kubectl logs
 
 Print the logs for a container in a pod or specified resource. If the pod has only one container, the container name is optional.
 
@@ -82,7 +82,7 @@ Example:
 [root@rhel3 ~]# kubectl logs trident-csi-788b4d865c-xdzn7 -c trident-main -n trident
 ```
 
-### events
+### kubectl events
 
 Report of an event somewhere in the cluster.
 
@@ -97,7 +97,7 @@ Example:
 [root@rhel3 ~]# kubectl get events -n trident
 ```
 
-### run
+### kubectl run
 
 Create and run a particular image in a pod.
 
@@ -111,7 +111,7 @@ Example:
 [root@rhel3 ~]# kubectl run -i --tty busybox --image=busybox --restart=Never -- sh
 ```
 
-### exec
+### kubectl exec
 
 Execute a command in a container.
 
@@ -124,7 +124,7 @@ Example:
 [root@rhel3 ~]# kubectl exec -it nginx -- df -h /usr/share/nginx/html
 ```
 
-### attach
+### kubectl attach
 
 Attach to a process that is already running inside an existing container.
 
@@ -164,5 +164,4 @@ What is interesting to notice is that with newer releases of Kubernetes, new sid
 
 ---
 **Page navigation**  
-
 [Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#dev-k8s-cluster-tasks)

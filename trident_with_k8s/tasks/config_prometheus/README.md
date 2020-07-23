@@ -93,7 +93,7 @@ In substance, we will tell in this object to look at services that have the labe
 The Yaml file has been provided and is available in the Scenario2 sub-directory
 
 ```bash
-# kubectl create -f LabNetApp/Kubernetes_v2/Scenarios/Scenario02/Trident_ServiceMonitor.yml
+# kubectl create -f /root/NetApp-LoD/trident_with_k8s/tasks/config_prometheus/Trident_ServiceMonitor.yml
 servicemonitor.monitoring.coreos.com/trident-sm created
 ```
 
@@ -118,4 +118,4 @@ or jump ahead to...
 
 ---
 **Page navigation**  
-[Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#prod-k8s-cluster-tasks)
+[Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#dev-k8s-cluster-tasks)

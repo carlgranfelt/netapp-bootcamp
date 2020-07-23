@@ -57,6 +57,57 @@ You can now access the Grafana GUI from the browser using the port 30001 on RHEL
 
 ## B. Log in Grafana
 
+### Accessing Grafana
+
+---
+
+The first time to enter Grafana, you are requested to login with a username & a password... But how does one find out what they are?  
+Let's find the grafana pod and have a look at the pod definition, maybe there is a hint for us...
+
+```bash
+[root@rhel3 ~]# kubectl get pod -n monitoring -l app.kubernetes.io/name=grafana
+NAME                                     READY   STATUS    RESTARTS   AGE
+prom-operator-grafana-5dd648d5bc-2g6dn   3/3     Running   0          7h40m
+
+[root@rhel3 ~]# kubectl describe pod prom-operator-grafana-5dd648d5bc-2g6dn -n monitoring
+...
+ Environment:
+      GF_SECURITY_ADMIN_USER:      <set to the key 'admin-user' in secret 'prom-operator-grafana'>      Optional: false
+      GF_SECURITY_ADMIN_PASSWORD:  <set to the key 'admin-password' in secret 'prom-operator-grafana'>  Optional: false
+...
+```
+
+Let's see what grafana secrets there are in this cluster:
+
+```bash
+[root@rhel3 ~]# kubectl get secrets -n monitoring -l app.kubernetes.io/name=grafana
+NAME                    TYPE     DATA   AGE
+prom-operator-grafana   Opaque   3      7h50m
+
+[root@rhel3 ~]# kubectl describe secrets -n monitoring prom-operator-grafana
+Name:         prom-operator-grafana
+...
+Data
+====
+admin-user:      5 bytes
+admin-password:  5 bytes
+...
+```
+
+OK, so the data is there, but its encrypted... However, the admin can retrieve this information:
+
+```bash
+[root@rhel3 ~]# kubectl get secret -n monitoring prom-operator-grafana -o jsonpath="{.data.admin-user}" | base64 --decode ; echo
+admin
+[root@rhel3 ~]# kubectl get secret -n monitoring prom-operator-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+prom-operator
+[root@rhel3 ~]#
+```
+
+Now we have the necessary clear text credentials to login to the Grafana UI at <http://192.168.0.141>.
+
+---
+
 The first time to enter Grafana, you are requested to login with a username & a password ...
 But how to find out what they are ??
 

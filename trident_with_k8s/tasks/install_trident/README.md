@@ -157,8 +157,69 @@ trident   20.04.0
 The interesting part of this CRD is that you have access to the current status of Trident. This is also where you are going to interact with Trident's deployment.  
 If you want to know more about the different status, please have a look at the following link:  
 <https://netapp-trident.readthedocs.io/en/stable-v20.04/kubernetes/operator-install.html#observing-the-status-of-the-operator>
-  
-## C. What's next
+
+## C. Add path for tridenctl
+
+By default tridentctl is not in the path:  
+
+```bash
+[root@rhel5 ~]# tridenctl
+-bash: tridenctl: command not found
+```
+
+But we can easily fix that by running the below commands:
+
+```bash
+[root@rhel5 ~]# PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/trident-installer:/root/bin
+[root@rhel5 ~]# export PATH
+[root@rhel5 ~]# cat <<EOF > ~/.bash_profile
+> # .bash_profile
+> # Get the aliases and functions
+> if [ -f ~/.bashrc ]; then
+>         . ~/.bashrc
+> fi
+> # add path for tridentctl
+> PATH=$PATH:/root/trident-installer
+> # User specific environment and startup programs
+> PATH=$PATH:$HOME/bin
+> export PATH
+> export KUBECONFIG=$HOME/.kube/config
+> EOF
+```
+
+And to verify our work:
+
+```bash
+[root@rhel5 ~]# tridentctl
+A CLI tool for managing the NetApp Trident external storage provisioner for Kubernetes
+
+Usage:
+  tridentctl [command]
+
+Available Commands:
+  create      Add a resource to Trident
+  delete      Remove one or more resources from Trident
+  get         Get one or more resources from Trident
+  help        Help about any command
+  import      Import an existing resource to Trident
+  install     Install Trident
+  logs        Print the logs from Trident
+  uninstall   Uninstall Trident
+  update      Modify a resource in Trident
+  upgrade     Upgrade a resource in Trident
+  version     Print the version of Trident
+
+Flags:
+  -d, --debug              Debug output
+  -h, --help               help for tridentctl
+  -n, --namespace string   Namespace of Trident deployment
+  -o, --output string      Output format. One of json|yaml|name|wide|ps (default)
+  -s, --server string      Address/port of Trident REST interface
+
+Use "tridentctl [command] --help" for more information about a command.  
+```
+
+## D. What's next
 
 Now that Trident is installed, you can proceed to:  
 

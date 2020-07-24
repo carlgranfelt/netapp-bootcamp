@@ -1,20 +1,18 @@
-#########################################################################################
-# SCENARIO 6: Create your first SAN backends 
-#########################################################################################
+# Create your first SAN backends
 
-**GOAL:**   
+**GOAL:**  
 You understood how to create backends and what they are for.  
 You probably also created a few ones with NFS drivers.  
 It is now time to add more backends that can be used for block storage.  
 
-:boom: **In order to go through this scenario, you first need to configure iSCSI on the ONTAP backend.** :boom:  
-If not done so, please refer to the [Addenda5](../../tasks/ontap_block).  
+The ONTAP environment in the Lab on Demand has already been setup for block storage. You can choose to use the SVM you are already using, or create your own. In the latter scenario, please refer to  task [Prepare ONTAP for block storage on dev cluster](../../tasks/ontap_block).  
 
 ![Scenario6](../../../images/scenario6.jpg "Scenario6")
 
 ## A. Create your first SAN backends
 
 You will find in this directory a few backends files:
+
 - backend-san-default.json        ONTAP-SAN
 - backend-san-eco-default.json    ONTAP-SAN-ECONOMY  
 
@@ -26,27 +24,25 @@ Specifying an IP address for the **dataLIF** for the ontap-san* drivers forces t
 
 If you take a closer look to both json files, you will see that the parameter dataLIF has not been set, therefore enabling multipathing.  
 
-```
+```bash
 # tridentctl -n trident create backend -f backend-san-default.json
-+-------------+----------------+--------------------------------------+--------+---------+
-|    NAME     | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
-+-------------+----------------+--------------------------------------+--------+---------+
-| SAN-default | ontap-san      | ad04f63c-592d-49ae-bfde-21a11db06976 | online |       0 |
-+-------------+----------------+--------------------------------------+--------+---------+
++---------------------+-------------------+--------------------------------------+--------+---------+
+|        NAME         |  STORAGE DRIVER   |                 UUID                 | STATE  | VOLUMES |
++---------------------+-------------------+--------------------------------------+--------+---------+
+| ontap-block-rwo     | ontap-san         | 6ca0fb82-7c42-4319-a039-6d15fbdf0f3d | online |       0 |
++---------------------+-------------------+--------------------------------------+--------+---------+
 
 # tridentctl -n trident create backend -f backend-san-eco-default.json
-+-----------------+-------------------+--------------------------------------+--------+---------+
-|      NAME       |  STORAGE DRIVER   |                 UUID                 | STATE  | VOLUMES |
-+-----------------+-------------------+--------------------------------------+--------+---------+
-| SAN_ECO-default | ontap-san-economy | 530f18b1-680b-420f-ad6b-94c96fea84b9 | online |       0 |
-+-----------------+-------------------+--------------------------------------+--------+---------+
++---------------------+-------------------+--------------------------------------+--------+---------+
+|        NAME         |  STORAGE DRIVER   |                 UUID                 | STATE  | VOLUMES |
++---------------------+-------------------+--------------------------------------+--------+---------+
+| ontap-block-rwo-eco | ontap-san         | db6293a4-476e-479b-90e4-ab78372dfd04 | online |       0 |
++---------------------+-------------------+--------------------------------------+--------+---------+
 
 # kubectl get -n trident tridentbackends
 NAME        BACKEND               BACKEND UUID
-...
-tbe-7nl8v   SAN_ECO-default       530f18b1-680b-420f-ad6b-94c96fea84b9
-tbe-wgs99   SAN-default           ad04f63c-592d-49ae-bfde-21a11db06976
-...
+tbe-cgx2q   ontap-block-rwo-eco   db6293a4-476e-479b-90e4-ab78372dfd04
+tbe-dljs6   ontap-block-rwo       6ca0fb82-7c42-4319-a039-6d15fbdf0f3d
 ```
 
 ## B. Create storage classes pointing to each new backend
@@ -54,7 +50,7 @@ tbe-wgs99   SAN-default           ad04f63c-592d-49ae-bfde-21a11db06976
 You will also find in this directory a few storage class files.
 You can decide to use all of them, only a subset of them or modify them as you wish
 
-```
+```bash
 # kubectl create -f sc-csi-ontap-san.yaml
 storageclass.storage.k8s.io/sc-block-rwo created
 
@@ -62,13 +58,16 @@ storageclass.storage.k8s.io/sc-block-rwo created
 storageclass.storage.k8s.io/sc-block-rwo-eco created
 ```
 
-If you have configured Grafana, you can go back to your dashboard, to check what is happening (cf http://192.168.0.63:30001).
+If you have configured Grafana, you can go back to your dashboard, to see what is happening (<http://192.168.0.63:30001>).
 
 ## C. What's next
 
 Now, you have some SAN Backends & some storage classes configured. You can proceed to the creation of a stateful application:  
-- [Scenario07](../Scenario07): Deploy your first app with Block storage  
+
+- [Next task](../block_app): Deploy your first app with Block storage  
+or proceed with...
+- [Task 5](../default_sc): Specify a default storage class
 
 ---
 **Page navigation**  
-[Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#prod-k8s-cluster-tasks)
+[Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#dev-k8s-cluster-tasks)

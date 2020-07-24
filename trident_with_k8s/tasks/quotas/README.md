@@ -7,6 +7,13 @@ However, this freedom could quickly fill up the storage backends, especially if 
 
 It is therefore good practice to put some controls in place to make sure the storage is well managed and you are going to review a few different methods to control the storage consumption in this task.
 
+Ensure you are in the correct working diecrtory by issuing the following command on your rhel3 putty terminal in the lab:
+
+```bash
+[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/quotas/
+```
+Feel free to look inside the provided .yaml files in this task so that you can get a good idea of what each one is doing.
+
 ## A. Kubernetes Resource Quotas
 
 In order to restrict the tests to a small environment & not affect other projects, we will create a specific namespace called `quota`  
@@ -124,7 +131,7 @@ Error from server (Forbidden): error when creating "pvc-5Gi-2.yaml": persistentv
 Before starting the second part of this scenarion, let's clean up:
 
 ```bash 
-[root@rhel3 ~]# kubeclt delete pvc -n quota 5gb-1
+[root@rhel3 ~]# kubectl delete pvc -n quota 5gb-1
 persistentvolumeclaim "5gb-1" deleted
 [root@rhel3 ~]# kubectl delete resourcequota -n quota --all
 resourcequota "pvc-count-limit" deleted
@@ -195,7 +202,7 @@ Events:
 
 The error is now identified... 
 
-You can decide to review the size of the PVC, or you can next ask the admin to update the Backend definition in order to go on.
+You would then need to decide to review the size of the PVC, or you could ask the admin to update the backend definition in order to go on.
 
 Let's clean up before moving to the last chapter of this task.
 
@@ -221,16 +228,18 @@ This can be achieved by setting a parameter on this SVM.
 ![Scenario09_4](../../../images/scenario09_4.JPG "Scenario09_4")
 
 Before setting a limit in the SVM _svm1_, you first need to look for the current number of volumes you have.
-You can either login to System Manager & count, or run the following (password Netapp1!)
+You can either login to System Manager via the Chrome browser & count, or run the following command (password Netapp1!)
 
 ```bash
 [root@rhel3 ~]# ssh -l admin 192.168.0.101 vol show -vserver svm1 | grep svm1 | wc -l
+Password:
+8
 ```
 
-In my case, in have 10 volumes, I will then set the maximum to 12 for this exercise.
+In my case, in have 8 volumes, I will then set the maximum to 10 for this exercise.
 
 ```bash
-[root@rhel3 ~]# ssh -l admin 192.168.0.101 vserver modify -vserver svm1 -max-volumes 12
+[root@rhel3 ~]# ssh -l admin 192.168.0.101 vserver modify -vserver svm1 -max-volumes 10
 ```
 We will then try to create a few new PVC.
 
@@ -252,7 +261,7 @@ quotasc-3   Pending                                                             
 The PVC will remain in the `Pending` state. You need to look either in the PVC logs or Trident's
 
 ```bash
-#kubectl describe pvc quotasc-3
+[root@rhel3 ~]# kubectl describe pvc quotasc-3
 ...
  Warning  ProvisioningFailed    15s                
  API status: failed, Reason: Cannot create volume. Reason: Maximum volume count for Vserver svm1 reached.  Maximum volume count is 12. , Code: 13001

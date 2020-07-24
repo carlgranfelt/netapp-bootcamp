@@ -26,7 +26,7 @@ You will be using Vim to edit configuration files as part of this bootcamp.  If 
 [2.](trident_with_k8s/tasks/file_app) Deploy your first application with File storage  
 [3.](trident_with_k8s/tasks/block_app) Deploy your first application with Block storage  
 [4.](trident_with_k8s/tasks/pv_import) Use the 'import' feature of Trident  
-[5.](trident_with_k8s/tasks/quotas) Consumption control  
+[5.](trident_with_k8s/tasks/quotas) Consumption control with quotas  
 [6.](trident_with_k8s/tasks/file_resize) Resize a NFS CSI PVC  
 [7.](trident_with_k8s/tasks/storage_pools) Using Virtual Storage Pools  
 [8.](trident_with_k8s/tasks/statefulsets) StatefulSets & Storage consumption  

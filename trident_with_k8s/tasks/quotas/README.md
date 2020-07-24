@@ -282,7 +282,7 @@ persistentvolumeclaim "quotasc-3" deleted
 
 You can now move on to:  
 
-- [Resize a NFS PVC](../resize_file):  
+- [Resize an NFS PVC](../resize_file)  
 or jump ahead to...  
 - [Using Virtual Storage Pools](../storage_pools): Using Virtual Storage Pools  
 - [StatefulSets & Storage consumption](../statefulsets): StatefulSets & Storage consumption  

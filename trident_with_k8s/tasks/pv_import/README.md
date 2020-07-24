@@ -12,25 +12,27 @@ We will first copy the volume we used in the [Scenario05](../Scenario05), import
 The full name of the volume is available in the PV metadata.  
 You can retrieve it if with the 'kubectl describe' command, or use the following (note how to use the jsonpath feature!)
 
-```
+```bash
 # kubectl get pv $( kubectl get pvc blog-content -n ghostnas -o=jsonpath='{.spec.volumeName}') -o=jsonpath='{.spec.csi.volumeAttributes.internalName}{"\n"}'
 nas1_pvc_e24c99b7_b4e7_4de1_b952_a8d451e7e735
 ```
 
 Now that you know the full name of the volume, you can copy it. This copy will be done in 2 stages (clone & split)
 Open Putty, connect to "cluster1" and finally enter all the following:
-```
+
+```bash
 # vol clone create -flexclone to_import -vserver svm1 -parent-volume nas1_pvc_e24c99b7_b4e7_4de1_b952_a8d451e7e735
 # vol clone split start -flexclone to_import
 ```
-In this example, the new volume's name is 'to_import'
 
+In this example, the new volume's name is 'to_import'
 
 ## B. Import the volume
 
 In the 'Ghost' directory, you will see some yaml files to build a new 'Ghost' app.
 Open the PVC definition file, & notice the difference with the one used in the scenario5.
-```
+
+```bash
 # tridentctl -n trident import volume NAS_Vol-default to_import -f Ghost/1_pvc.yaml
 +------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
 |                   NAME                   |  SIZE   |   STORAGE CLASS   | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
@@ -45,13 +47,15 @@ blog-content-import   Bound    pvc-ac9ba4b2-7dce-4241-8c8e-a4ced9cf7dcf   5Gi   
 ```
 
 Notice that the volume full name on the storage backend has changed to respect the CSI specifications:
-```
+
+```bash
 # kubectl get pv $( kubectl get pvc blog-content-import -n ghostnas -o=jsonpath='{.spec.volumeName}') -o=jsonpath='{.spec.csi.volumeAttributes.internalName}{"\n"}'
 nas1_pvc_ac9ba4b2_7dce_4241_8c8e_a4ced9cf7dcf
 ```
 
 Even though the name of the original PV has changed, you can still see it if you look into its annotations.
-```
+
+```bash
 # kubectl describe pvc blog-content-import -n ghostnas | grep importOriginalName
                trident.netapp.io/importOriginalName: to_import
 ```
@@ -59,7 +63,8 @@ Even though the name of the original PV has changed, you can still see it if you
 ## C. Create a new Ghost app
 
 You can now create the deployment & expose it on a new port
-```
+
+```bash
 # kubectl create -n ghostnas -f Ghost/2_deploy.yaml
 deployment.apps/blogimport created
 # kubectl create -n ghostnas -f Ghost/3_service.yaml
@@ -87,15 +92,15 @@ replicaset.apps/blogimport-66945d9   1         1         1       24m
 
 The Ghost service is configured with a NodePort type, which means you can access it from every node of the cluster on port 30082.
 Give it a try !  
-=> http://192.168.0.63:30082  
+=> <http://192.168.0.63:30082>  
 
-If you have configured Grafana, you can go back to your dashboard, to check what is happening (cf http://192.168.0.63:30001).  
+If you have configured Grafana, you can go back to your dashboard, to check what is happening (<http://192.168.0.63:30001>).  
 
 ## E. Cleanup
 
 Instead of deleting each object one by one, you can directly delete the namespace which will then remove all of its objects.
 
-```
+```bash
 # kubectl delete ns ghostnas
 namespace "ghostnas" deleted
 ```

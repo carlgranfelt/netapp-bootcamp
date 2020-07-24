@@ -114,7 +114,7 @@ Now that Trident is connected to Prometheus, you can move to:
 
 - [Next task](../config_grafana):  Configure Grafana & add your first graphs  
 or jump ahead to...
-- [Task 8](../config_file): Configure your first NAS backends & storage classes
+- [Task 4](../config_file): Configure your first NAS backends & storage classes
 
 ---
 **Page navigation**  

@@ -276,6 +276,7 @@ Time to clean up
 persistentvolumeclaim "quotasc-1" deleted
 persistentvolumeclaim "quotasc-2" deleted
 persistentvolumeclaim "quotasc-3" deleted
+[root@rhel3 ~]# ssh -l admin 192.168.0.101 vserver modify -vserver svm1 -max-volumes 100
 ```
 
 ## D. What's next

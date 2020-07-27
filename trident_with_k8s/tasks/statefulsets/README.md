@@ -59,10 +59,11 @@ service/mysql-read created
 statefulset.apps/mysql created
 ```
 
-It will take a few minutes for all the replicas to be created, it is suggested to use the _watch_ flag to monitor the deployments progress.  Use command-C to drop out of the watch and back to the prompt:
+It will take a few minutes for all the replicas to be created, it is suggested to use the _watch_ flag to monitor the deployments progress.  Use control-C to drop out of the watch and back to the prompt:
 
 ```bash
-[root@rhel3 ~]# kubectl -n mysql get pod --watch
+[root@rhel3 ~]# watch -n1 kubectl -n mysql get pod -o wide
+
 mysql-0   1/2     Running   0          43s   10.36.0.1   rhel1   <none>           <none>
 mysql-0   2/2     Running   0          52s   10.36.0.1   rhel1   <none>           <none>
 mysql-1   0/2     Pending   0          0s    <none>      <none>   <none>           <none>
@@ -75,27 +76,24 @@ mysql-1   0/2     PodInitializing   0          40s   10.44.0.1   rhel2    <none>
 ...
 ```
 
-Once you see that the third POD is up & running, you are good to go:
+Once you see that the second POD is up & running, you are good to go:
 
 ```bash
 [root@rhel3 ~]# kubectl -n mysql get pod -o wide
 NAME      READY   STATUS    RESTARTS   AGE   IP          NODE    NOMINATED NODE   READINESS GATES
 mysql-0   2/2     Running   0          24h   10.36.0.1   rhel1   <none>           <none>
 mysql-1   2/2     Running   1          24h   10.44.0.1   rhel2   <none>           <none>
-mysql-2   2/2     Running   1          24h   10.39.0.2   rhel4   <none>           <none>
 ```
 
-Now, check the storage. You can see that 3 PVCs were created, one per POD.
+Now, check the storage. You can see that 2 PVCs were created, one per POD.
 
 ```bash
 [root@rhel3 ~]# kubectl get -n mysql pvc,pv
 NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
 persistentvolumeclaim/data-mysql-0   Bound    pvc-f348ec0a-f304-49d8-bbaf-5a85685a6194   10Gi       RWO            sc-file-rwx         5m
 persistentvolumeclaim/data-mysql-1   Bound    pvc-ce114401-5789-454a-ba1c-eb5453fbe026   10Gi       RWO            sc-file-rwx         5m
-persistentvolumeclaim/data-mysql-2   Bound    pvc-99f98294-85f6-4a69-8f50-eb454ed00868   10Gi       RWO            sc-file-rwx         4m
 
 NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                STORAGECLASS        REASON   AGE
-persistentvolume/pvc-99f98294-85f6-4a69-8f50-eb454ed00868   10Gi       RWO            Delete           Bound    mysql/data-mysql-2   sc-file-rwx                  4m
 persistentvolume/pvc-ce114401-5789-454a-ba1c-eb5453fbe026   10Gi       RWO            Delete           Bound    mysql/data-mysql-1   sc-file-rwx                  5m
 persistentvolume/pvc-f348ec0a-f304-49d8-bbaf-5a85685a6194   10Gi       RWO            Delete           Bound    mysql/data-mysql-0   sc-file-rwx                  5m
 ```
@@ -145,7 +143,7 @@ First, open a new Putty window & connect to RHEL3. You can then run the followin
 +-------------+---------------------+
 | @@server_id | NOW()               |
 +-------------+---------------------+
-|         102 | 2020-04-07 10:22:33 |
+|         101 | 2020-04-07 10:22:33 |
 +-------------+---------------------+
 ```
 
@@ -157,20 +155,19 @@ Keep this window open for now...
 Scaling an application with Kubernetes is pretty straightforward & can be achieved with the following command:
 
 ```bash
-[root@rhel3 ~]# kubectl scale statefulset mysql -n mysql --replicas=4
+[root@rhel3 ~]# kubectl scale statefulset mysql -n mysql --replicas=3
 statefulset.apps/mysql scaled
 ```
 
-You can use the `kubectl get pod` with the `--watch` parameter again to see the new POD starting.  
+You can use the `kubectl -n mysql get pod -o wide ` with the `watch` parameter again to see the new POD starting.  
 When done, you should have something similar to this:
 
 ```bash
-[root@rhel3 ~]# kubectl get pod -n mysql
+[root@rhel3 ~]# watch -n1 kubectl -n mysql get pod -o wide 
 NAME      READY   STATUS    RESTARTS   AGE
 mysql-0   2/2     Running   0          12m
 mysql-1   2/2     Running   0          12m
-mysql-2   2/2     Running   0          11m
-mysql-3   2/2     Running   1          3m13s
+mysql-2   2/2     Running   0          3m13s
 ```
 
 Notice the last POD is _younger_ that the other ones...  
@@ -182,33 +179,31 @@ Again, check the storage. You can see that a new PVC was automatically created.
 NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
 persistentvolumeclaim/data-mysql-0   Bound    pvc-f348ec0a-f304-49d8-bbaf-5a85685a6194   10Gi       RWO            sc-file-rwx         15m
 persistentvolumeclaim/data-mysql-1   Bound    pvc-ce114401-5789-454a-ba1c-eb5453fbe026   10Gi       RWO            sc-file-rwx         15m
-persistentvolumeclaim/data-mysql-2   Bound    pvc-99f98294-85f6-4a69-8f50-eb454ed00868   10Gi       RWO            sc-file-rwx         14m
-persistentvolumeclaim/data-mysql-3   Bound    pvc-8758aaaa-33ab-4b6c-ba42-874ce6028a49   10Gi       RWO            sc-file-rwx         6m18s
+persistentvolumeclaim/data-mysql-2   Bound    pvc-8758aaaa-33ab-4b6c-ba42-874ce6028a49   10Gi       RWO            sc-file-rwx         6m18s
 
 NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                STORAGECLASS        REASON   AGE
-persistentvolume/pvc-8758aaaa-33ab-4b6c-ba42-874ce6028a49   10Gi       RWO            Delete           Bound    mysql/data-mysql-3   sc-file-rwx                  6m17s
-persistentvolume/pvc-99f98294-85f6-4a69-8f50-eb454ed00868   10Gi       RWO            Delete           Bound    mysql/data-mysql-2   sc-file-rwx                  14m
+persistentvolume/pvc-8758aaaa-33ab-4b6c-ba42-874ce6028a49   10Gi       RWO            Delete           Bound    mysql/data-mysql-2   sc-file-rwx                  6m17s
 persistentvolume/pvc-ce114401-5789-454a-ba1c-eb5453fbe026   10Gi       RWO            Delete           Bound    mysql/data-mysql-1   sc-file-rwx                  15m
 persistentvolume/pvc-f348ec0a-f304-49d8-bbaf-5a85685a6194   10Gi       RWO            Delete           Bound    mysql/data-mysql-0   sc-file-rwx                  15m
 ```
 
-Also, if the second window is still open, you should start seeing new `id` ('103' anyone?):
+Also, if the second window is still open, you should start seeing new `id` ('102' anyone?):
 
 ```bash
 +-------------+---------------------+
 | @@server_id | NOW()               |
 +-------------+---------------------+
-|         102 | 2020-04-07 10:25:51 |
+|         101 | 2020-04-07 10:25:51 |
 +-------------+---------------------+
 +-------------+---------------------+
 | @@server_id | NOW()               |
 +-------------+---------------------+
-|         103 | 2020-04-07 10:25:53 |
+|         102 | 2020-04-07 10:25:53 |
 +-------------+---------------------+
 +-------------+---------------------+
 | @@server_id | NOW()               |
 +-------------+---------------------+
-|         101 | 2020-04-07 10:25:54 |
+|         100 | 2020-04-07 10:25:54 |
 +-------------+---------------------+
 ```
 

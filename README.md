@@ -14,7 +14,7 @@ This bootcamp requires the [NetApp Lab-on-Demand](https://labondemand.netapp.com
 
 To familiarise yourself with the environment and check that everything is ready for you to begin, please follow the instructions in [Task 1](trident_with_k8s/tasks/verify_lab).  Once you are happy with your lab, you can choose to jump into any of the tasks listed below.  They do not need to be followed in any particular order, but if persistent storage is a new concept for you within k8s, it is recomended to follow them one-by-one.  If you do jump ahead, any pre-requisite tasks will be called out for you.
 
-### Vim 101 commands
+### k8s and Vim Commands
 
 You will be using Vim to edit configuration files as part of this bootcamp.  If you are unfamiliar with Vim, a [basic set of instructions](trident_with_k8s/tasks/vim) has been created for you to keep open in a separate browser tab for reference
 

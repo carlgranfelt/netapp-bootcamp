@@ -18,6 +18,8 @@ To familiarise yourself with the environment and check that everything is ready 
 
 You will be using Vim to edit configuration files as part of this bootcamp.  If you are unfamiliar with Vim, a [basic set of instructions](trident_with_k8s/tasks/vim) has been created for you to keep open in a separate browser tab for reference
 
+There is also a set of [useful k8s commands](trident_with_k8s/tasks/useful_commands) available in case you need them during the bootcamp.  Again, it may be worthwhile having these open in a separate browser tab for easy reference.
+
 ---------
 
 ### Prod k8s Cluster Tasks
@@ -40,7 +42,6 @@ You will be using Vim to edit configuration files as part of this bootcamp.  If 
 
 If you would like to carry out some of the tasks performed for you by the configure_bootcamp.sh script, below are the commands required.  These can be useful if you wish to become familar with tasks such as installing Trident or defining storage classes
 
-[0.](trident_with_k8s/tasks/useful_commands) Useful commands  
 [1.](trident_with_k8s/tasks/install_trident) Install/Upgrade Trident with an Operator  
 [2.](trident_with_k8s/tasks/config_prometheus) Install Prometheus & incorporate Trident's metrics  
 [3.](trident_with_k8s/tasks/config_grafana) Configure Grafana & add your first graphs  

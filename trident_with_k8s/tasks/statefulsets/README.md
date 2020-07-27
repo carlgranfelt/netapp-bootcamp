@@ -18,9 +18,9 @@ A StatefulSet will also allow the stateful application to order the start-up and
 
 For more information please see StatefulSets official documentation: <https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/>
 
-***StatefulSets work differently to Deployments or DaemonSets when it comes to storage. *** 
+***StatefulSets work differently to Deployments or DaemonSets when it comes to storage.*** 
 
-***Deployments & DaemonSets use PVCs defined outside of them, whereas StatefulSets include the storage in their definition (_volumeClaimTemplates_).  ***
+***Deployments & DaemonSets use PVCs defined outside of them, whereas StatefulSets include the storage in their definition (_volumeClaimTemplates_).***
   
 ***Said differently, you can see a StatefulSet as a couple (POD + Storage). When it is scaled, both objects will be automatically created.***
 

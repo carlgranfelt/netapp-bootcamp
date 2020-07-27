@@ -221,7 +221,7 @@ namespace "mysql" deleted
 You can now move on to:  
 
 - [Resize a iSCSI CSI PVC](../resize_block):   
-or jumper ahead to...  
+or jump ahead to...  
 - [On-Demand Snapshots & PVC clones](../snpashots_clones):   
 - [Dynamic export policy management ](../dynamic_exports):  
 

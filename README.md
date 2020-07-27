@@ -40,7 +40,7 @@ There is also a set of [useful k8s commands](trident_with_k8s/tasks/useful_comma
 
 ### Dev k8s Cluster Tasks
 
-If you would like to carry out some of the tasks performed for you by the configure_bootcamp.sh script, below are the commands required.  These can be useful if you wish to become familar with tasks such as installing Trident or defining storage classes
+If you would like to carry out some of the tasks performed for you by the configure_bootcamp.sh script, below are the commands required.  These can be useful if you wish to become familar with tasks such as installing Trident or defining storage classes and should be run against the dev cluster via host **rhel5**:
 
 [1.](trident_with_k8s/tasks/install_trident) Install/Upgrade Trident with an Operator  
 [2.](trident_with_k8s/tasks/config_prometheus) Install Prometheus & incorporate Trident's metrics  

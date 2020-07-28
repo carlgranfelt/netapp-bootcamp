@@ -162,4 +162,4 @@ What is interesting to notice is that with newer releases of Kubernetes, new sid
 
 ---
 **Page navigation**  
-[Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#dev-k8s-cluster-tasks)
+[Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#prod-k8s-cluster-tasks)

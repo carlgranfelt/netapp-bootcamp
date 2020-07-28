@@ -158,13 +158,13 @@ The interesting part of this CRD is that you have access to the current status o
 If you want to know more about the different status, please have a look at the following link:  
 <https://netapp-trident.readthedocs.io/en/stable-v20.04/kubernetes/operator-install.html#observing-the-status-of-the-operator>
 
-## C. Add path for tridenctl
+## C. Add path for tridentctl
 
 By default tridentctl is not in the path:  
 
 ```bash
-[root@rhel5 ~]# tridenctl
--bash: tridenctl: command not found
+[root@rhel5 ~]# tridentctl
+-bash: tridentctl: command not found
 ```
 
 But we can easily fix that by running the below commands:

@@ -14,7 +14,7 @@ This bootcamp requires the [NetApp Lab-on-Demand](https://labondemand.netapp.com
 
 To familiarise yourself with the environment and check that everything is ready for you to begin, please follow the instructions in [Task 1](trident_with_k8s/tasks/verify_lab).  Once you are happy with your lab, you can choose to jump into any of the tasks listed below.  They do not need to be followed in any particular order, but if persistent storage is a new concept for you within k8s, it is recomended to follow them one-by-one.  If you do jump ahead, any pre-requisite tasks will be called out for you.
 
-### k8s and Vim Commands
+### K8s and Vim Commands
 
 You will be using Vim to edit configuration files as part of this bootcamp.  If you are unfamiliar with Vim, a [basic set of instructions](trident_with_k8s/tasks/vim) has been created for you to keep open in a separate browser tab for reference
 
@@ -32,16 +32,16 @@ Do this first:
 
 then:
 
-* [Deploy your first application with File storage](trident_with_k8s/tasks/file_app)   
-* [Deploy your first application with Block storage](trident_with_k8s/tasks/block_app)   
-* [Use the 'import' feature of Trident](trident_with_k8s/tasks/pv_import)   
-* [Consumption control with quotas](trident_with_k8s/tasks/quotas)   
-* [Resize an NFS PVC](trident_with_k8s/tasks/resize_file)   
-* [Using Virtual Storage Pools](trident_with_k8s/tasks/storage_pools)   
-* [StatefulSets & Storage consumption](trident_with_k8s/tasks/statefulsets)   
-* [Resize an iSCSI PVC](trident_with_k8s/tasks/resize_block)   
+* [Deploy your first application with File storage](trident_with_k8s/tasks/file_app)  
+* [Deploy your first application with Block storage](trident_with_k8s/tasks/block_app)  
+* [Use the 'import' feature of Trident](trident_with_k8s/tasks/pv_import)  
+* [Consumption control with quotas](trident_with_k8s/tasks/quotas)  
+* [Resize an NFS PVC](trident_with_k8s/tasks/resize_file)  
+* [Using Virtual Storage Pools](trident_with_k8s/tasks/storage_pools)  
+* [StatefulSets & Storage consumption](trident_with_k8s/tasks/statefulsets)  
+* [Resize an iSCSI PVC](trident_with_k8s/tasks/resize_block)  
 * [On-Demand Snapshots & Cloning PVCs from Snapshots](trident_with_k8s/tasks/snapshots_clones)  
-* [Dynamic export policy management](trident_with_k8s/tasks/dynamic_exports)   
+* [Dynamic export policy management](trident_with_k8s/tasks/dynamic_exports)  
 
 ---------
 
@@ -49,13 +49,13 @@ then:
 
 If you would like to carry out some of the tasks performed for you by the configure_bootcamp.sh script, below are the commands required.  These can be useful if you wish to become familar with tasks such as installing Trident or defining storage classes and should be run against the dev cluster via host **rhel5**:
 
-* [Install/Upgrade Trident with an Operator](trident_with_k8s/tasks/install_trident)   
-* [Install Prometheus & incorporate Trident's metrics](trident_with_k8s/tasks/config_prometheus)   
+* [Install/Upgrade Trident with an Operator](trident_with_k8s/tasks/install_trident)  
+* [Install Prometheus & incorporate Trident's metrics](trident_with_k8s/tasks/config_prometheus)  
 * [Configure Grafana & add your first graphs ](trident_with_k8s/tasks/config_grafana)  
-* [Configure your first NAS backends & storage classes](trident_with_k8s/tasks/config_file)   
-* [Configure your first iSCSI backends & storage classes](trident_with_k8s/tasks/config_block)   
-* [Specify a default storage class](trident_with_k8s/tasks/default_sc)   
-* [Prepare ONTAP for block storage on dev cluster](trident_with_k8s/tasks/ontap_block)   
+* [Configure your first NAS backends & storage classes](trident_with_k8s/tasks/config_file)  
+* [Configure your first iSCSI backends & storage classes](trident_with_k8s/tasks/config_block)  
+* [Specify a default storage class](trident_with_k8s/tasks/default_sc)  
+* [Prepare ONTAP for block storage on dev cluster](trident_with_k8s/tasks/ontap_block)  
 
 ---------
 **Page navigation**  

@@ -2,9 +2,7 @@
 
 **GOAL:**  
 Trident supports the resizing of File (NFS) & Block (iSCSI) PVCs, depending on the Kubernetes version.  
-
 NFS Resizing was introduced in k8s 1.11, while iSCSI resizing was introduced in k8s 1.16.  
-
 Resizing a PVC is made available through the option *allowVolumeExpansion* set in the StorageClass.
 
 ![Scenario13](../../../images/scenario13.jpg "Scenario13")
@@ -117,7 +115,7 @@ This could also have been achieved by using the `kubectl patch` command. Try the
 [root@rhel3 ~]# kubectl patch -n resize pvc pvc-to-resize -p '{"spec":{"resources":{"requests":{"storage":"20Gi"}}}}'
 ```
 
-## C. Cleanup the environment
+## D. Cleanup the environment
 
 ```bash
 [root@rhel3 ~]# kubectl delete namespace resize
@@ -127,13 +125,15 @@ namespace "resize" deleted
 storageclass.storage.k8s.io "sc-san-resize" deleted
 ```
 
-## D. What's next
+## E. What's next
 
 You can now move on to the next task:  
-- [On-Demand Snapshots & Cloning PVCs from Snapshots](../snapshots_clones)   
+
+- [On-Demand Snapshots & Cloning PVCs from Snapshots](../snapshots_clones)  
 
 or jump ahead to...
-- [Dynamic export policy management](../dynamic_exports)   
+
+- [Dynamic export policy management](../dynamic_exports)  
 
 ---
 **Page navigation**  

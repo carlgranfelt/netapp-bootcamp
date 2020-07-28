@@ -43,7 +43,7 @@ rhel6   Ready    <none>   2d7h   v1.18.0
 The Custom Resource Definition (CRD) object was promoted to GA with Kubernetes 1.16. Provided with the Trident installer bundle is a CRD manifest used to create the TridentProvisioner Custom Resource Definition. You will then create a TridentProvisioner Custom Resource later on to instantiate a Trident install by the operator.
 
 ```bash
-[root@rhel5 trident-installer]# kubectl create -f trident-installer/deploy/crds/trident.netapp.io_tridentprovisioners_crd_post1.16.yaml
+[root@rhel5 trident-installer]# kubectl create -f deploy/crds/trident.netapp.io_tridentprovisioners_crd_post1.16.yaml
 customresourcedefinition.apiextensions.k8s.io/tridentprovisioners.trident.netapp.io created
 ```
 
@@ -70,7 +70,7 @@ The Trident Installer contains manifests for defining these resources.
 [root@rhel5 trident-installer]# kubectl create namespace trident
 namespace/trident created
 
-[root@rhel5 trident-installer]# kubectl create -f trident-installer/deploy/bundle.yaml
+[root@rhel5 trident-installer]# kubectl create -f deploy/bundle.yaml
 serviceaccount/trident-operator created
 clusterrole.rbac.authorization.k8s.io/trident-operator created
 clusterrolebinding.rbac.authorization.k8s.io/trident-operator created
@@ -98,7 +98,7 @@ The operator deployment successfully creates a pod running on one of the worker 
 You are now ready to install Trident using the operator! This will require creating a TridentProvisioner CR. The Trident installer comes with example defintions for creating a TridentProvisioner CR.
 
 ```bash
-[root@rhel5 trident-installer]# kubectl create -f trident-installer/deploy/crds/tridentprovisioner_cr.yaml
+[root@rhel5 trident-installer]# kubectl create -f deploy/crds/tridentprovisioner_cr.yaml
 tridentprovisioner.trident.netapp.io/trident created
 
 [root@rhel5 trident-installer]# kubectl get tprov -n trident
@@ -126,7 +126,7 @@ Events:
   Normal  Installed   12s (x3 over 49s)  trident-operator.netapp.io  Trident installed
 ```
 
-After a few seconds, you should the status _installed_ in the provisioner CRD.
+After a few seconds, you should the status `installed` in the provisioner CRD.
 
 You can also confirm if the Trident install completed by taking a look at the pods that have been created:
 

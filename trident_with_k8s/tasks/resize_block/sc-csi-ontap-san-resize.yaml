@@ -4,5 +4,5 @@ metadata:
   name: sc-san-resize
 provisioner: csi.trident.netapp.io
 parameters:
-  backendType: "ontap-block-rwo"
+  backendType: "ontap-san"
 allowVolumeExpansion: true

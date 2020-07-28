@@ -34,8 +34,15 @@ First, you need to create a Storage Class that has volume resizing enabled:
 storageclass.storage.k8s.io/sc-san-resize created
 
 [root@rhel3 ~]# tridentctl -n trident get storageclasses
-NAME            PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
-sc-san-resize   csi.trident.netapp.io   Delete          Immediate           true                   3h3m
++------------------+
+|       NAME       |
++------------------+
+| sc-block-rwo     |
+| sc-block-rwo-eco |
+| sc-san-resize    |
+| sc-file-rwx      |
+| sc-file-rwx-eco  |
++------------------+
 ```
 
 ## B. Setup the environment
@@ -58,10 +65,10 @@ persistentvolume/pvc-0862979c-92ca-49ed-9b1c-15edb8f36cb8   5Gi        RWO      
 [root@rhel3 ~]# kubectl create -n resize -f pod-centos-san.yaml
 pod/centos created
 
-[root@rhel3 ~]# kubectl -n resize get pod --watch
-NAME     READY   STATUS              RESTARTS   AGE
-centos   0/1     ContainerCreating   0          5s
-centos   1/1     Running             0          15s
+[root@rhel3 ~]# watch -n1 kubectl -n resize get pod
+
+NAME     READY   STATUS    RESTARTS   AGE
+centos   1/1     Running   0          81s
 ```
 
 You can now check that the 5G volume is indeed mounted into the POD.
@@ -74,8 +81,8 @@ Filesystem      Size  Used Avail Use% Mounted on
 
 ## C. Resize the PVC & check the result
 
-Resizing a PVC can be done in different ways. We will here edit the definition of the PVC & manually modify it.  
-Look for the *storage* parameter in the spec part of the definition & change the value (here for the example, we will use 15GB)
+Resizing a PVC can be done in different ways. Here you will edit the definition of the PVC & manually modify it.  
+Look for the `storage` parameter in the spec part of the definition & change the value (here for the example, we will use 15Gi)
 
 ```bash
 [root@rhel3 ~]# kubectl -n resize edit pvc pvc-to-resize
@@ -108,12 +115,13 @@ Filesystem      Size  Used Avail Use% Mounted on
 /dev/sdd         15G   25M   14G   1% /data
 ```
 
-As you can see, the resizing was done totally dynamically without any interruption.  
+As you can see, the resizing was done totally dynamically without any interruption.
+
 The POD rescanned its devices to discover the new size of the volume.  
 
-If you have configured Grafana, you can go back to your dashboard, to check what is happening (<http://192.168.0.63:30001>).  
+Feel free to go back to Grafana in your web browser and see what has happened: (<http://192.168.0.141>).
 
-This could also have been achieved by using the _kubectl patch_ command. Try the following one:
+This could also have been achieved by using the `kubectl patch` command. Try the following one:
 
 ```bash
 [root@rhel3 ~]# kubectl patch -n resize pvc pvc-to-resize -p '{"spec":{"resources":{"requests":{"storage":"20Gi"}}}}'
@@ -131,10 +139,11 @@ storageclass.storage.k8s.io "sc-san-resize" deleted
 
 ## D. What's next
 
-You can now move on to:  
+You can now move on to the next task:  
+- [On-Demand Snapshots & Create PVC from Snapshot](../snapshots_clones)   
 
-- [Task 14](../Task_14): On-Demand Snapshots & Create PVC from Snapshot  
-- [Task 15](../Task_15): Dynamic export policy management  
+or jump ahead to...
+- [Dynamic export policy management](../dynamic_exports)   
 
 ---
 **Page navigation**  

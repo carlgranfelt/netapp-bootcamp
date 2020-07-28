@@ -102,7 +102,9 @@ servicemonitor.monitoring.coreos.com/trident-sm created
 On the browser in the LoD, you can now connect to the address <http://192.168.0.66:30000> in order to access Prometheus
 You can check that the Trident endpoint is taken into account & in the right state by going to the menu STATUS => TARGETS
 
-![Trident Status in Prometheus](../../../images/Trident_status_in_prometheus.jpg "Trident Status in Prometheus")
+![Trident Status in Prometheus](../../../images/Trident_status_in_prometheus.png "Trident Status in Prometheus")
+
+If you don't see anything regarding Trident, please make sure you have also carried out the [Installing Trident task](../install_trident).
 
 ## F. Play around
 
@@ -110,11 +112,11 @@ Now that Trident is integrated into Prometheus, you can retrieve metrics or buil
 
 ## G. What's next
 
-Now that Trident is connected to Prometheus, you can move to:  
+Now that Trident is connected to Prometheus, you can move to the next task:  
+- [Configure Grafana & add your first graphs](../config_grafana)    
 
-- [Next task](../config_grafana):  Configure Grafana & add your first graphs  
 or jump ahead to...
-- [Task 4](../config_file): Configure your first NAS backends & storage classes
+- [Configure your first NAS backends & storage classes](../config_file) 
 
 ---
 **Page navigation**  

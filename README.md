@@ -40,7 +40,7 @@ then:
 * [Using Virtual Storage Pools](trident_with_k8s/tasks/storage_pools)   
 * [StatefulSets & Storage consumption](trident_with_k8s/tasks/statefulsets)   
 * [Resize an iSCSI PVC](trident_with_k8s/tasks/resize_block)   
-* [On-Demand Snapshots & Create PVC from Snapshot ](trident_with_k8s/tasks/snapshots_clones)  
+* [On-Demand Snapshots & Cloning PVCs from Snapshots](trident_with_k8s/tasks/snapshots_clones)  
 * [Dynamic export policy management](trident_with_k8s/tasks/dynamic_exports)   
 
 ---------

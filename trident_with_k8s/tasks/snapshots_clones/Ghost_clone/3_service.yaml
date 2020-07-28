@@ -5,11 +5,11 @@ metadata:
   labels:
     scenario: clone
 spec:
-  type: NodePort
+  type: LoadBlancer
   selector:
     app: blogclone
   ports:
   - protocol: TCP
     port: 80
     targetPort: 2368
-    nodePort: 30081
+    nodePort: 30071

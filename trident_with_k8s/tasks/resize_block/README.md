@@ -11,16 +11,6 @@ Resizing a PVC is made available through the option *allowVolumeExpansion* set i
 
 ## A. Create a new storage class with the option allowVolumeExpansion
 
-If you dont have a ONTAP-SAN Backend, you can use the backend file in this directory:
-
-```bash
-[root@rhel3 ~]# tridentctl -n trident create backend -f backend-san-default.json
-+------------+----------------+--------------------------------------+--------+---------+
-|    NAME    | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
-+------------+----------------+--------------------------------------+--------+---------+
-| SAN-resize | ontap-san      | 2b6a0a14-57bd-4ca8-9a28-07f74833696b | online |       0 |
-+------------+----------------+--------------------------------------+--------+---------+
-```
 Ensure you are in the correct working directory by issuing the following command on your rhel3 putty terminal in the lab:
 
 ```bash
@@ -140,7 +130,7 @@ storageclass.storage.k8s.io "sc-san-resize" deleted
 ## D. What's next
 
 You can now move on to the next task:  
-- [On-Demand Snapshots & Create PVC from Snapshot](../snapshots_clones)   
+- [On-Demand Snapshots & Cloning PVCs from Snapshots](../snapshots_clones)   
 
 or jump ahead to...
 - [Dynamic export policy management](../dynamic_exports)   

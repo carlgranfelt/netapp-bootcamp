@@ -24,9 +24,14 @@ There is also a set of [useful k8s commands](trident_with_k8s/tasks/useful_comma
 
 ### Prod k8s Cluster Tasks
 
-You don't have to carry out these tasks in order, but they are ordered in a way that would give the most logical flow to anyone new to k8s and persistent storage.  Feel free to either follow them one-by-one or jump into the tasks that interest you the most:
+You don't have to carry out these tasks in order, but they are ordered in a way that would give the most logical flow to anyone new to k8s and persistent storage.  Once you have completed the 'Verify' lab, feel free to either follow them one-by-one or jump into the tasks that interest you the most.
 
-* [Verify and navigate the lab environment](trident_with_k8s/tasks/verify_lab)   
+Do this first: 
+
+* [Verify and navigate the lab environment](trident_with_k8s/tasks/verify_lab)  
+
+then:
+
 * [Deploy your first application with File storage](trident_with_k8s/tasks/file_app)   
 * [Deploy your first application with Block storage](trident_with_k8s/tasks/block_app)   
 * [Use the 'import' feature of Trident](trident_with_k8s/tasks/pv_import)   

@@ -7,6 +7,9 @@ Going through this scenario at this point will be interesting as you will actual
 You can either follow this scenario or go through the following link:  
 <https://netapp.io/2020/02/20/a-primer-on-prometheus-trident/>
 
+**Pre-requisites:**  
+Later in the lab to be able to see the Trident endpoint status, Trident needs to have been installed as described in the [Installing Trident task](../install_trident).
+
 ## A. Install Helm
 
 Helm, as a packaging tool, will be used to install Prometheus.
@@ -104,7 +107,7 @@ You can check that the Trident endpoint is taken into account & in the right sta
 
 ![Trident Status in Prometheus](../../../images/Trident_status_in_prometheus.png "Trident Status in Prometheus")
 
-If you don't see anything regarding Trident, please make sure you have also carried out the [Installing Trident task](../install_trident).
+**Note:** If you don't see anything regarding Trident, please make sure you have also carried out the [Installing Trident task](../install_trident).
 
 ## F. Play around
 
@@ -113,10 +116,12 @@ Now that Trident is integrated into Prometheus, you can retrieve metrics or buil
 ## G. What's next
 
 Now that Trident is connected to Prometheus, you can move to the next task:  
-- [Configure Grafana & add your first graphs](../config_grafana)    
+
+- [Configure Grafana & add your first graphs](../config_grafana)
 
 or jump ahead to...
-- [Configure your first NAS backends & storage classes](../config_file) 
+
+- [Configure your first NAS backends & storage classes](../config_file)
 
 ---
 **Page navigation**  

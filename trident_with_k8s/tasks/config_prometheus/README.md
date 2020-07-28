@@ -81,7 +81,7 @@ spec:
   type: NodePort
 ```
 
-You can now access the Prometheus GUI from the browser using the port 30000 on RHEL3 address (<http://192.168.0.63:30000>)
+You can now access the Prometheus GUI from the browser using the port 30000 on RHEL5 address (<http://192.168.0.66:30000>)
 
 ## D. Add Trident to Prometheus
 
@@ -99,7 +99,7 @@ servicemonitor.monitoring.coreos.com/trident-sm created
 
 ## E. Check the configuration
 
-On the browser in the LoD, you can now connect to the address <http://192.168.0.63:30000> in order to access Prometheus
+On the browser in the LoD, you can now connect to the address <http://192.168.0.66:30000> in order to access Prometheus
 You can check that the Trident endpoint is taken into account & in the right state by going to the menu STATUS => TARGETS
 
 ![Trident Status in Prometheus](../../../images/Trident_status_in_prometheus.jpg "Trident Status in Prometheus")

@@ -1,10 +1,8 @@
-NFS Volume Resizing
+# NFS Volume Resizing
 
 **GOAL:**  
 Trident supports the resizing of File (NFS/RWX) & Block (iSCSI/RWO) PVCs, depending on the Kubernetes version.  
-
 NFS Resizing was introduced in k8s 1.11, while iSCSI resizing was introduced in k8s 1.16.  
-
 Resizing a PVC is made available through the option *allowVolumeExpansion* set in the StorageClass.  
 
 ![Scenario10](../../../images/scenario10.jpg "Scenario10")
@@ -63,8 +61,9 @@ Filesystem                                                    Size  Used Avail U
 
 Resizing a PVC can be done in different ways. We will here edit the definition of the PVC & manually modify it.  
 Look for the *storage* parameter in the spec part of the definition & change the value (here for the example, we will use 15GB).  If you need any help with editor, we have a [short guide here](/trident_with_k8s/tasks/vim).
+
 ```bash
-[root@rhel3 ~]# kubectl -n resize edit pvc pvc-to-resize 
+[root@rhel3 ~]# kubectl -n resize edit pvc pvc-to-resize
 persistentvolumeclaim/pvc-to-resize edited
 
 spec:
@@ -77,7 +76,9 @@ spec:
   volumeMode: Filesystem
   volumeName: pvc-7eeea3f7-1bea-458b-9824-1dd442222d55
 ```
+
 Let's see the result.
+
 ```bash
 [root@rhel3 ~]# kubectl -n resize get pvc
 NAME            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS    AGE
@@ -87,15 +88,17 @@ pvc-to-resize   Bound    pvc-7eeea3f7-1bea-458b-9824-1dd442222d55   15Gi       R
 Filesystem                                                    Size  Used Avail Use% Mounted on
 192.168.0.135:/nas1_pvc_7eeea3f7_1bea_458b_9824_1dd442222d55   15G  256K   15G   1% /data
 ```
+
 As you can see, the resizing was done totally dynamically without any interruption.  
 If you have configured Grafana, you can go back to your dashboard, to check what is happening (<http://192.168.0.141>).  
 
 This could also have been achieved by using the _kubectl patch_ command. Try the following command:
+
 ```bash
 [root@rhel3 ~]# kubectl patch -n resize pvc pvc-to-resize -p '{"spec":{"resources":{"requests":{"storage":"18Gi"}}}}'
 ```
 
-## C. Cleanup the environment
+## D. Cleanup the environment
 
 ```bash
 [root@rhel3 ~]# kubectl delete namespace resize
@@ -105,11 +108,11 @@ namespace "resize" deleted
 storageclass.storage.k8s.io "sc-nas-resize" deleted
 ```
 
-## D. What's next
+## E. What's next
 
 You can now move on to:  
 
-- [Using Virtual Storage Pools](../storage_pools)   
+- [Using Virtual Storage Pools](../storage_pools)  
 or jump ahead to...  
 - [StatefulSets & Storage consumption](../statefulsets)  
 - [Resize a iSCSI PVC](../resize_block)  

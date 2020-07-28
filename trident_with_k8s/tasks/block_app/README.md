@@ -19,7 +19,7 @@ Feel free to familiarise yourself with the contents of these .yaml files if you 
 
 <p align="center"><img src="../../../images/block_app.png" width="650px"></p>
 
-## Create the application
+## A. Create the application
 
 It is assumed that the required backend & storage class have [already been created](../config_file) either by you or your bootcamp fascilitator.
 

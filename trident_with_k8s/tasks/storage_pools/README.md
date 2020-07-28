@@ -2,7 +2,7 @@
 
 **GOAL:**  
 
-When creating a backend, you can generally specify a set of parameters. It was previously impossible for the administrator to create another backend with the same storage credentials and with a different set of parameters, but with the introduction of Virtual Storage Pools, this issue has been alleviated. 
+When creating a backend, you can generally specify a set of parameters. It was previously impossible for the administrator to create another backend with the same storage credentials and with a different set of parameters, but with the introduction of Virtual Storage Pools, this issue has been alleviated.  
 
 Virtual Storage Pools is a level of abstraction introduced between the backend and the Kubernetes Storage Class so that the administrator can define parameters along with labels which can be referenced through Kubernetes Storage Classes as a selector, in a backend-agnostic way.  
 
@@ -37,7 +37,9 @@ Each one with a different set of parameters.  The below command will show yuu th
 ```bash
 [root@rhel3 storage_pools]# cat backend-nas-vsp.json
 ```
+
 Now apply the backend defintion with tridentctl:
+
 ```bash
 [root@rhel3 ~]# tridentctl -n trident create backend -f backend-nas-vsp.json
 +---------+----------------+--------------------------------------+--------+---------+
@@ -50,6 +52,7 @@ Now apply the backend defintion with tridentctl:
 ## B. Create new storage classes
 
 We are going to create 3 storage classes, one per Virtual Storage Pool.
+
 ```bash
 [root@rhel3 ~]# kubectl create -f sc-vsp1.yaml
 storageclass.storage.k8s.io/sc-vsp1 created
@@ -68,6 +71,7 @@ sc-vsp3                     csi.trident.netapp.io   7s
 ## C. Create a few PVC & a POD in their own namespace
 
 Each of the 3 PVCs will point to a different Storage Class.  Feel free to inspect the .yaml files ahead of running the commands:
+
 ```bash
 [root@rhel3 ~]# kubectl create namespace vsp
 namespace/vsp created
@@ -89,8 +93,10 @@ persistentvolume/pvc-0111127b-e1be-45fb-992d-b97108f55284   1Gi        RWX      
 persistentvolume/pvc-3020f487-414d-4396-a0a2-aedd982896c5   1Gi        RWX            Delete           Bound    vsp/pvc-vsp-2       sc-vsp2                 46h
 persistentvolume/pvc-45169dd9-c9b3-47bf-815a-319bc8d42c69   1Gi        RWX            Delete           Bound    vsp/pvc-vsp-1       sc-vsp1                 46h
 ```
+
 The POD we are going to use will mount all 3 PVC. We will then check the differences.
 Pay attention to the rights set in the Virtual Storage Pools json file.
+
 ```bash
 [root@rhel3 ~]# kubectl create -n vsp -f pod-centos-nas.yaml
 pod/centos created
@@ -98,7 +104,9 @@ pod/centos created
 NAME     READY   STATUS    RESTARTS   AGE
 centos   1/1     Running   0          13s
 ```
+
 Let's check!
+
 ```bash
 [root@rhel3 ~]# kubectl -n vsp exec centos -- ls -hl /data
 total 12K
@@ -106,12 +114,15 @@ drwxr--r-- 2 root root 4.0K Apr  3 16:26 pvc1
 drwxrwxrwx 2 root root 4.0K Apr  3 16:34 pvc2
 drwxr-xr-x 2 root root 4.0K Apr  3 16:34 pvc3
 ```
+
 As planned, you can see here the correct permissions:
+
 - PVC1: **744** (parameter for the VSP _myapp1_)
 - PVC2: **777** (parameter for the VSP _myapp2_)
 - PVC3: **755** (default parameter for the backend)  
 
 Also, some PVC have the snapshot directory visible, some don't.
+
 ```bash
 [root@rhel3 ~]# kubectl -n vsp exec centos -- ls -hla /data/pvc2
 total 8.0K
@@ -130,7 +141,7 @@ This could have all be done through 3 different backend files, which is also per
 
 However, the more backends you manage, the more complexity you add. Introducing Virtual Storage Polls allows you to simplify this management.
 
-## C. Cleanup the environment
+## D. Cleanup the environment
 
 ```bash
 [root@rhel3 ~]# kubectl delete namespace vsp
@@ -144,15 +155,15 @@ storageclass.storage.k8s.io "sc-vsp3" deleted
 [root@rhel3 ~]# tridentctl -n trident delete backend NAS_VSP
 ```
 
-## D. What's next
+## E. What's next
 
 You can now move on to:  
 
 - [StatefulSets & Storage consumption](../statefulsets)  
 or jump ahead to...  
-- [Resize a iSCSI CSI PVC](../resize_block)   
-- [On-Demand Snapshots & Create PVC from Snapshot](../snapshots_clones)   
-- [Dynamic export policy management ](../dynamic_exports)  
+- [Resize a iSCSI CSI PVC](../resize_block)  
+- [On-Demand Snapshots & Create PVC from Snapshot](../snapshots_clones)  
+- [Dynamic export policy management](../dynamic_exports)  
 
 ---
 **Page navigation**  

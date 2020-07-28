@@ -305,7 +305,7 @@ It should display something similar to below:
 ![Admin user token](../../../images/dashboard-token.jpg "Admin user token")
 
 Copy the token and paste it into Enter token field on the login screen.
-![Kubernetes Dashboard Sign in](../../../images/dashboard-sign-in.jpg "Kubernetes Dashboard Sign in")
+![Kubernetes Dashboard Sign in](../../../images/dashboard-sign-in.png "Kubernetes Dashboard Sign in")
 
 For more information about the kuberenetes dashboard itself, please see:  
 <https://github.com/kubernetes/dashboard>.

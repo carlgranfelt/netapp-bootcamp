@@ -36,7 +36,7 @@ then:
 * [Deploy your first application with Block storage](trident_with_k8s/tasks/block_app)   
 * [Use the 'import' feature of Trident](trident_with_k8s/tasks/pv_import)   
 * [Consumption control with quotas](trident_with_k8s/tasks/quotas)   
-* [Resize an NFS PVC](trident_with_k8s/tasks/file_resize)   
+* [Resize an NFS PVC](trident_with_k8s/tasks/resize_file)   
 * [Using Virtual Storage Pools](trident_with_k8s/tasks/storage_pools)   
 * [StatefulSets & Storage consumption](trident_with_k8s/tasks/statefulsets)   
 * [Resize an iSCSI PVC](trident_with_k8s/tasks/resize_block)   

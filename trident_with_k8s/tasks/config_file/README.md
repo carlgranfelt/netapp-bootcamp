@@ -22,7 +22,7 @@ For additional information, please refer to:
 
 Also, installing & configuring Trident + creating Kubernetes Storage Classe is what is expected to be done by the Admin.
 
-![Scenario4](../../../images/scenario4.jpg "Scenario4")
+![Configure File](../../../images/config_file.jpg "Configure File")
 
 ## A. Create your first NFS backends
 

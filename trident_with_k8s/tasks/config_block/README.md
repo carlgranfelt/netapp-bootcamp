@@ -7,7 +7,7 @@ It is now time to add more backends that can be used for block storage.
 
 The ONTAP environment in the Lab on Demand has already been setup for block storage. You can choose to use the SVM you are already using, or create your own. In the latter scenario, please refer to  task [Prepare ONTAP for block storage on dev cluster](../../tasks/ontap_block).  
 
-![Scenario6](../../../images/scenario6.jpg "Scenario6")
+![Scenario6](../../../images/config_block.jpg "Configure Block")
 
 ## A. Create your first SAN backends
 

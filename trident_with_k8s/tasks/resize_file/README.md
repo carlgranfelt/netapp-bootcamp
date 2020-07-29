@@ -5,7 +5,7 @@ Trident supports the resizing of File (NFS/RWX) & Block (iSCSI/RWO) PVCs, depend
 NFS Resizing was introduced in k8s 1.11, while iSCSI resizing was introduced in k8s 1.16.  
 Resizing a PVC is made available through the option *allowVolumeExpansion* set in the StorageClass.  
 
-![Scenario10](../../../images/scenario10.jpg "Scenario10")
+![Resize File](../../../images/resize_file.jpg "Resize File")
 
 ## A. Create a new storage class with the option allowVolumeExpansion
 

@@ -220,10 +220,12 @@ namespace "mysql" deleted
 
 You can now move on to:  
 
-- [Resize a iSCSI CSI PVC](../resize_block):   
+- Next task: [Resize a iSCSI CSI PVC](../resize_block)   
+
 or jump ahead to...  
-- [On-Demand Snapshots & PVC clones](../snpashots_clones):   
-- [Dynamic export policy management ](../dynamic_exports):  
+
+- [On-Demand Snapshots & PVC clones](../snpashots_clones)   
+- [Dynamic export policy management ](../dynamic_exports)  
 
 ---
 **Page navigation**  

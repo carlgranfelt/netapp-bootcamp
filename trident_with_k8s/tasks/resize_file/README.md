@@ -112,8 +112,10 @@ storageclass.storage.k8s.io "sc-nas-resize" deleted
 
 You can now move on to:  
 
-- [Using Virtual Storage Pools](../storage_pools)  
+- Next task: [Using Virtual Storage Pools](../storage_pools)  
+
 or jump ahead to...  
+
 - [StatefulSets & Storage consumption](../statefulsets)  
 - [Resize a iSCSI PVC](../resize_block)  
 

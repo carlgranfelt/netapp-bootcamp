@@ -128,7 +128,7 @@ Due to the size of the second PVC file request, the creation should fail in this
 Error from server (Forbidden): error when creating "pvc-5Gi-2.yaml": persistentvolumeclaims "5gb-2" is forbidden: exceeded quota: sc-resource-limit, requested: sc-file-rwx.storageclass.storage.k8s.io/requests.storage=5Gi, used: sc-file-rwx.storageclass.storage.k8s.io/requests.storage=5Gi, limited: sc-file-rwx.storageclass.storage.k8s.io/requests.storage=8Gi
 ```
 
-Before starting the second part of this scenarion, let's clean up:
+Before starting the second part of this task, let's clean up:
 
 ```bash 
 [root@rhel3 ~]# kubectl delete pvc -n quota 5gb-1
@@ -284,9 +284,11 @@ persistentvolumeclaim "quotasc-3" deleted
 You can now move on to:  
 
 - [Resize an NFS PVC](../resize_file)  
+
 or jump ahead to...  
-- [Using Virtual Storage Pools](../storage_pools): Using Virtual Storage Pools  
-- [StatefulSets & Storage consumption](../statefulsets): StatefulSets & Storage consumption  
+
+- [Using Virtual Storage Pools](../storage_pools)  
+- [StatefulSets & Storage consumption](../statefulsets)  
 
 ---
 **Page navigation**  

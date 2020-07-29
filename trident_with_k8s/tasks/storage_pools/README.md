@@ -159,9 +159,11 @@ storageclass.storage.k8s.io "sc-vsp3" deleted
 
 You can now move on to:  
 
-- [StatefulSets & Storage consumption](../statefulsets)  
+- Next task: [StatefulSets & Storage consumption](../statefulsets)  
+
 or jump ahead to...  
-- [Resize a iSCSI CSI PVC](../resize_block)  
+
+- [Resize an iSCSI PVC](../resize_block)  
 - [On-Demand Snapshots & Create PVC from Snapshot](../snapshots_clones)  
 - [Dynamic export policy management](../dynamic_exports)  
 

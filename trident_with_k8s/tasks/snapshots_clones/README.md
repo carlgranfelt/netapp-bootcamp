@@ -219,7 +219,7 @@ namespace "ghost" deleted
 
 You can now move on to the last task on the production cluster:  
 
-- [Dynamic export policy management ](../dynamic_exports)  
+- [Dynamic export policy management](../dynamic_exports)  
 
 or jump ahead to the Development cluster tasks...
 

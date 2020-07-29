@@ -127,9 +127,9 @@ storageclass.storage.k8s.io "sc-san-resize" deleted
 
 ## E. What's next
 
-You can now move on to the next task:  
+You can now move on to:  
 
-- [On-Demand Snapshots & Cloning PVCs from Snapshots](../snapshots_clones)  
+- Next task: [On-Demand Snapshots & Cloning PVCs from Snapshots](../snapshots_clones)  
 
 or jump ahead to...
 

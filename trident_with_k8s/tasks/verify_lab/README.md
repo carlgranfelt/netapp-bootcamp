@@ -314,7 +314,11 @@ For more information about the kuberenetes dashboard itself, please see:
 
 Hopefully you are now more familiar with the lab environment and the Trident setup. You can move on to:  
 
-- [Next task](../file_app): Deploy your first application using persistent file storage  
+- Your first task: [Deploy your first application using persistent file storage](../file_app)
+
+or jump ahead to..
+
+- Any of the tasks in the [Production Task list](/README.md#prod-k8s-cluster-tasks)
 
 ---
 **Page navigation**  

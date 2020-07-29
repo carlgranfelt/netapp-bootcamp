@@ -4,7 +4,7 @@
 The ONTAP environment in the Lab on Demand has already been setup for both block and file storage.
 You can choose to use the storage you are already using, SVM1, or create your own.
 
-In the latter scenario, you will need to create a new SVM with the following parameters:  
+In the latter task, you will need to create a new SVM with the following parameters:  
 
 - iSCSI data LIF: 192.168.0.123
 - iSCSI igroup: trident

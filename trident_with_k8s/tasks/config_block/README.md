@@ -7,7 +7,7 @@ It is now time to add more backends that can be used for block storage.
 
 The ONTAP environment in the Lab on Demand has already been setup for block storage. You can choose to use the SVM you are already using, or create your own. In the latter scenario, please refer to  task [Prepare ONTAP for block storage on dev cluster](../../tasks/ontap_block).  
 
-![Scenario6](../../../images/config_block.jpg "Configure Block")
+![Configure Block](../../../images/config_block.jpg "Configure Block")
 
 ## A. Create your first SAN backends
 
@@ -64,9 +64,9 @@ If you have configured Grafana, you can go back to your dashboard, to see what i
 
 Now, you have some SAN Backends & some storage classes configured. You can proceed to the creation of a stateful application:  
 
-- [Next task](../block_app): Deploy your first app with Block storage  
+- [Deploy your first app with Block storage](../block_app)   
 or proceed with...
-- [Task 5](../default_sc): Specify a default storage class
+- [Specify a default storage class](../default_sc) 
 
 ---
 **Page navigation**  

@@ -109,10 +109,13 @@ namespace "ghostnas" deleted
 
 You can now move on to:  
 
-- [Task 9](../Task_9): Consumption control  
-- [Task 10](../Task_10): Resize a NFS CSI PVC  
-- [Task 11](../Task_11): Using Virtual Storage Pools  
-- [Task 12](../Task_12): StatefulSets & Storage consumption  
+- Next task: [Consumption control](../quotas)   
+
+or jump ahead to...
+
+- [Resize an NFS PVC](../resize_file)   
+- [Using Virtual Storage Pools](../storage_pools)   
+- [StatefulSets & Storage consumption ](../statefulsets)  
 
 ---
 **Page navigation**  

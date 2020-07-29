@@ -2,9 +2,9 @@
 
 **GOAL:**  
 Trident 20.01.1 introduced metrics that can be integrated into Prometheus.  
-Going through this scenario at this point will be interesting as you will actually see the metrics evolve with all the labs.  
+Going through this task at this point will be interesting as you will actually see the metrics evolve with all the labs.  
 
-You can either follow this scenario or go through the following link:  
+You can either follow this task or go through the following link:  
 <https://netapp.io/2020/02/20/a-primer-on-prometheus-trident/>
 
 **Pre-requisites:**  
@@ -93,6 +93,7 @@ The following link is also a good place to find information:
 <https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md>
 
 In substance, we will tell in this object to look at services that have the label *trident* & retrieve metrics from its endpoint.
+
 The Yaml file has been provided and is available in the Scenario2 sub-directory
 
 ```bash

@@ -79,9 +79,11 @@ At this point, end-users can now create PVC against one of theses storage classe
 
 Now, you have some NAS Backends & some storage classes configured. You can proceed to the creation of a stateful application:  
 
-- [Next task](../file_app): Deploy your first app with File storage  
-or proceed with...
-- [Task 5](../config_block): Configure your first iSCSI backends & storage classes
+- [Deploy your first app with File storage  ](../file_app) 
+
+or jump ahead to...
+
+- [Configure your first iSCSI backends & storage classes](../config_block) 
 
 ---
 **Page navigation**  

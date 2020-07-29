@@ -17,7 +17,7 @@ The .yaml files provided are for:
 
 Feel free to familiarise yourself with the contents of these .yaml files if you wish.  You will see in the ```1_pvc.yaml``` file that it specifies ReadWriteMany as the access mode, which will result in k8s and Trident providing an NFS based backend for the request.  A diagram is provided below to illustrate how the PVC, deployment, service and surrounding infrastructure all hang together:
 
-<p align="center"><img src="/images/file_app.png" width="650px"></p>
+<p align="center"><img src="../../../images/file_app.png" width="650px"></p>
 
 ## A. Create the application
 
@@ -124,11 +124,13 @@ namespace "ghost" deleted
 
 Hopefully you are getting more familiar with Trident and persistent storage in k8s now. You can move on to:  
 
-- [Next task](../block_app): Deploy your first application using Block storage  
+- Next task: [Deploy your first application using Block storage](../block_app)  
+
 or jump ahead to...
-- [Task 8](../pv_import): Use the 'import' feature of Trident  
-- [Task 9](../quotas): Consumption control  
-- [Task 10](../resize_file): Resize an NFS PVC
+
+- [Use the 'import' feature of Trident](../pv_import)   
+- [Consumption control](../quotas)   
+- [Resize an NFS PVC](../resize_file) 
 
 ---
 **Page navigation**  

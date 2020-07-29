@@ -5,7 +5,7 @@ Trident supports the resizing of File (NFS) & Block (iSCSI) PVCs, depending on t
 NFS Resizing was introduced in k8s 1.11, while iSCSI resizing was introduced in k8s 1.16.  
 Resizing a PVC is made available through the option *allowVolumeExpansion* set in the StorageClass.
 
-![Scenario13](../../../images/scenario13.jpg "Scenario13")
+![Resize Block](../../../images/resize_block.jpg "Resize Block")
 
 ## A. Create a new storage class with the option allowVolumeExpansion
 
@@ -127,9 +127,9 @@ storageclass.storage.k8s.io "sc-san-resize" deleted
 
 ## E. What's next
 
-You can now move on to the next task:  
+You can now move on to:  
 
-- [On-Demand Snapshots & Cloning PVCs from Snapshots](../snapshots_clones)  
+- Next task: [On-Demand Snapshots & Cloning PVCs from Snapshots](../snapshots_clones)  
 
 or jump ahead to...
 

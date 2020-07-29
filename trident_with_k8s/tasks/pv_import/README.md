@@ -1,11 +1,11 @@
-# Importing Existing Volumes Using Trident
+# Importing Existing Volumes Using Trident - Lab in Progress (do not use)
 
 **GOAL:**  
 Trident allows you to import an existing volume sitting on a NetApp backend into Kubernetes.  This could be useful for applications that are being re-factored which previously had data from an NFS mount into a Virtual Machine and you now want that same data to be accessed by a container in k8s.
 
 We will first copy the volume we used in the [Scenario05](../Scenario05), import it, and create a new Ghost instance  
 
-![Scenario8](../../../images/scenario8.jpg "Scenario8")
+![PV Import](../../../images/pv_import.jpg "PV Import")
 
 ## A. Identify & copy the volume on the NetApp backend
 
@@ -109,10 +109,13 @@ namespace "ghostnas" deleted
 
 You can now move on to:  
 
-- [Task 9](../Task_9): Consumption control  
-- [Task 10](../Task_10): Resize a NFS CSI PVC  
-- [Task 11](../Task_11): Using Virtual Storage Pools  
-- [Task 12](../Task_12): StatefulSets & Storage consumption  
+- Next task: [Consumption control](../quotas)   
+
+or jump ahead to...
+
+- [Resize an NFS PVC](../resize_file)   
+- [Using Virtual Storage Pools](../storage_pools)   
+- [StatefulSets & Storage consumption ](../statefulsets)  
 
 ---
 **Page navigation**  

@@ -26,7 +26,7 @@ For more information please see StatefulSets official documentation: <https://ku
 
 In this exercise, we will create a MySQL StatefulSet & scale it.  
 
-![Scenario12](../../../images/scenario12.jpg "Scenario12")
+![Statefulsets](../../../images/statefulsets.jpg "Statefulsets")
 
 ## A. Let's start by creating the application
 
@@ -220,10 +220,12 @@ namespace "mysql" deleted
 
 You can now move on to:  
 
-- [Resize a iSCSI CSI PVC](../resize_block):   
+- Next task: [Resize a iSCSI CSI PVC](../resize_block)   
+
 or jump ahead to...  
-- [On-Demand Snapshots & PVC clones](../snpashots_clones):   
-- [Dynamic export policy management ](../dynamic_exports):  
+
+- [On-Demand Snapshots & PVC clones](../snpashots_clones)   
+- [Dynamic export policy management ](../dynamic_exports)  
 
 ---
 **Page navigation**  

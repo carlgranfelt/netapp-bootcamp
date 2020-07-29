@@ -50,9 +50,9 @@ persistentvolumeclaim "pvc-without-sc" deleted
 
 ## C. What's next
 
-- [Next task](../file_app): Deploy your first app with File storage  
+- [Deploy your first app with File storage](../file_app)   
 or jump ahead to...
-- [Task 3](../block_app): Deploy your first app with Block storage
+- [Deploy your first app with Block storage](../block_app) 
 
 ---
 **Page navigation**  

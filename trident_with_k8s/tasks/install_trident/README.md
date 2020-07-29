@@ -223,9 +223,11 @@ Use "tridentctl [command] --help" for more information about a command.
 
 Now that Trident is installed, you can proceed to:  
 
-- [Next task](../config_prometheus):  Installing Prometheus & incorporate Trident's metrics  
+- Next task: [Installing Prometheus & incorporate Trident's metrics](../config_prometheus)
+
 or jump ahead to...  
-- [Task 4](../config_file):  Configure your first NAS backends & storage classes  
+
+- [Configure your first NAS backends & storage classes](../config_file)    
 
 ---
 **Page navigation**  

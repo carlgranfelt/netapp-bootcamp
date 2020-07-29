@@ -148,9 +148,11 @@ Now, where can you find this dashboard:
 
 OK, you have everything to monitor Trident, let's continue with the creation of some backends:  
 
-- [Next task](../config_file): Configure your first NAS backends & storage classes  
+- [Configure your first NAS backends & storage classes](../config_file)  
+
 or jump ahead to...
-- [Task 5](../config_block): Configure your first iSCSI backends & storage classes  
+
+- [Configure your first iSCSI backends & storage classes](../config_block)   
 
 ---
 **Page navigation**  

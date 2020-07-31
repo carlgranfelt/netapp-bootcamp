@@ -1,6 +1,6 @@
 # StatefulSets & Storage Consumption
 
-**GOAL:**  
+**Objective:**  
 
 StatefulSets were introduced to be able to run stateful applications with the following benefits:  
 

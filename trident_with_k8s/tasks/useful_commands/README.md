@@ -1,6 +1,6 @@
 # Useful Commands
 
-**GOAL:**  
+**Objective:**  
 This section details some useful commands and handy tips.  
 
 ## A. BASH

@@ -1,6 +1,6 @@
 # Specify a default storage class
 
-**GOAL:**  
+**Objective:**  
 Most of the volume requests in this lab refer to a specific storage class.  
 Setting a _default_ storage class can be useful, especially when this one is used most times.
 This also allows you not to set the storage class parameter in the Volume Claim anymore.

@@ -1,6 +1,6 @@
 # Creating Your First Application with File (RWX) Storage
 
-**GOAL:**  
+**Objective:**  
 Now that you have a lab with Trident configured and storage classes, you can request a Persistent Volume Claim (PVC) for your application.  
 
 For this task you will be deploying Ghost (a light weight web portal) utlilising RWX (Read Write Many) file-based persistent storage over NFS.  You will find a few .yaml files in the Ghost directory, so ensure that your putty terminal on the lab is set to the correct directory for this task:

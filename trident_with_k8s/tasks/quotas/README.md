@@ -1,6 +1,6 @@
 # Consumption Control with Quotas
 
-**GOAL:**  
+**Objective:**  
 As Trident dynamically manages persitent volumes & brings self-service to the application level, the first benefit is that end-users do not need to rely on a storage admin to provision volumes on the fly.
 
 However, this freedom could quickly fill up the storage backends, especially if the users do not tidy up their environments...  

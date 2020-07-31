@@ -1,6 +1,6 @@
 # Install Prometheus & integrate Trident's metrics
 
-**GOAL:**  
+**Objective:**  
 Trident 20.01.1 introduced metrics that can be integrated into Prometheus.  
 Going through this task at this point will be interesting as you will actually see the metrics evolve with all the labs.  
 

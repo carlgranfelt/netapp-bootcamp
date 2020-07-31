@@ -5,6 +5,8 @@ Prometheus does not allow you to create a graph with different metrics, you need
 Installing Prometheus with Helm also comes with this tool.  
 We will learn how to access Grafana, and configure a graph.
 
+**Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (rhel5) to proceed with the task.  
+
 ## A. Expose Grafana
 
 With Grafana, we are facing the same issue than with Prometheus with regards to accessing it.
@@ -152,7 +154,7 @@ OK, you have everything to monitor Trident, let's continue with the creation of 
 
 or jump ahead to...
 
-- [Configure your first iSCSI backends & storage classes](../config_block)   
+- [Configure your first iSCSI backends & storage classes](../config_block)  
 
 ---
 **Page navigation**  

@@ -18,6 +18,8 @@ gpgkey=http://ftp.heanet.ie/pub/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7
 EOF
 echo Display the configured software repositories 
 yum repolist
+echo Add rpm-gpg-key-epel-7
+rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
 echo "#######################################################################################################"
 echo "Installing Ansible & NetApp library"

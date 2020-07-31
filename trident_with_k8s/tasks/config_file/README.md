@@ -1,6 +1,6 @@
 # Create your first NFS backends for Trident & Storage Classes for Kubernetes
 
-**GOAL:**  
+**Objective:**  
 Trident needs to know where to create volumes.  
 This information sits in objects called backends. It basically contains:  
 

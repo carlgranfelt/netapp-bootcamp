@@ -1,6 +1,6 @@
 # Trident installation with an Operator
 
-**GOAL:**  
+**Objective:**  
 Trident 20.04 introduced a new way to manage its lifecycle: Operators.  
 For now, this installation method is only intended for green field environments.  
 

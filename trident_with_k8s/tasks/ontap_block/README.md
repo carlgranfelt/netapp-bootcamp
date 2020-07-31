@@ -1,6 +1,6 @@
 # Prepare your ONTAP Backend for Block Storage
 
-**GOAL:**  
+**Objective:**  
 The ONTAP environment in the Lab on Demand has already been setup for both block and file storage.
 You can choose to use the storage you are already using, SVM1, or create your own.
 

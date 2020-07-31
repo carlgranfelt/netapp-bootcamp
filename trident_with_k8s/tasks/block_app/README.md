@@ -1,6 +1,6 @@
 # Create your first Application with Block (RWO) storage
 
-**GOAL:**  
+**Objective:**  
 We will deploy the same application as in file-base application task, but instead of using RWX storage, we will use RWO Block Storage.
 
 For this task you will be deploying Ghost (a light weight web portal) utlilising RWO (Read Write Once) file-based persistent storage over iSCSI.  You will find a few .yaml files in the Ghost directory, so ensure that your putty terminal on the lab is set to the correct directory for this task:

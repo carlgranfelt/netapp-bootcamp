@@ -1,6 +1,6 @@
 # Working with Virtual Storage Pools
 
-**GOAL:**  
+**Objective:**  
 
 When creating a backend, you can generally specify a set of parameters. It was previously impossible for the administrator to create another backend with the same storage credentials and with a different set of parameters, but with the introduction of Virtual Storage Pools, this issue has been alleviated.  
 

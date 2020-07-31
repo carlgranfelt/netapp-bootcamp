@@ -9,6 +9,8 @@ The ONTAP environment in the Lab on Demand has already been setup for block stor
 
 ![Configure Block](../../../images/config_block.jpg "Configure Block")
 
+**Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (rhel5) to proceed with the task.  
+
 ## A. Create your first SAN backends
 
 You will find in this directory a few backends files:
@@ -64,9 +66,9 @@ If you have configured Grafana, you can go back to your dashboard, to see what i
 
 Now, you have some SAN Backends & some storage classes configured. You can proceed to the creation of a stateful application:  
 
-- [Deploy your first app with Block storage](../block_app)   
+- [Deploy your first app with Block storage](../block_app)  
 or proceed with...
-- [Specify a default storage class](../default_sc) 
+- [Specify a default storage class](../default_sc)  
 
 ---
 **Page navigation**  

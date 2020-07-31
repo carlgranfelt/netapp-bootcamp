@@ -24,6 +24,8 @@ Also, installing & configuring Trident + creating Kubernetes Storage Classe is w
 
 ![Configure File](../../../images/config_file.jpg "Configure File")
 
+**Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (rhel5) to proceed with the task.  
+
 ## A. Create your first NFS backends
 
 You will find in this directory a few backends files.  
@@ -79,11 +81,11 @@ At this point, end-users can now create PVC against one of theses storage classe
 
 Now, you have some NAS Backends & some storage classes configured. You can proceed to the creation of a stateful application:  
 
-- [Deploy your first app with File storage  ](../file_app) 
+- [Deploy your first app with File storage](../file_app)  
 
 or jump ahead to...
 
-- [Configure your first iSCSI backends & storage classes](../config_block) 
+- [Configure your first iSCSI backends & storage classes](../config_block)  
 
 ---
 **Page navigation**  

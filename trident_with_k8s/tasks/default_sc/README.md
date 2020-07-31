@@ -5,6 +5,8 @@ Most of the volume requests in this lab refer to a specific storage class.
 Setting a _default_ storage class can be useful, especially when this one is used most times.
 This also allows you not to set the storage class parameter in the Volume Claim anymore.
 
+**Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (rhel5) to proceed with the task.  
+
 ## A. Set a default storage class
 
 ```bash
@@ -50,9 +52,9 @@ persistentvolumeclaim "pvc-without-sc" deleted
 
 ## C. What's next
 
-- [Deploy your first app with File storage](../file_app)   
+- [Deploy your first app with File storage](../file_app)  
 or jump ahead to...
-- [Deploy your first app with Block storage](../block_app) 
+- [Deploy your first app with Block storage](../block_app)  
 
 ---
 **Page navigation**  

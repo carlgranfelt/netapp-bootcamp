@@ -10,6 +10,8 @@ You can either follow this task or go through the following link:
 **Pre-requisites:**  
 Later in the lab to be able to see the Trident endpoint status, Trident needs to have been installed as described in the [Installing Trident task](../install_trident).
 
+**Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (rhel5) to proceed with the task.  
+
 ## A. Install Helm
 
 Helm, as a packaging tool, will be used to install Prometheus.

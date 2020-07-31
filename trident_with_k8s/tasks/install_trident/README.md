@@ -7,6 +7,8 @@ For now, this installation method is only intended for green field environments.
 For the official documentation on deploying with the Trident Operator, please see:  
 <https://netapp-trident.readthedocs.io/en/latest/kubernetes/operator-install.html>
 
+**Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (rhel5) to proceed with the task.  
+
 ## A. Download & setup the operator
 
 Connect using PuTTY to the dev k8s cluster's master node, **rhel5**, and download the latest version of the Trident installer bundle and extract it:
@@ -227,7 +229,7 @@ Now that Trident is installed, you can proceed to:
 
 or jump ahead to...  
 
-- [Configure your first NAS backends & storage classes](../config_file)    
+- [Configure your first NAS backends & storage classes](../config_file)  
 
 ---
 **Page navigation**  

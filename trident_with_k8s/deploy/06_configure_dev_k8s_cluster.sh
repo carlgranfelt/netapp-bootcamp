@@ -1,5 +1,46 @@
 #!/bin/bash
 echo "#######################################################################################################"
+echo "Installing Ansible & NetApp library"
+echo "#######################################################################################################"
+
+yum -y install ansible
+yum -y install python-pip 
+pip install --upgrade pip
+pip install netapp-lib --user
+
+cat <<EOF >> /etc/ansible/hosts
+[k8s_prod_cluster]
+rhel1
+rhel2
+rhel3
+rhel4
+
+[k8s_prod_master]
+rhel3
+
+[k8s_prod_workers]
+rhel1
+rhel2
+rhel4
+
+[k8s_dev_cluster]
+rhel5
+rhel6
+
+[k8s_dev_master]
+rhel5
+
+[k8s_dev_worker]
+rhel6
+
+[cDOT]
+cluster1
+svm1
+EOF
+
+export ANSIBLE_HOST_KEY_CHECKING=False
+
+echo "#######################################################################################################"
 echo "Installing weave for the kubernetes network"
 echo "#######################################################################################################"
 
@@ -64,4 +105,3 @@ sleep 30
 
 kubectl top no
 kubectl top po --all-namespaces
-

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 echo "#######################################################################################################"
 echo "Yellowdog Updater, Modified Magic"
 echo "#######################################################################################################"
@@ -107,10 +106,9 @@ kubectl create secret generic -n metallb-system memberlist --from-literal=secret
 kubectl apply -f /root/NetApp-LoD/trident_with_k8s/deploy/k8s_files/metallb-configmap-k8s-prod.yaml
 
 echo "#######################################################################################################"
-echo "Upgrading to K8s 1.16"
+echo "Upgrading RHEL3 to K8s 1.16"
 echo "#######################################################################################################"
 
-echo Upgrading RHEL3 to K8s 1.16
 yum install -y kubeadm-1.16.7-0 --disableexcludes=kubernetes
 kubeadm upgrade apply v1.16.7 -y
 yum install -y kubelet-1.16.7-0 kubectl-1.16.7-0 --disableexcludes=kubernetes
@@ -118,7 +116,10 @@ systemctl restart kubelet
 systemctl daemon-reload
 sleep 30s
 
-echo Upgrading RHEL1 to K8s 1.16
+echo "#######################################################################################################"
+echo "Upgrading RHEL1 to K8s 1.16"
+echo "#######################################################################################################"
+
 #ssh -o "StrictHostKeyChecking no" root@rhel1 yum-config-manager --disable dockerrepo
 ssh -o "StrictHostKeyChecking no" root@rhel1 yum install -y kubeadm-1.16.7-0 --disableexcludes=kubernetesclear
 ssh -o "StrictHostKeyChecking no" root@rhel1 kubeadm upgrade node 
@@ -127,7 +128,10 @@ ssh -o "StrictHostKeyChecking no" root@rhel1 systemctl restart kubelet
 ssh -o "StrictHostKeyChecking no" root@rhel1 systemctl daemon-reload
 sleep 30s
 
-echo Upgrading RHEL2 to K8s 1.16
+echo "#######################################################################################################"
+echo "Upgrading RHEL2 to K8s 1.16"
+echo "#######################################################################################################"
+
 ssh -o "StrictHostKeyChecking no" root@rhel2 yum-config-manager --disable dockerrepo
 ssh -o "StrictHostKeyChecking no" root@rhel2 yum install -y kubeadm-1.16.7-0 --disableexcludes=kubernetesclear
 ssh -o "StrictHostKeyChecking no" root@rhel2 kubeadm upgrade node 
@@ -137,10 +141,9 @@ ssh -o "StrictHostKeyChecking no" root@rhel2 systemctl daemon-reload
 sleep 30s
 
 echo "#######################################################################################################"
-echo "Upgrading to K8s 1.17"
+echo "Upgrading RHEL3 to K8s 1.17"
 echo "#######################################################################################################"
 
-echo Upgrading RHEL3 to K8s 1.17
 yum install -y kubeadm-1.17.3-0 --disableexcludes=kubernetes
 kubeadm upgrade apply v1.17.3 -y
 yum install -y kubelet-1.17.3-0 kubectl-1.17.3-0 --disableexcludes=kubernetes
@@ -148,7 +151,10 @@ systemctl restart kubelet
 systemctl daemon-reload
 sleep 30s
 
-echo Upgrading RHEL1 to K8s 1.17
+echo "#######################################################################################################"
+echo "Upgrading RHEL1 to K8s 1.17"
+echo "#######################################################################################################"
+
 ssh -o "StrictHostKeyChecking no" root@rhel1 yum install -y kubeadm-1.17.3-0 --disableexcludes=kubernetesclear
 ssh -o "StrictHostKeyChecking no" root@rhel1 kubeadm upgrade node 
 ssh -o "StrictHostKeyChecking no" root@rhel1 yum install -y kubelet-1.17.3-0 kubectl-1.17.3-0 --disableexcludes=kubernetes
@@ -156,7 +162,10 @@ ssh -o "StrictHostKeyChecking no" root@rhel1 systemctl restart kubelet
 ssh -o "StrictHostKeyChecking no" root@rhel1 systemctl daemon-reload
 sleep 30s
 
-echo Upgrading RHEL2 to K8s 1.17
+echo "#######################################################################################################"
+echo "Upgrading RHEL2 to K8s 1.17"
+echo "#######################################################################################################"
+
 ssh -o "StrictHostKeyChecking no" root@rhel2 yum install -y kubeadm-1.17.3-0 --disableexcludes=kubernetesclear
 ssh -o "StrictHostKeyChecking no" root@rhel2 kubeadm upgrade node 
 ssh -o "StrictHostKeyChecking no" root@rhel2 yum install -y kubelet-1.17.3-0 kubectl-1.17.3-0 --disableexcludes=kubernetes
@@ -165,10 +174,9 @@ ssh -o "StrictHostKeyChecking no" root@rhel2 systemctl daemon-reload
 sleep 30s
 
 echo "#######################################################################################################"
-echo "Upgrading to K8s 1.18"
+echo "Upgrading RHEL3 to K8s 1.18"
 echo "#######################################################################################################"
 
-echo Upgrading RHEL3 to K8s 1.18
 yum install -y kubeadm-1.18.0-0 --disableexcludes=kubernetes
 kubeadm upgrade apply v1.18.0 -y
 yum install -y kubelet-1.18.0-0 kubectl-1.18.0-0 --disableexcludes=kubernetes
@@ -176,7 +184,10 @@ systemctl restart kubelet
 systemctl daemon-reload
 sleep 30s
 
-echo Upgrading RHEL1 to K8s 1.18
+echo "#######################################################################################################"
+echo "Upgrading RHEL1 to K8s 1.18"
+echo "#######################################################################################################"
+
 ssh -o "StrictHostKeyChecking no" root@rhel1 yum install -y kubeadm-1.18.0-0 --disableexcludes=kubernetesclear
 ssh -o "StrictHostKeyChecking no" root@rhel1 kubeadm upgrade node 
 ssh -o "StrictHostKeyChecking no" root@rhel1 yum install -y kubelet-1.18.0-0 kubectl-1.18.0-0--disableexcludes=kubernetes
@@ -184,7 +195,10 @@ ssh -o "StrictHostKeyChecking no" root@rhel1 systemctl restart kubelet
 ssh -o "StrictHostKeyChecking no" root@rhel1 systemctl daemon-reload
 sleep 30s
 
-echo Upgrading RHEL2 to K8s 1.18
+echo "#######################################################################################################"
+echo "Upgrading RHEL2 to K8s 1.18"
+echo "#######################################################################################################"
+
 ssh -o "StrictHostKeyChecking no" root@rhel2 yum install -y kubeadm-1.18.0-0 --disableexcludes=kubernetesclear
 ssh -o "StrictHostKeyChecking no" root@rhel2 kubeadm upgrade node 
 ssh -o "StrictHostKeyChecking no" root@rhel2 yum install -y kubelet-1.18.0-0 kubectl-1.18.0-0 --disableexcludes=kubernetes

@@ -4,6 +4,9 @@ The objective for this first task is to familiarise yourself with the environmen
 
 Most tasks will be carried from a PuTTY console. Open the PuTTY console on the jumphost within the lab and connect to the kubernetes master node (RHEL3) as root@rhel3. The session is already set up for you in PuTTY and the password is `Netapp1!`
 
+Our user root@rhel3 is considered a normal user (in kubernetes terms external to the k8s cluster). We get authenticated using certificates (as specified in the .kube/config file) and will by default have admin level access to everything within the cluster. Access can be further limited using Role Based Access Control (RBAC). RBAC uses the rbac.authorization.k8s.io API group that allows administrators to dynamically configure permission policies through the API server.  
+For the purpose of this bootcamp we will rely on having admin level access.  
+
 Each subsequent task will be run from its own directory from the GitHub repository fetched locally. There is a README file with instructions for each task.
 
 Lastly, there are plenty of commands to type or alternatively copy & paste.

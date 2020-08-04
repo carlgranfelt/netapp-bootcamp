@@ -4,7 +4,7 @@ If you wish to jump straight into the bootcamp and start deploying stateful appl
 
 **The person running your particular bootcamp may have already had this script run on your lab, so please check with them ahead of executing it.**
 
-Open the PuTTY console within the lab and connect to the kubernetes master node (RHEL3) as ```root@rhel3```.  The connection should be all set up for you in Putty. 
+Open the PuTTY console within the lab and connect to the kubernetes master node (RHEL3) as ```root@rhel3```.  The connection should be all set up for you in Putty.  
 
 Once connected to the k8s master, run the below commands to configure the kubernetes clusters for the bootcamp:  
 
@@ -15,6 +15,7 @@ git clone https://github.com/carlgranfelt/NetApp-LoD.git
 ```
 
 Change directory to the deploy directory:
+
 ```bash
 cd /root/NetApp-LoD/trident_with_k8s/deploy/
 ```
@@ -46,7 +47,7 @@ Once running, the script will take ~15 minutes to complete.  Tasks the script ca
   * Install k8s dashboard
   * Install k8s metrics server
 
-The Dev cluster has purposely been only configured with an upgraded k8s cluster and MetalLB.  This leaves you with a separate cluster if you wish to carry out tasks such as [installing Trident](/trident_with_k8s/tasks/install_trident) and [configuring storage backends](/trident_with_k8s/tasks/config_file).
+The Dev cluster has purposely been only configured with an upgraded k8s cluster and MetalLB.  This leaves you with a separate cluster if you wish to carry out tasks such as [installing Trident](/trident_with_k8s/tasks/trident_install) and [configuring storage backends](/trident_with_k8s/tasks/config_file).
 
 ---
 **Page navigation**  

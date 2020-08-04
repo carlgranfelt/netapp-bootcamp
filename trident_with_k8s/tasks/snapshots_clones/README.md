@@ -223,7 +223,7 @@ You can now move on to the last task on the production cluster:
 
 or jump ahead to the Development cluster tasks...
 
-- [Installing Trident](../install_trident)
+- [Installing Trident](../trident_install)
 
 ---
 **Page navigation**  

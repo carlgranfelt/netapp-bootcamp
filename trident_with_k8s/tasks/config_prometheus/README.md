@@ -8,7 +8,7 @@ You can either follow this task or go through the following link:
 <https://netapp.io/2020/02/20/a-primer-on-prometheus-trident/>
 
 **Pre-requisites:**  
-Later in the lab to be able to see the Trident endpoint status, Trident needs to have been installed as described in the [Installing Trident task](../install_trident).
+Later in the lab to be able to see the Trident endpoint status, Trident needs to have been installed as described in the [Installing Trident task](../trident_install).
 
 **Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (rhel5) to proceed with the task.  
 
@@ -110,7 +110,7 @@ You can check that the Trident endpoint is taken into account & in the right sta
 
 ![Trident Status in Prometheus](../../../images/trident_prometheus.png "Trident Status in Prometheus")
 
-**Note:** If you don't see anything regarding Trident, please make sure you have also carried out the [Installing Trident task](../install_trident).
+**Note:** If you don't see anything regarding Trident, please make sure you have also carried out the [Installing Trident task](../trident_install).
 
 ## F. Play around
 

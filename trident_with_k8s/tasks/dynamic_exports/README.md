@@ -144,7 +144,7 @@ If you were to add a new node to the Production k8s cluster, Trident will automa
 
 You may have gone through all tasks.  
 
-Why not try and set up the Dev cluster from scratch with a [new Trident install](../install_trident) and different [storage-classes](../config_file)?
+Why not try and set up the Dev cluster from scratch with a [new Trident install](../trident_install) and different [storage-classes](../config_file)?
 
 ---
 **Page navigation**  

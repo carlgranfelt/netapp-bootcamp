@@ -28,7 +28,7 @@ There is also a set of [useful k8s commands](trident_with_k8s/tasks/useful_comma
 
 You don't have to carry out these tasks in order, but they are ordered in a way that would give the most logical flow to anyone new to k8s and persistent storage.  Once you have completed the 'Verify' lab, feel free to either follow them one-by-one or jump into the tasks that interest you the most.
 
-Do this first: 
+Do this first:  
 
 * [Verify and navigate the lab environment](trident_with_k8s/tasks/verify_lab)  
 
@@ -51,9 +51,9 @@ then:
 
 If you would like to carry out some of the tasks performed for you by the configure_bootcamp.sh script, below are the commands required.  These can be useful if you wish to become familar with tasks such as installing Trident or defining storage classes and should be run against the dev cluster via host **rhel5**:
 
-* [Install/Upgrade Trident with an Operator](trident_with_k8s/tasks/install_trident)  
+* [Install/Upgrade Trident with an Operator](trident_with_k8s/tasks/trident_install)  
 * [Install Prometheus & incorporate Trident's metrics](trident_with_k8s/tasks/config_prometheus)  
-* [Configure Grafana & add your first graphs ](trident_with_k8s/tasks/config_grafana)  
+* [Configure Grafana & add your first graphs](trident_with_k8s/tasks/config_grafana)  
 * [Configure your first NAS backends & storage classes](trident_with_k8s/tasks/config_file)  
 * [Configure your first iSCSI backends & storage classes](trident_with_k8s/tasks/config_block)  
 * [Specify a default storage class](trident_with_k8s/tasks/default_sc)  

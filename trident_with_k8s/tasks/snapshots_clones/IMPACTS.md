@@ -8,7 +8,7 @@ So, what happens if you delete a PVC or a snapshot, how does it affect other obj
 
 Well, the good news is that there is no impact...  
 
-## A. Prepare the environment
+## A. Cleaning up the environment
 
 At this point, if you run the command: `kubectl get pv,pvc,volumesnapshot -n ghost-snap-clone` you should have:
 
@@ -65,7 +65,7 @@ volumesnapshot.snapshot.storage.k8s.io/blog-snapshot   true         blog-content
 +-----------------------------------------------+------------------------------------------+
 ```
 
-## B. Seek & destroy : PVC
+## B. Deleting PVCs
 
 Let's start by deleting the parent PVC.  
 
@@ -116,7 +116,7 @@ Notice that the volume we just removed is in a *deleting* state.
 
 Trident is actually going to physically remove the volume only once every CSI Snapshots are deleted!
 
-## C. Seek & destroy : Snapshot
+## C. Deleting Snapshots
 
 Let's delete the CSI Snapshot we created earlier.
 
@@ -167,8 +167,8 @@ In this configuration, deleting the snapshot & the parent PVC triggered 2 operat
 - As the volume had no CSI Snapshots left, Trident launched the deletion of this volume
 - Within ONTAP, a clone is also linked to its parent volume. Deleting the volume also meant performing a "split clone" operation on the second volume, which means transforming a clone into a volume of its own. This operation happens in the background, with no impact.  
 
-Bottom line, deleting a PVC or a snapshot will no have any impact on the infrastructure!
+Bottom line, deleting a PVC or a snapshot will not have any impact on the infrastructure.
 
 ## What's next
 
-Once you have finished with this sub-task, head back to the main task to [finish off the other sub-tasks](README.md#data-management-with-snapshots).
+Once you have finished with this sub-task, head back to the main task to [clean up](README.md#f-cleanup).

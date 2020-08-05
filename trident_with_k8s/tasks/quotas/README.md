@@ -203,6 +203,15 @@ Events:
   Normal   ExternalProvisioning  41s (x26 over 6m47s)   persistentvolume-controller                                                              waiting for a volume to be created, either by external provisioner "csi.trident.netapp.io" or manually created by system administrator
 ```
 
+...and via tridentctl:
+
+
+```bash
+[root@rhel3 ~]# tridentctl logs -n trident | grep Failed
+
+time="2020-08-05T15:39:59Z" level=error msg="GRPC error: rpc error: code = Unknown desc = encountered error(s) in creating the volume: [Failed to create volume pvc-a758cf7b-ffba-4694-bc93-1a1264b93797 on storage pool aggr1 from backend NAS_LimitVolSize: requested size: 10737418240 > the size limit: 5368709120]"
+```
+
 The error is now identified... 
 
 You would then need to decide to review the size of the PVC, or you could ask the admin to update the backend definition in order to go on.
@@ -237,7 +246,7 @@ Password:
 8
 ```
 
-In this example case, we have 8 volumes, so we will then set the maximum to 10 for this exercise.  Your number of existing volumes may be different depending on which tasks you have alraedy completed, so make sure to check.
+In this example case, we have 8 volumes, so we will add 2 and set the maximum to 10 for this exercise.  Your number of existing volumes may be different depending on which tasks you have alraedy completed, so make sure to check.
 
 ```bash
 [root@rhel3 ~]# ssh -l admin 192.168.0.101 vserver modify -vserver svm1 -max-volumes 10
@@ -268,16 +277,26 @@ The PVC will remain in the `Pending` state. You need to look either in the k8s P
  API status: failed, Reason: Cannot create volume. Reason: Maximum volume count for Vserver svm1 reached.  Maximum volume count is 12. , Code: 13001
 ...
 ```
+
+...and via tridentctl:
+
+
+```bash
+[root@rhel3 ~]# tridentctl logs -n trident | grep Failed
+
+time="2020-08-05T15:47:34Z" level=warning msg="Failed to create the volume on this backend." backend=ontap-file-rwx backendUUID=25174b4c-06f7-461d-892d-3a168ee14fab error="backend cannot satisfy create request for volume nas1_pvc_e896e2f6_bf43_403d_9c84_4f7a772059d9: (ONTAP-NAS pool aggr2/aggr2; error creating volume nas1_pvc_e896e2f6_bf43_403d_9c84_4f7a772059d9: API status: failed, Reason: Cannot create volume. Reason: Maximum volume count for Vserver svm1 reached.  Maximum volume count is 7. , Code: 13001)" pool=aggr2 volume=pvc-e896e2f6-bf43-403d-9c84-4f7a772059d9
+```
+
 There you go, point demonstrated!
 
-Time to clean up
+Time to clean up.  We can use the scenario labels that are applied as part of the PVC request yaml file to help us delete all of the PVCs in one command.  Feel free to take a look at the contents of one of the yaml files you used in this task to see where the label is applied and then use the command below to delete all the PVCs that had used `quotas` label:
 
 ```bash
 [root@rhel3 ~]# kubectl delete pvc -l scenario=quotas
 persistentvolumeclaim "quotasc-1" deleted
 persistentvolumeclaim "quotasc-2" deleted
 persistentvolumeclaim "quotasc-3" deleted
-[root@rhel3 ~]# ssh -l admin 192.168.0.101 vserver modify -vserver svm1 -max-volumes 100
+[root@rhel3 ~]# ssh -l admin 192.168.0.101 vserver modify -vserver svm1 -max-volumes unlimited
 ```
 
 ## D. What's next

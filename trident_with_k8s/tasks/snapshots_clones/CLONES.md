@@ -79,4 +79,4 @@ Check to see if you can access the new clone of the app via your browser.  In th
 
 Using this type of mechanism in a CI/CD pipeline can definitely save time (that's for Devs) & storage (that's for Ops)!
 
-Once you have finished with this sub-task, head back to the main task to [finish off the other sub-tasks](README.md#data-management-with-snapshots).
+Once you have finished with this sub-task, head back to the main task to [finish off the other sub-tasks](README.md#e-data-management-with-snapshots).

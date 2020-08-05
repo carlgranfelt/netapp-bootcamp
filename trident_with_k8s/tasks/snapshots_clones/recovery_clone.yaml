@@ -1,0 +1,17 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: recovery-clone
+  labels:
+    scenario: recovery
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: sc-file-rwx
+  dataSource:
+    name: blog-snapshot
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io

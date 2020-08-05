@@ -1,6 +1,9 @@
 # Consumption Control with Quotas
 
 **Objective:**  
+
+By utilising quotas within k8s, resources such as compute (CPU & memory) and k8s objects can have limits set against them.  These limits can also be applied against storage resources such as the total number of PVCs or the sum of all storage requests by capacity for each storageclass or namespace.  For more information please see the official k8s documentation: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+
 As Trident dynamically manages persitent volumes & brings self-service to the application level, the first benefit is that end-users do not need to rely on a storage admin to provision volumes on the fly.
 
 However, this freedom could quickly fill up the storage backends, especially if the users do not tidy up their environments...  
@@ -141,7 +144,7 @@ resourcequota "sc-resource-limit" deleted
 ## B. Trident parameters
 
 One parameter stands out in the Trident configuration when it comes to control sizes: _limitVolumeSize_  
-<https://netapp-trident.readthedocs.io/en/stable-v20.04/dag/kubernetes/storage_configuration_trident.html#limit-the-maximum-size-of-volumes-created-by-trident>  
+<https://netapp-trident.readthedocs.io/en/stable-v20.07/dag/kubernetes/storage_configuration_trident.html#limit-the-maximum-size-of-volumes-created-by-trident>  
 
 Depending on the driver, this parameter will:
 
@@ -175,7 +178,7 @@ NAME   STATUS    VOLUME                                     CAPACITY   ACCESS MO
 10g    Pending                                                                        sclimitvolumesize   10s
 ```
 
-The PVC will remain in the `Pending` state. You need to look either in the PVC logs or Trident's:
+The PVC will remain in the `Pending` state. You need to look either in the k8s PVC logs or Trident's own logs:
 
 ```bash
 [root@rhel3 ~]# kubectl describe pvc 10g
@@ -216,19 +219,17 @@ storageclass.storage.k8s.io "sclimitvolumesize" deleted
 
 ## C. ONTAP parameters
 
-The amount of ONTAP volumes (Flexvols) you can have on a ONTAP cluster depends on several parameters:
+The amount of volumes (FlexVols) you can have on an ONTAP cluster depends on several parameters:
 
-- Version
+- Version of ONTAP you are currently running
 - Size of the ONTAP cluster (in terms of controllers)  
 
-If the storage platform is also used by other workloads (Databases, Files Services ...), you may want to limit the number of PVCs you build in your storage Tenant (ie SVM)
-This can be achieved by setting a parameter on this SVM.  
-<https://netapp-trident.readthedocs.io/en/stable-v20.04/dag/kubernetes/storage_configuration_trident.html#limit-the-maximum-volume-count>
+If the storage platform is also used by other workloads (Databases, File Services, vSphere...), you may want to limit the number of PVCs you build in your storage Tenant (ie SVM).  This can be achieved by setting a parameter on the SVM.  Further documentation for this feature can be found [here](https://netapp-trident.readthedocs.io/en/stable-v20.07/dag/kubernetes/storage_configuration_trident.html#limit-the-maximum-volume-count).
 
 ![Quotas 4](../../../images/quotas4.jpg "Quotas 4")
 
-Before setting a limit in the SVM _svm1_, you first need to look for the current number of volumes you have.
-You can either login to System Manager via the Chrome browser & count, or run the following command (password Netapp1!)
+Before setting a limit in the SVM _svm1_, you first need to look for the current number of volumes you have already provisioned.
+To do this, you can either login to NetApp System Manager via the Chrome browser & count them up, or run the following command (password Netapp1!) which will out the figure for you:
 
 ```bash
 [root@rhel3 ~]# ssh -l admin 192.168.0.101 vol show -vserver svm1 | grep svm1 | wc -l
@@ -236,7 +237,7 @@ Password:
 8
 ```
 
-In my case, in have 8 volumes, I will then set the maximum to 10 for this exercise.
+In this example case, we have 8 volumes, so we will then set the maximum to 10 for this exercise.  Your number of existing volumes may be different depending on which tasks you have alraedy completed, so make sure to check.
 
 ```bash
 [root@rhel3 ~]# ssh -l admin 192.168.0.101 vserver modify -vserver svm1 -max-volumes 10
@@ -258,7 +259,7 @@ quotasc-2   Bound     pvc-f2bd901a-35e8-45a1-8294-2135b56abe19   1Gi        RWX 
 quotasc-3   Pending                                                                        sc-file-rwx        4s
 ```
 
-The PVC will remain in the `Pending` state. You need to look either in the PVC logs or Trident's
+The PVC will remain in the `Pending` state. You need to look either in the k8s PVC logs or Trident's own logs:
 
 ```bash
 [root@rhel3 ~]# kubectl describe pvc quotasc-3

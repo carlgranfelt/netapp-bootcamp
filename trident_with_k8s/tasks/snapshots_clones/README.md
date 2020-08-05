@@ -1,4 +1,4 @@
-# Test Kubernetes snapshots
+# k8s Snapshots and Clones with Trident
 
 **Objective:**  
 Kubernetes 1.17 promoted [CSI Snapshots to Beta](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/).  
@@ -31,8 +31,8 @@ service/blog created
 NAME                       READY   STATUS              RESTARTS   AGE
 pod/blog-57d7d4886-5bsml   1/1     Running             0          50s
 
-NAME           TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
-service/blog   NodePort   10.97.56.215   192.168.0.145        80:30070/TCP   50s
+NAME           TYPE           CLUSTER-IP     EXTERNAL-IP          PORT(S)        AGE
+service/blog   LoadBalancer   10.97.56.215   192.168.0.145        80:30070/TCP   50s
 
 NAME                   READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/blog   1/1     1            1           50s
@@ -44,8 +44,8 @@ replicaset.apps/blog-57d7d4886   1         1         1       50s
 NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
 persistentvolumeclaim/blog-content   Bound    pvc-ce8d812b-d976-43f9-8320-48a49792c972   5Gi        RWX            sc-file-rwx         4m3s
 
-NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                       STORAGECLASS        REASON   AGE
-persistentvolume/pvc-ce8d812b-d976-43f9-8320-48a49792c972   5Gi        RWX            Delete           Bound    ghost/blog-content          sc-file-rwx                  4m2s
+NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                                  STORAGECLASS        REASON   AGE
+persistentvolume/pvc-ce8d812b-d976-43f9-8320-48a49792c972   5Gi        RWX            Delete           Bound    ghost-snap-clone/blog-content          sc-file-rwx                  4m2s
 ```
 
 Check to see if you can access the app via your browser.  In this example case, the LoadBalancer IP for our app is `192.168.0.145`, though this may be different for you, so check your output from `kubectl get all -n ghost-snap-clone`.
@@ -90,10 +90,28 @@ The `volume snapshot` feature is now ready to be tested.
 
 ## C. Create a snapshot
 
+Before you create your snapshot, let's make sure that you have some important data in your PV that we want to protect.  Don't forget to use the blog-XXXXXXXX-XXXX pod name for your specific deployment.  You can get this with the `kubectl get -n ghost-snap-clone pod` command.
+
+```bash
+[root@rhel3 ~]# kubectl exec -n ghost-snap-clone blog-5c9c4cdfbf-q986f -- touch content/very-important-file.txt
+```
+
+...and let's make sure the file is now there:
+```bash
+[root@rhel3 ~]# kubectl exec -n ghost-snapclone blog-5c9c4cdfbf-q986f -- ls -l content/very-important-file.txt
+-rw-r--r--    1 root     root             0 Jun 30 11:34 /data/content/very-important-file.txt
+```
+
+Now that you have your important data in your PV, let's take a snapshot to protect it in case somone accidentally (or on purpose) deletes it:
+
 ```bash
 [root@rhel3 ~]# kubectl create -n ghost-snap-clone -f pvc-snapshot.yaml
 volumesnapshot.snapshot.storage.k8s.io/blog-snapshot created
+```
 
+Take a look at your snapshot status via kubectl:
+
+```bash
 [root@rhel3 ~]# kubectl get volumesnapshot -n ghost-snap-clone
 NAME            READYTOUSE   SOURCEPVC      SOURCESNAPSHOTCONTENT   RESTORESIZE   SNAPSHOTCLASS    SNAPSHOTCONTENT                                    CREATIONTIME   AGE
 blog-snapshot   true         blog-content                           5Gi           csi-snap-class   snapcontent-21331427-59a4-4b4a-a71f-91ffe2fb39bc   12m            12m
@@ -104,7 +122,11 @@ blog-snapshot   true         blog-content                           5Gi         
 +------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
 | pvc-b2113a4f-7359-4ab2-b771-a86272e3d11d | 5.0 GiB | sc-file-rwx       | file     | bdc8ce93-2268-4820-9fc5-45a8d9dead2a | online | true    |
 +------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
+```
 
+Take a look at your snapshot status via tridentctl:
+
+```bash
 [root@rhel3 ~]# tridentctl -n trident get snapshot
 +-----------------------------------------------+------------------------------------------+
 |                     NAME                      |                  VOLUME                  |
@@ -115,107 +137,24 @@ blog-snapshot   true         blog-content                           5Gi         
 
 Your snapshot has been created!  
 
-But what does it translate to at the storage level?  
+## E. Data Management with Snapshots
 
-With ONTAP, you will end up with an *ONTAP Snapshot*, a `ReadOnly` object, which is instantaneous & space efficient.
+Now that you have an application with a PV and a Snapshot of that PV, wha can you do with it?  Below are 3 tasks that help to demonstrate the power of these mechanisms:
 
-You can see it by browsing through NetApp System Manager or connecting with Putty to the `cluster1` profile (admin/Netapp1!)
+1. [Create an instant Clone](CLONES.md) of your PV and perform a data-in-place application upgrade
+2. [Recover data from a Snapshot](DATA-RECOVERY.md) if someone accidentally (or on purpose) deletes anything
+3. [See the impact of deleting](IMPACTS.md) PVs, Snapshots or Clones when using these features
 
-```bash
-cluster1::> vol snaps show -vserver svm1 -volume nas1_pvc_b2113a4f_7359_4ab2_b771_a86272e3d11d
-                                                                 ---Blocks---
-Vserver  Volume   Snapshot                                  Size Total% Used%
--------- -------- ------------------------------------- -------- ------ -----
-svm1     nas1_pvc_b2113a4f_7359_4ab2_b771_a86272e3d11d
-                  snapshot-21331427-59a4-4b4a-a71f-91ffe2fb39bc
-                                                           180KB     0%   18%
-```
+## F. Cleanup
 
-## D. Create a clone (ie a PVC from Snapshot)
-
-Having a snapshot can be useful to create a new PVC.
-
-If you take a look a the PVC file in the `Ghost_clone` directory, you can notice the reference to the snapshot:
-
-```bash
-  dataSource:
-    name: blog-snapshot
-    kind: VolumeSnapshot
-    apiGroup: snapshot.storage.k8s.io
-```
-
-Let's see how that turns out:
-
-```bash
-[root@rhel3 ~]# kubectl create -n ghost-snap-clone -f Ghost_clone/1_pvc_from_snap.yaml
-persistentvolumeclaim/pvc-from-snap created
-```
-
-This process will be quick no matter if the underlying volume is a small 10 megabyte or a large 10 terabyte volume.
-
-```bash
-[root@rhel3 ~]# kubectl get pvc,pv -n ghost-snap-clone
-NAME            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
-blog-content    Bound    pvc-b2113a4f-7359-4ab2-b771-a86272e3d11d   5Gi        RWX            sc-file-rwx         20h
-pvc-from-snap   Bound    pvc-4d6e8738-a419-405e-96fc-9cf3a0840b56   5Gi        RWX            sc-file-rwx         6s
-
-NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS        REASON   AGE
-pvc-4d6e8738-a419-405e-96fc-9cf3a0840b56   5Gi        RWX            Delete           Bound    ghost/pvc-from-snap   sc-file-rwx                  19s
-pvc-b2113a4f-7359-4ab2-b771-a86272e3d11d   5Gi        RWX            Delete           Bound    ghost/blog-content    sc-file-rwx                  20h
-```
-
-Your clone has been created, but what does it translate to at the storage level?
-
-With ONTAP, you will end up with a *FlexClone*, which is instantaneous & space efficient.
-
-Said differently,  you can imagine it as a _ReadWrite_ snapshot...  
-
-You can see this object by browsing through System Manager or connecting with Putty to the `cluster1` profile (admin/Netapp1!)
-
-```bash
-cluster1::> vol clone show
-                      Parent  Parent        Parent
-Vserver FlexClone     Vserver Volume        Snapshot             State     Type
-------- ------------- ------- ------------- -------------------- --------- ----
-svm1    nas1_pvc_4d6e8738_a419_405e_96fc_9cf3a0840b56
-                      svm1    nas1_pvc_b2113a4f_7359_4ab2_b771_a86272e3d11d
-                                            snapshot-21331427-59a4-4b4a-a71f-91ffe2fb39bc
-                                                                 online    RW
-```
-
-Now that we have a clone, what can we do with?
-
-Well, we could maybe fire up a new Ghost environment with a new version while keeping the same content? This would a good way to test a new release, while not copying all the data for this specific environment. In other words, you would save time by doing so.  
-
-The first deployment uses Ghost v2.6. Let's try with Ghost 3.13 ...
-
-```bash
-[root@rhel3 ~]# kubectl create -n ghost-snap-clone -f Ghost_clone/2_deploy.yaml
-deployment.apps/blogclone created
-
-[root@rhel3 ~]# kubectl create -n ghost-snap-clone -f Ghost_clone/3_service.yaml
-service/blogclone created
-
-[root@rhel3 ~]# kubectl get all -n ghost-snap-clone -l scenario=clone
-NAME                TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
-service/blogclone   NodePort   10.105.214.201   192.168.0.146        80:30071/TCP   12s
-
-NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/blogclone   1/1     1            1           2m19s
-```
-
-Check to see if you can access the new clone of the app via your browser.  In this example case, the LoadBalancer IP for our app is `192.168.0.146`, though this may be different for you, so check your output from your last command on `rhel3`.
-
-Using this type of mechanism in a CI/CD pipeline can definitely save time (that's for Devs) & storage (that's for Ops)!
-
-## E. Cleanup
+Make sure you are done with the 3 additional tasks above before you cleanup, otherwise you'll need to start this task over.
 
 ```bash
 [root@rhel3 ~]# kubectl delete ns ghost-snap-clone
 namespace "ghost" deleted
 ```
 
-## F. What's next
+## G. What's next
 
 You can now move on to the last task on the production cluster:  
 

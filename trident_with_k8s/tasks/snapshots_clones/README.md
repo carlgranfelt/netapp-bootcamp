@@ -151,10 +151,10 @@ Make sure you are done with the 3 additional tasks above before you cleanup, oth
 
 ```bash
 [root@rhel3 ~]# kubectl delete ns ghost-snap-clone
-namespace "ghost" deleted
+namespace "ghost-snap-clone" deleted
 ```
 
-## G. What's next
+## What's next
 
 You can now move on to the last task on the production cluster:  
 

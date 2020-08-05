@@ -49,8 +49,8 @@ blog-57cdf6865f-ww2db   1/1     Running       0          6s
 Now, if you look at the files this POD has access to (the PVC), you will see that the *lost data* (file: content/very-important-file.txt) is back!  *Make sure to reference the new Pod name in this command as the patching process will have recreated a pod and it will restart with a random name.  This pod name changing issue can be remedied by using Statefulsets, but this is a later task in this bootcamp.
 
 ```bash
-[root@rhel3 ~]# kubectl exec -n ghost-snap-clone blog-57cdf6865f-ww2db -- ls /data/content/very-important-file.txt
--rw-r--r--    1 root     root             0 Jun 30 11:34 /data/content/very-important-file.txt
+[root@rhel3 ~]# kubectl exec -n ghost-snap-clone blog-57cdf6865f-ww2db -- ls content/very-important-file.txt
+-rw-r--r--    1 root     root             0 Jun 30 11:34 content/very-important-file.txt
 ```
 
 Tadaaa, you have restored your data!  
@@ -59,4 +59,4 @@ Keep in mind that some applications may need some extra care once the data is re
 
 ## What's next
 
-Once you have finished with this sub-task, head back to the main task to [finish off the other sub-tasks](README.md#data-management-with-snapshots).
+Once you have finished with this sub-task, head back to the main task to [finish off the other sub-tasks](README.md#e-data-management-with-snapshots).

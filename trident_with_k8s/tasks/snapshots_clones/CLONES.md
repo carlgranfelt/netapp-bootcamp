@@ -75,8 +75,8 @@ NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/blogclone   1/1     1            1           2m19s
 ```
 
-Check to see if you can access the new clone of the app via your browser.  In this example case, the LoadBalancer IP for our app is `192.168.0.146`, though this may be different for you, so check your output from your last command on `rhel3`.
+Check to see if you can access the new clone of the app via your browser.  In this example case, the LoadBalancer IP for our app is `192.168.0.146`, though this may be different for you, so check your output from your last command on `rhel3`.  You should now have a deployment of Ghost v3.13 but with the back-end data coming from the Clone of your v2.6 deployment.
 
 Using this type of mechanism in a CI/CD pipeline can definitely save time (that's for Devs) & storage (that's for Ops)!
 
-Once you have finished with this sub-task, head back to the main task to [finish off the other sub-tasks](README.md#Data Management-with-Snapshots).
+Once you have finished with this sub-task, head back to the main task to [finish off the other sub-tasks](README.md#data-management-with-snapshots).

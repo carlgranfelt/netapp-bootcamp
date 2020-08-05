@@ -10,11 +10,12 @@ Well, the good news is that there is no impact...
 
 ## A. Prepare the environment
 
-At this point, you should have:
+At this point, if you run the command: `kubectl get pv,pvc,volumesnapshot -n ghost-snap-clone` you should have:
 
-- a PVC (*blog-content*)
-- a Snapshot (*blog-snapshot*)
-- a Clone (*pvc-from-snap*)
+- The original PVC: `blog-content`
+- Your 1st cloned PVC for your upgraded application: `pvc-from-snap`
+- Your 2nd clone for your recovered data: `recovery-clone`
+- The Snapshot you originally created: `blog-snapshot`
 
 Also, if you have already been through the other sub-tasks, you may still have PODs & Services configured.  
 
@@ -30,32 +31,37 @@ deployment.apps "blog" deleted
 [root@rhel3 ~]# kubectl delete -n ghost-snap-clone all -l scenario=clone
 service "blogclone" deleted
 deployment.apps "blogclone" deleted
+
 ```
 
 Once the cleanup is done, you will only have the following left:
 
 ```bash
 [root@rhel3 ~]# kubectl get -n ghost-snap-clone pvc,volumesnapshot
-NAME                                     STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
-persistentvolumeclaim/blog-content             Bound    pvc-d5511709-a2f7-4d40-8f7d-bb3e0cd50316   5Gi        RWX            storage-class-nas   23m
-persistentvolumeclaim/pvc-from-snap   Bound    pvc-525c8fff-f48b-4f7a-b5c3-8aa6230ff72f   5Gi        RWX            storage-class-nas   10m
+NAME                                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+persistentvolumeclaim/blog-content     Bound    pvc-766e1cbc-70b9-4e5b-9cb7-93aead07c643   5Gi        RWX            sc-file-rwx    16m
+persistentvolumeclaim/pvc-from-snap    Bound    pvc-1934093c-07da-4dce-b0f3-8c35b50bbfc8   5Gi        RWX            sc-file-rwx    15m
+persistentvolumeclaim/recovery-clone   Bound    pvc-f5e36092-4ecb-4f35-8184-b890ca8ba6f0   5Gi        RWX            sc-file-rwx    10m
 
-NAME                                                     READYTOUSE   SOURCEPVC   SOURCESNAPSHOTCONTENT   RESTORESIZE   SNAPSHOTCLASS    SNAPSHOTCONTENT                                    CREATIONTIME   AGE
-volumesnapshot.snapshot.storage.k8s.io/blog-snapshot   true         mydata                              5Gi           csi-snap-class   snapcontent-e4ab0f8c-5cd0-4797-a087-0770bd6f1498   16m            16m
+NAME                                                   READYTOUSE   SOURCEPVC      SOURCESNAPSHOTCONTENT   RESTORESIZE   SNAPSHOTCLASS    SNAPSHOTCONTENT                                    CREATIONTIME   AGE
+volumesnapshot.snapshot.storage.k8s.io/blog-snapshot   true         blog-content                           5Gi           csi-snap-class   snapcontent-8120f63d-ce41-44e0-b314-54e33c246b9a   15m            16m
+
 
 [root@rhel3 ~]# tridentctl -n trident get volume
-+------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
-|                   NAME                   |  SIZE   |   STORAGE CLASS   | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
-+------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
-| pvc-525c8fff-f48b-4f7a-b5c3-8aa6230ff72f | 5.0 GiB | storage-class-nas | file     | b24a8ae8-a8af-478c-816a-33145116f798 | online | true    |
-| pvc-d5511709-a2f7-4d40-8f7d-bb3e0cd50316 | 5.0 GiB | storage-class-nas | file     | b24a8ae8-a8af-478c-816a-33145116f798 | online | true    |
-+------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+| pvc-1934093c-07da-4dce-b0f3-8c35b50bbfc8 | 5.0 GiB | sc-file-rwx   | file     | 25174b4c-06f7-461d-892d-3a168ee14fab | online | true    |
+| pvc-766e1cbc-70b9-4e5b-9cb7-93aead07c643 | 5.0 GiB | sc-file-rwx   | file     | 25174b4c-06f7-461d-892d-3a168ee14fab | online | true    |
+| pvc-f5e36092-4ecb-4f35-8184-b890ca8ba6f0 | 5.0 GiB | sc-file-rwx   | file     | 25174b4c-06f7-461d-892d-3a168ee14fab | online | true    |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+
 
 [root@rhel3 ~]# tridentctl -n trident get snapshot
 +-----------------------------------------------+------------------------------------------+
 |                     NAME                      |                  VOLUME                  |
 +-----------------------------------------------+------------------------------------------+
-| snapshot-e4ab0f8c-5cd0-4797-a087-0770bd6f1498 | pvc-d5511709-a2f7-4d40-8f7d-bb3e0cd50316 |
+| snapshot-8120f63d-ce41-44e0-b314-54e33c246b9a | pvc-766e1cbc-70b9-4e5b-9cb7-93aead07c643 |
 +-----------------------------------------------+------------------------------------------+
 ```
 
@@ -71,15 +77,14 @@ persistentvolumeclaim "blog-content" deleted
 This operation took no time, & here is what we have left within our namespace in Kubernetes:
 
 ```bash
-[root@rhel3 ~]# kubetcl get -n ghost-snap-clone pvc,pv
-NAME               STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
-mydata-from-snap   Bound    pvc-525c8fff-f48b-4f7a-b5c3-8aa6230ff72f   5Gi        RWX            storage-class-nas   75m
-NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                    STORAGECLASS        REASON   AGE
-pvc-525c8fff-f48b-4f7a-b5c3-8aa6230ff72f   5Gi        RWX            Delete           Bound    ghost/pvc-from-snap   storage-class-nas            75m
+[root@rhel3 ~]# kubectl get -n ghost-snap-clone pvc,pv
+NAME                                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+persistentvolumeclaim/pvc-from-snap    Bound    pvc-1934093c-07da-4dce-b0f3-8c35b50bbfc8   5Gi        RWX            sc-file-rwx    17m
+persistentvolumeclaim/recovery-clone   Bound    pvc-f5e36092-4ecb-4f35-8184-b890ca8ba6f0   5Gi        RWX            sc-file-rwx    13m
 
-[root@rhel3 ~]# kubetl get -n ghost-snap-clone volumesnapshot
-NAME              READYTOUSE   SOURCEPVC   SOURCESNAPSHOTCONTENT   RESTORESIZE   SNAPSHOTCLASS    SNAPSHOTCONTENT                                    CREATIONTIME   AGE
-blog-snapshot   true         blog-content                              5Gi           csi-snap-class   snapcontent-e4ab0f8c-5cd0-4797-a087-0770bd6f1498   81m            82m
+NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                             STORAGECLASS   REASON   AGE
+persistentvolume/pvc-1934093c-07da-4dce-b0f3-8c35b50bbfc8   5Gi        RWX            Delete           Bound    ghost-snap-clone/pvc-from-snap    sc-file-rwx             17m
+persistentvolume/pvc-f5e36092-4ecb-4f35-8184-b890ca8ba6f0   5Gi        RWX            Delete           Bound    ghost-snap-clone/recovery-clone   sc-file-rwx             13m
 ```
 
 As expected, the *blog-content* PVC & its PV are gone from the configuration.  
@@ -88,22 +93,24 @@ However, what do we see from a Trident point of view:
 
 ```bash
 [root@rhel3 ~]# tridentctl -n trident get volumes
-+------------------------------------------+---------+-------------------+----------+--------------------------------------+----------+---------+
-|                   NAME                   |  SIZE   |   STORAGE CLASS   | PROTOCOL |             BACKEND UUID             |  STATE   | MANAGED |
-+------------------------------------------+---------+-------------------+----------+--------------------------------------+----------+---------+
-| pvc-525c8fff-f48b-4f7a-b5c3-8aa6230ff72f | 5.0 GiB | storage-class-nas | file     | b24a8ae8-a8af-478c-816a-33145116f798 | online   | true    |
-| pvc-d5511709-a2f7-4d40-8f7d-bb3e0cd50316 | 5.0 GiB | storage-class-nas | file     | b24a8ae8-a8af-478c-816a-33145116f798 | deleting | true    |
-+------------------------------------------+---------+-------------------+----------+--------------------------------------+----------+---------+
++------------------------------------------+---------+---------------+----------+--------------------------------------+----------+---------+
+|                   NAME                   |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             |  STATE   | MANAGED |
++------------------------------------------+---------+---------------+----------+--------------------------------------+----------+---------+
+| pvc-1934093c-07da-4dce-b0f3-8c35b50bbfc8 | 5.0 GiB | sc-file-rwx   | file     | 25174b4c-06f7-461d-892d-3a168ee14fab | online   | true    |
+| pvc-766e1cbc-70b9-4e5b-9cb7-93aead07c643 | 5.0 GiB | sc-file-rwx   | file     | 25174b4c-06f7-461d-892d-3a168ee14fab | deleting | true    |
+| pvc-f5e36092-4ecb-4f35-8184-b890ca8ba6f0 | 5.0 GiB | sc-file-rwx   | file     | 25174b4c-06f7-461d-892d-3a168ee14fab | online   | true    |
++------------------------------------------+---------+---------------+----------+--------------------------------------+----------+---------+
+
 
 [root@rhel3 ~]# tridentctl -n trident get snapshot
 +-----------------------------------------------+------------------------------------------+
 |                     NAME                      |                  VOLUME                  |
 +-----------------------------------------------+------------------------------------------+
-| snapshot-e4ab0f8c-5cd0-4797-a087-0770bd6f1498 | pvc-d5511709-a2f7-4d40-8f7d-bb3e0cd50316 |
+| snapshot-8120f63d-ce41-44e0-b314-54e33c246b9a | pvc-766e1cbc-70b9-4e5b-9cb7-93aead07c643 |
 +-----------------------------------------------+------------------------------------------+
 ```
 
-We still have 2 volumes configured!  
+We still have 3 volumes configured!  
 
 Notice that the volume we just removed is in a *deleting* state.  
 
@@ -115,8 +122,8 @@ Let's delete the CSI Snapshot we created earlier.
 
 ```bash
 [root@rhel3 ~]# kubectl get -n ghost-snap-clone volumesnapshot
-NAME              READYTOUSE   SOURCEPVC   SOURCESNAPSHOTCONTENT   RESTORESIZE   SNAPSHOTCLASS    SNAPSHOTCONTENT                                    CREATIONTIME   AGE
-blog-snapshot   true         blog-content                              5Gi           csi-snap-class   snapcontent-e4ab0f8c-5cd0-4797-a087-0770bd6f1498   126m           127m
+NAME            READYTOUSE   SOURCEPVC      SOURCESNAPSHOTCONTENT   RESTORESIZE   SNAPSHOTCLASS    SNAPSHOTCONTENT                                    CREATIONTIME   AGE
+blog-snapshot   true         blog-content                           5Gi           csi-snap-class   snapcontent-8120f63d-ce41-44e0-b314-54e33c246b9a   21m            21m
 
 [root@rhel3 ~]# kubectl delete -n ghost-snap-clone volumesnapshot blog-snapshot
 volumesnapshot.snapshot.storage.k8s.io "blog-snapshot" deleted
@@ -128,11 +135,14 @@ Let's look at what we have left:
 
 ```bash
 [root@rhel3 ~]# kubectl get -n ghost-snap-clone pvc,pv
-NAME                                     STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
-persistentvolumeclaim/pvc-from-snap   Bound    pvc-525c8fff-f48b-4f7a-b5c3-8aa6230ff72f   5Gi        RWX            storage-class-nas   121m
+NAME                                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+persistentvolumeclaim/pvc-from-snap    Bound    pvc-1934093c-07da-4dce-b0f3-8c35b50bbfc8   5Gi        RWX            sc-file-rwx    24m
+persistentvolumeclaim/recovery-clone   Bound    pvc-f5e36092-4ecb-4f35-8184-b890ca8ba6f0   5Gi        RWX            sc-file-rwx    19m
 
-NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                    STORAGECLASS        REASON   AGE
-persistentvolume/pvc-525c8fff-f48b-4f7a-b5c3-8aa6230ff72f   5Gi        RWX            Delete           Bound    ghost-snap-clone/pvc-from-snap   storage-class-nas            121m
+NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                             STORAGECLASS   REASON   AGE
+persistentvolume/pvc-1934093c-07da-4dce-b0f3-8c35b50bbfc8   5Gi        RWX            Delete           Bound    ghost-snap-clone/pvc-from-snap    sc-file-rwx             24m
+persistentvolume/pvc-f5e36092-4ecb-4f35-8184-b890ca8ba6f0   5Gi        RWX            Delete           Bound    ghost-snap-clone/recovery-clone   sc-file-rwx             19m
+
 
 [root@rhel3 ~]# tridentctl -n trident get snapshot
 +------+--------+
@@ -140,16 +150,17 @@ persistentvolume/pvc-525c8fff-f48b-4f7a-b5c3-8aa6230ff72f   5Gi        RWX      
 +------+--------+
 +------+--------+
 [root@rhel3 ~]# tridentctl -n trident get volume
-+------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
-|                   NAME                   |  SIZE   |   STORAGE CLASS   | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
-+------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
-| pvc-525c8fff-f48b-4f7a-b5c3-8aa6230ff72f | 5.0 GiB | storage-class-nas | file     | b24a8ae8-a8af-478c-816a-33145116f798 | online | true    |
-+------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+| pvc-1934093c-07da-4dce-b0f3-8c35b50bbfc8 | 5.0 GiB | sc-file-rwx   | file     | 25174b4c-06f7-461d-892d-3a168ee14fab | online | true    |
+| pvc-f5e36092-4ecb-4f35-8184-b890ca8ba6f0 | 5.0 GiB | sc-file-rwx   | file     | 25174b4c-06f7-461d-892d-3a168ee14fab | online | true    |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
 ```
 
 The snapshot & the first volume are now gone from both Kubernetes & Trident.  
 
-We are left with the PVC we created from the snapshot.  
+We are left with the PVC clones we created from the snapshot.  
 
 In this configuration, deleting the snapshot & the parent PVC triggered 2 operations:
 
@@ -160,4 +171,4 @@ Bottom line, deleting a PVC or a snapshot will no have any impact on the infrast
 
 ## What's next
 
-Once you have finished with this sub-task, head back to the main task to [finish off the other sub-tasks](README.md#Data Management-with-Snapshots).
+Once you have finished with this sub-task, head back to the main task to [finish off the other sub-tasks](README.md#data-management-with-snapshots).

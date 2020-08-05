@@ -31,8 +31,8 @@ service/blog created
 NAME                       READY   STATUS              RESTARTS   AGE
 pod/blog-57d7d4886-5bsml   1/1     Running             0          50s
 
-NAME           TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
-service/blog   NodePort   10.97.56.215   192.168.0.145        80:30070/TCP   50s
+NAME           TYPE           CLUSTER-IP     EXTERNAL-IP          PORT(S)        AGE
+service/blog   LoadBalancer   10.97.56.215   192.168.0.145        80:30070/TCP   50s
 
 NAME                   READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/blog   1/1     1            1           50s
@@ -44,8 +44,8 @@ replicaset.apps/blog-57d7d4886   1         1         1       50s
 NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
 persistentvolumeclaim/blog-content   Bound    pvc-ce8d812b-d976-43f9-8320-48a49792c972   5Gi        RWX            sc-file-rwx         4m3s
 
-NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                       STORAGECLASS        REASON   AGE
-persistentvolume/pvc-ce8d812b-d976-43f9-8320-48a49792c972   5Gi        RWX            Delete           Bound    ghost/blog-content          sc-file-rwx                  4m2s
+NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                                  STORAGECLASS        REASON   AGE
+persistentvolume/pvc-ce8d812b-d976-43f9-8320-48a49792c972   5Gi        RWX            Delete           Bound    ghost-snap-clone/blog-content          sc-file-rwx                  4m2s
 ```
 
 Check to see if you can access the app via your browser.  In this example case, the LoadBalancer IP for our app is `192.168.0.145`, though this may be different for you, so check your output from `kubectl get all -n ghost-snap-clone`.
@@ -93,13 +93,13 @@ The `volume snapshot` feature is now ready to be tested.
 Before you create your snapshot, let's make sure that you have some important data in your PV that we want to protect.  Don't forget to use the blog-XXXXXXXX-XXXX pod name for your specific deployment.  You can get this with the `kubectl get -n ghost-snap-clone pod` command.
 
 ```bash
-[root@rhel3 ~]# kubectl exec -n ghost-snap-clone blog-5c9c4cdfbf-q986f -- touch /data/very-important-file.txt
+[root@rhel3 ~]# kubectl exec -n ghost-snap-clone blog-5c9c4cdfbf-q986f -- touch content/very-important-file.txt
 ```
 
 ...and let's make sure the file is now there:
 ```bash
-[root@rhel3 ~]# kubectl exec -n ghost-snapclone blog-5c9c4cdfbf-q986f -- ls -l /data/very-important-file.txt
--rw-r--r--    1 root     root             0 Jun 30 11:34 /data/very-important-file.txt
+[root@rhel3 ~]# kubectl exec -n ghost-snapclone blog-5c9c4cdfbf-q986f -- ls -l content/very-important-file.txt
+-rw-r--r--    1 root     root             0 Jun 30 11:34 /data/content/very-important-file.txt
 ```
 
 Now that you have your important data in your PV, let's take a snapshot to protect it in case somone accidentally (or on purpose) deletes it:
@@ -137,28 +137,13 @@ Take a look at your snapshot status via tridentctl:
 
 Your snapshot has been created!  
 
-But what does it translate to at the storage level?  
-
-With ONTAP, you will end up with an *ONTAP Snapshot*, a `ReadOnly` object, which is instantaneous & space efficient.
-
-You can see it by browsing through NetApp System Manager or connecting with Putty to the `cluster1` profile (admin/Netapp1!)
-
-```bash
-cluster1::> vol snaps show -vserver svm1 -volume nas1_pvc_b2113a4f_7359_4ab2_b771_a86272e3d11d
-                                                                 ---Blocks---
-Vserver  Volume   Snapshot                                  Size Total% Used%
--------- -------- ------------------------------------- -------- ------ -----
-svm1     nas1_pvc_b2113a4f_7359_4ab2_b771_a86272e3d11d
-                  snapshot-21331427-59a4-4b4a-a71f-91ffe2fb39bc
-                                                           180KB     0%   18%
-```
 ## E. Data Management with Snapshots
 
 Now that you have an application with a PV and a Snapshot of that PV, wha can you do with it?  Below are 3 tasks that help to demonstrate the power of these mechanisms:
 
-* [Create an instant Clone](CLONES.md) of your PV and perform a data-in-place application upgrade
-* [Recover data from a Snapshot](DATA-RECOVERY.md) if someone accidentally (or on purpose) deletes anything
-* [See the impact of deleting](IMPACTS.md) PVs, Snapshots or Clones when using these features
+1. [Create an instant Clone](CLONES.md) of your PV and perform a data-in-place application upgrade
+2. [Recover data from a Snapshot](DATA-RECOVERY.md) if someone accidentally (or on purpose) deletes anything
+3. [See the impact of deleting](IMPACTS.md) PVs, Snapshots or Clones when using these features
 
 ## F. Cleanup
 

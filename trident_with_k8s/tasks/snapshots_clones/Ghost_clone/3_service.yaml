@@ -5,7 +5,7 @@ metadata:
   labels:
     scenario: clone
 spec:
-  type: LoadBlancer
+  type: LoadBalancer
   selector:
     app: blogclone
   ports:

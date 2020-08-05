@@ -224,7 +224,7 @@ You can now move on to:
 
 or jump ahead to...  
 
-- [On-Demand Snapshots & PVC clones](../snpashots_clones)   
+- [On-Demand Snapshots & PVC clones](../snapshots_clones)   
 - [Dynamic export policy management ](../dynamic_exports)  
 
 ---

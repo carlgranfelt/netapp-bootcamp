@@ -1,0 +1,128 @@
+---
+
+# Create managed and unmanaged volumes, mount, write data and unmount them
+
+- name: Create managed and unmanaged volumes, mount, write data and unmount them
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  collections:
+    - netapp.ontap
+
+# Re-configure ONTAP SVM for NFS & iSCSI protocol
+
+  vars:
+    netapp_hostname: 192.168.0.101
+    netapp_username: admin
+    netapp_password: Netapp1!
+    netapp_vserver:  svm1
+  tasks:
+
+# Create managed volume on ONTAP
+
+    - name: Create managed volume on ONTAP system
+      na_ontap_volume:
+        state: present
+        name: existing_managed
+        junction_path: /existing_managed
+        is_infinite: False
+        aggregate_name: aggr2
+        size: 100
+        size_unit: mb
+        space_guarantee: none
+        policy: default
+        vserver: svm1
+        wait_for_completion: True
+        comment: ansible created volume for pv import
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+        
+# Create unmanaged volume on ONTAP 
+
+    - name: Create unmanaged volume on ONTAP system
+      na_ontap_volume:
+        state: present
+        name: existing_unmanaged
+        junction_path: /existing_unmanaged
+        is_infinite: False
+        aggregate_name: aggr2
+        size: 100
+        size_unit: mb
+        space_guarantee: none
+        vserver: svm1
+        wait_for_completion: True
+        comment: ansible created unmanaged volume
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+        
+# Mount the managed volume to rhel3 so we can write data to it for later
+        
+    - name: Mount created managed volume to write existing data to
+      mount:
+        fstype: nfs
+        opts: defaults
+        state: mounted
+        src: 192.168.0.132:/existing_managed
+        path: /mnt/managed
+        
+# Mount the unmanaged volume to rhel3 so we can write data to it for later
+        
+    - name: Mount created unmanaged volume to write existing data to
+      mount:
+        fstype: nfs
+        opts: defaults
+        state: mounted
+        src: 192.168.0.132:/existing_unmanaged
+        path: /mnt/unmanaged
+        
+# Create a file and a directory in the managed mount for retrieval later
+
+    - name: Touch a file in the managed volume
+      file:
+        path: /mnt/managed/your-existing-data1.txt
+        state: touch
+        mode: u=rw,g=r,o=r
+        
+    - name: Create a directory in the managed volume
+      file:
+        path: /mnt/managed/your_existing_folder1
+        state: directory
+        mode: '0755'
+        
+# Create a file and a directory in the unmanaged mount for retrieval later
+
+    - name: Touch a file in the unmanaged volume
+      file:
+        path: /mnt/unmanaged/your-existing-data2.txt
+        state: touch
+        mode: u=rw,g=r,o=r
+
+    - name: Create a directory in te unmanaged volume
+      file:
+        path: /mnt/unmanaged/your_existing_folder2
+        state: directory
+        mode: '0755'
+        
+# Now that we have the files loaded, unmount the volumes from rhel3.  We will import them as PVCs to our Pod later
+
+    - name: Unmount managed volume now that we are done with them
+      mount:
+        fstype: nfs
+        opts: defaults
+        state: absent
+        src: 192.168.0.132:/existing_managed"
+        path: /mnt/managed
+
+    - name: Unmount unmanaged volume now that we are done with them
+      mount:
+        fstype: nfs
+        opts: defaults
+        state: absent
+        src: 192.168.0.132:/existing_unmanaged
+        path: /mnt/unmanaged

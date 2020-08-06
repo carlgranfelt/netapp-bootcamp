@@ -1,5 +1,13 @@
 # Importing Existing Volumes Using Trident - Lab in Progress (do not use)
 
+- Utilise file app from task 1
+- Run Ansible script to create 2 new NFS volume on svm1 (manage and no manage)
+- Populate volume with some dummy data via shell script
+- Create managed PVC for existing volume
+- Show that we can now access existing data in manage volume
+- Create unmanaged PVC for existing volume
+- Show that we can now access existing data in unmanaged volume
+
 **Objective:**  
 Trident allows you to import an existing volume sitting on a NetApp backend into Kubernetes.  This could be useful for applications that are being re-factored which previously had data from an NFS mount into a Virtual Machine and you now want that same data to be accessed by a container in k8s.
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "#######################################################################################################"
-echo "kubeadm init in the k8s master node"
+echo "kubeadm init in the k8s master node rhel5"
 echo "#######################################################################################################"
 
 systemctl daemon-reload && systemctl enable kubelet && systemctl restart kubelet 

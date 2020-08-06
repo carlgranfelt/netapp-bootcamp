@@ -1,12 +1,12 @@
 #!/bin/bash
 
 echo "#######################################################################################################"
-echo "Download the last Trident package and GitHub NetApp-LoD repository"
+echo "Prepare production kubernetes server rhel4"
 echo "#######################################################################################################"
 
-# MUST FIND A BETTER PLACE TO DOWNLOAD TRIDENT TO RHEL5 - DEV K8S MASTER
-# wget -nv https://github.com/NetApp/trident/releases/download/v20.04.0/trident-installer-20.04.0.tar.gz
-# tar -xf trident-installer-20.04.0.tar.gz
+echo "#######################################################################################################"
+echo "Download the GitHub NetApp-LoD repository"
+echo "#######################################################################################################"
 
 # MUST REMOVE COMMENT ONCE REPO IS PUBLIC!!!
 # git clone <https://github.com/carlgranfelt/NetApp-LoD.git>

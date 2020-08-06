@@ -11,7 +11,7 @@ For the official documentation on deploying with the Trident Operator, please se
 
 ## A. Download & setup the operator
 
-Connect using PuTTY to the dev k8s cluster's master node, **`rhel`5**, download the **latest -1** version of the Trident installer bundle and extract it.  We will use the previously latest version for this task, so that you can carry out a Trident upgrade in a later task on the dev cluster.
+Connect using PuTTY to the dev k8s cluster's master node, **`rhel5`**, download the **latest -1** version of the Trident installer bundle and extract it.  We will use the previously latest version for this task, so that you can carry out a Trident upgrade in a later task on the dev cluster.
 
 ```bash
 [root@rhel5 ~]# cd

@@ -3,7 +3,7 @@
 **Objective:**  
 The 20.04 release of CSI Trident provides the ability to dynamically manage export policies for ONTAP backends.  
 
-Letting Trident manage the export policies allows you to reduce the amount of administrative tasks, especially when clusters scale up & down.  Further information on Dynamic Exports with Trident can be found in the [official documentation](https://netapp-trident.readthedocs.io/en/stable-v20.04/kubernetes/operations/tasks/backends/ontap.html#dynamic-export-policies-with-ontap-nas).
+Letting Trident manage the export policies allows you to reduce the amount of administrative tasks, especially when clusters scale up & down.  Further information on Dynamic Exports with Trident can be found in the [official documentation](https://netapp-trident.readthedocs.io/en/latest/kubernetes/operations/tasks/backends/ontap/ontap-nas/dynamic-export-policies.html).
 
 The configuration of this feature is done in the Trident Backend object. There 2 different json files in this directory that will help you discover how to use it.  
 

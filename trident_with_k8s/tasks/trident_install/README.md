@@ -1,9 +1,9 @@
 # Trident installation with an Operator
 
 **Objective:**  
-Trident 20.04 introduced a new way to manage its lifecycle: Operators.  
 
-For now, this installation method is only intended for green field environments.  
+Trident 20.04 introduced a new way to manage its lifecycle: Operators. For Trident 20.04 this installation method is only intended for green field environments. With the release of Trident 20.07 the installation method is now also available for brown field environments.  
+This task is set up to install Trident version (n-1) as we have a separate task available to showcase [Upgrading with the Trident Operator](../trident_upgrade)  
 
 For the official documentation on deploying with the Trident Operator, please see:  
 <https://netapp-trident.readthedocs.io/en/latest/kubernetes/operator-install.html>

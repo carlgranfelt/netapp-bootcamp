@@ -86,11 +86,11 @@ tridentctl -n trident uninstall
 # Delete trident namespace
 kubectl delete ns trident
 
-# Download Trident 20.04
+# Download Trident 20.07
 cd
 mv trident-installer/ trident-installer_19.07
-wget -nv https://github.com/NetApp/trident/releases/download/v20.04.0/trident-installer-20.04.0.tar.gz
-tar -xf trident-installer-20.04.0.tar.gz
+wget -nv https://github.com/NetApp/trident/releases/download/v20.07.0/trident-installer-20.07.0.tar.gz
+tar -xf trident-installer-20.07.0.tar.gz
 
 # Run twice the obliviate alpha-snapshot-crd command due to a known issue
 tridentctl -n trident obliviate alpha-snapshot-crd

@@ -30,6 +30,8 @@ Run the configuration script
 
 ```bash
 time . ./configure_bootcamp.sh &>> configure_bootcamp.log
+or
+time . ./configure_bootcamp.sh | tee configure_bootcamp.log
 ```
 
 Once running, the script will take ~15 minutes to complete.  Tasks the script carries out are:

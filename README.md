@@ -51,7 +51,8 @@ then:
 
 If you would like to carry out some of the tasks performed for you by the configure_bootcamp.sh script, below are the commands required.  These can be useful if you wish to become familar with tasks such as installing Trident or defining storage classes and should be run against the dev cluster via host **rhel5**:
 
-* [Install/Upgrade Trident with an Operator](trident_with_k8s/tasks/trident_install)  
+* [Install Trident with an Operator](trident_with_k8s/tasks/trident_install)  
+* [Upgrading with the Trident Operator](trident_with_k8s/tasks//trident_upgrade)  
 * [Install Prometheus & incorporate Trident's metrics](trident_with_k8s/tasks/config_prometheus)  
 * [Configure Grafana & add your first graphs](trident_with_k8s/tasks/config_grafana)  
 * [Configure your first NAS backends & storage classes](trident_with_k8s/tasks/config_file)  

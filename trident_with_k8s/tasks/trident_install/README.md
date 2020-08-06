@@ -1,8 +1,8 @@
 # Trident installation with an Operator
 
 **Objective:**  
-Trident 20.04 introduced a new way to manage its lifecycle: Operators. For Trident 20.04 this installation method is only intended for green field environments. With the release of Trident 20.07 the installation method is now also available for brown field environments.  
-This is taks is setup to install Trident version (n-1) as we have a separate task available to showcase [Upgrading with the Trident Operator](../trident_upgrade)  
+Trident 20.04 introduced a new way to manage its lifecycle: Operators. For Trident 20.04 this installation method is only intended for greenfield environments. With the release of Trident 20.07 the installation method is now also available for brownfield environments.  
+This task is setup to install Trident version (n-1) as we have a separate task available to showcase [Upgrading with the Trident Operator](../trident_upgrade)  
 
 For the official documentation on deploying with the Trident Operator, please see:  
 <https://netapp-trident.readthedocs.io/en/latest/kubernetes/operator-install.html>
@@ -225,7 +225,7 @@ Use "tridentctl [command] --help" for more information about a command.
 
 Now that Trident is installed, you can proceed to:  
 
-- Next task: [Installing Prometheus & incorporate Trident's metrics](../config_prometheus)
+- Next task: [Upgrading with the Trident Operator](../trident_upgrade)
 
 or jump ahead to...  
 

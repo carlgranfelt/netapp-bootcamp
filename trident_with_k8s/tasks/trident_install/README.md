@@ -1,17 +1,18 @@
 # Trident installation with an Operator
 
 **Objective:**  
+
 Trident 20.04 introduced a new way to manage its lifecycle: Operators. For Trident 20.04 this installation method is only intended for green field environments. With the release of Trident 20.07 the installation method is now also available for brown field environments.  
-This is taks is setup to install Trident version (n-1) as we have a separate task available to showcase [Upgrading with the Trident Operator](../trident_upgrade)  
+This task is set up to install Trident version (n-1) as we have a separate task available to showcase [Upgrading with the Trident Operator](../trident_upgrade)  
 
 For the official documentation on deploying with the Trident Operator, please see:  
 <https://netapp-trident.readthedocs.io/en/latest/kubernetes/operator-install.html>
 
-**Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (rhel5) to proceed with the task.  
+**Note:** All below commands are to be run against the *dev cluster*. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (**`rhel5`**) to proceed with the task.  
 
 ## A. Download & setup the operator
 
-Connect using PuTTY to the dev k8s cluster's master node, **rhel5**, and download the latest version of the Trident installer bundle and extract it:
+Connect using PuTTY to the dev k8s cluster's master node, **`rhel`5**, download the **latest -1** version of the Trident installer bundle and extract it.  We will use the previously latest version for this task, so that you can carry out a Trident upgrade in a later task on the dev cluster.
 
 ```bash
 [root@rhel5 ~]# cd
@@ -20,17 +21,19 @@ Connect using PuTTY to the dev k8s cluster's master node, **rhel5**, and downloa
 [root@rhel5 ~]# cd trident-installer
 ```
 
-With Trident 20.04, there are new objects in the picture:
+Since Trident 20.04, there are new objects in the picture:
 
 - Trident Operator, which will dynamically manage Trident's resources, automate setup, fix broken elements  
-- Trident Provisioner, which is a Custom Resource, and is the object you will use to interact with the Trident Operator for specific tasks (upgrades, enable/disable Trident options, such as _debug_ mode, uninstall)  
+- Trident Provisioner, which is a Custom Resource, and is the object you will use to interact with the Trident Operator for specific tasks (upgrades and enabling/disabling Trident options, such as debug mode and uninstall)  
 
 :mag:  
-*A* **resource** *is an endpoint in the Kubernetes API that stores a collection of API objects of a certain kind; for example, the built-in pods resource contains a collection of Pod objects.*  
+*A* **resource** *is an endpoint in the Kubernetes API that stores a collection of API objects of a certain kind; for example: the built-in pods resource contains a collection of Pod objects.*  
+
 *A* **custom resource** *is an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation. It represents a customization of a particular Kubernetes installation. However, many core Kubernetes functions are now built using custom resources, making Kubernetes more modular.*  
 :mag_right:  
 
 You can visualize the *Operator* as being the *Control Tower*, and the *Provisioner* as being the *Mailbox* in which you post configuration requests.
+
 Other operations, such as backend management or viewing logs are currently still managed by Trident's own `tridentctl`.
 
 First let's confirm the version of Kubernetes you are using:
@@ -52,7 +55,7 @@ customresourcedefinition.apiextensions.k8s.io/tridentprovisioners.trident.netapp
 You will end up with a brand new TridentProvisioner CRD:
 
 ```bash
- [root@rhel5 trident-installer]# kubectl get crd
+[root@rhel5 trident-installer]# kubectl get crd
 NAME                                    CREATED AT
 tridentprovisioners.trident.netapp.io   2020-07-23T15:41:53Z
 ```
@@ -97,7 +100,7 @@ The operator deployment successfully creates a pod running on one of the worker 
 
 ## B. Creating a TridentProvisioner CR and installing Trident
 
-You are now ready to install Trident using the operator! This will require creating a TridentProvisioner CR. The Trident installer comes with example defintions for creating a TridentProvisioner CR.
+You are now ready to install Trident using the operator. This will require creating a TridentProvisioner CR. The Trident installer comes with example defintions for creating a TridentProvisioner CR.  Make sure to take a look inside the yaml file to see how it is configured.
 
 ```bash
 [root@rhel5 trident-installer]# kubectl create -f deploy/crds/tridentprovisioner_cr.yaml
@@ -157,7 +160,8 @@ trident   20.04.0
 ```
 
 The interesting part of this CRD is that you have access to the current status of Trident. This is also where you are going to interact with Trident's deployment.  
-If you want to know more about the different status, please have a look at the following link:  
+
+If you want to know more about the different status types, please have a look at the following link:  
 <https://netapp-trident.readthedocs.io/en/stable-v20.04/kubernetes/operator-install.html#observing-the-status-of-the-operator>
 
 ## C. Add path for tridentctl
@@ -233,4 +237,4 @@ or jump ahead to...
 
 ---
 **Page navigation**  
-[Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#dev-k8s-cluster-tasks)
+[Top of Page](#top) | [Home](/README.md) | [Full Dev Task List](/README.md#dev-k8s-cluster-tasks)

@@ -1,4 +1,4 @@
-# Importing Existing Volumes Using Trident - Lab in Progress (do not use)
+# Importing Existing Volumes Using Trident
 
 - Utilise file app from task 1
 - Run Ansible script to create 2 new NFS volume on svm1 (manage and no manage)
@@ -7,6 +7,94 @@
 - Show that we can now access existing data in manage volume
 - Create unmanaged PVC for existing volume
 - Show that we can now access existing data in unmanaged volume
+
+Trident allows you to import an existing volume sitting on a NetApp backend into Kubernetes.  This could be useful for applications that are being re-factored which previously had data from an NFS mount into a Virtual Machine and you now want that same data to be accessed by a container in k8s.
+
+## A. Prepare the environment
+
+This lab will make use of the Pod from the [File Storage Application task](../file_app), so make sure you have run that task first.
+
+To give you some data to import, you'll need to run a quick Anible script that has been provided.  The command you need to run the play book is below along with a brief overview of the playbook's tasks.  Although this bootcamp is not focused on Ansible, feel free to have a look through [the script](existing-vols.yaml) to get an idea of how Ansible works with NetApp and linux hosts.
+
+Ensure you are in the correct working directory by issuing the following command on your **`rhel3`** putty terminal in the lab:
+
+```bash
+[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/pv_import/
+```
+
+The ansible script performs the following tasks
+
+- Creates 2 new volumes on the ONTAP array and mounts them in the namespace
+- Mounts the 2 new volumes to the `rhel3` host temporarily
+- Write a single file and single directory to each volume to act as our existing data
+- Unmounts the volumes from `rhel3`
+
+To run the script, execute the following command.  If you wish to do a dry-run of the command, you can add `--check` to the end of the line:
+
+```bash
+[root@rhel3 ~]# ansible-playbook existing_vols.yaml
+```
+
+Let's check to make sure your volumes were created:
+
+```bash
+[root@rhel3 pv_import]# ssh -l admin 192.168.0.101 vol show -vserver svm1 -volume existing\* -fields volume
+Password:
+
+Last login time: 8/7/2020 13:10:10
+Unsuccessful login attempts since last login: 1
+vserver volume
+------- ------------------
+svm1    existing_managed
+svm1    existing_unmanaged
+```
+
+OK, the lab is all set and you now have a k8s Pod from the File Application task and a couple of existing volumes sat on the NetApp array.
+
+## B. Importing existing volumes as Managed Volumes
+
+Create a Trident managed PVC for the managed volume:
+
+```bash
+[root@rhel3 pv_import]# tridentctl import volume ontap-file-rwx existing_managed -f pvc_managed_import.yaml -n trident
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+| pvc-27680a58-92eb-4010-b861-78285dd884b3 | 100 MiB | sc-file-rwx   | file     | 89910d72-193d-4a5c-bccc-ba6aa507c45f | online | true    |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+```
+
+Patch our blog pod within the ghost namespace to mount our new PVC of `managed-volume`:
+
+**This needs work.  I have created a deploy-managed.yaml file, but I don't seem to be able to restart the pod with the new dinfition that has 2 PVs.**
+
+Grab the name of our Pod:
+
+```bash
+[root@rhel3 pv_import]# kubectl get -n ghost pod
+NAME                    READY   STATUS    RESTARTS   AGE
+blog-6bf7df48bb-l98p5   1/1     Running   0          21m
+```
+
+Using the Pod name we just grabbed (rather than the example below), check to see if the existing data that was created by the Ansible script earlier is now abvailable in our Pod:
+```bash
+[root@rhel3 ~]# kubectl exec -n ghost blog-57d7d4886-5bsml -- ls /var/lib/ghost/content
+```
+
+
+## C. Importing existing volumes as Un-managed Volumes
+
+```bash
+[root@rhel3 pv_import]# tridentctl import volume ontap-file-rwx existing_unmanaged -f pvc_unmanaged_import.yaml --no-manage -n trident
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+| pvc-ec3161dd-d00e-42c8-8f45-fae8fe62a9b0 | 100 MiB | sc-file-rwx   | file     | 89910d72-193d-4a5c-bccc-ba6aa507c45f | online | false   |
++------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+```
+
+
+####################################################
 
 **Objective:**  
 Trident allows you to import an existing volume sitting on a NetApp backend into Kubernetes.  This could be useful for applications that are being re-factored which previously had data from an NFS mount into a Virtual Machine and you now want that same data to be accessed by a container in k8s.

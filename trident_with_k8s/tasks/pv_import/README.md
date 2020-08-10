@@ -1,18 +1,10 @@
 # Importing Existing Volumes Using Trident
 
-- Utilise file app from task 1
-- Run Ansible script to create 2 new NFS volume on svm1 (manage and no manage)
-- Populate volume with some dummy data via shell script
-- Create managed PVC for existing volume
-- Show that we can now access existing data in manage volume
-- Create unmanaged PVC for existing volume
-- Show that we can now access existing data in unmanaged volume
+Trident allows you to import an existing volume sitting on a NetApp backend into Kubernetes.  This could be useful for applications that are being re-factored which previously had data from an NFS or iSCSI mount into a Virtual Machine and you now want that same data to be accessed by a container in k8s.
 
-Trident allows you to import an existing volume sitting on a NetApp backend into Kubernetes.  This could be useful for applications that are being re-factored which previously had data from an NFS mount into a Virtual Machine and you now want that same data to be accessed by a container in k8s.
+![PV Import](../../../images/pv_import.jpg "PV Import")
 
 ## A. Prepare the environment
-
-This lab will make use of the Pod from the [File Storage Application task](../file_app), so make sure you have run that task first.
 
 To give you some data to import, you'll need to run a quick Anible script that has been provided.  The command you need to run the play book is below along with a brief overview of the playbook's tasks.  Although this bootcamp is not focused on Ansible, feel free to have a look through [the script](existing-vols.yaml) to get an idea of how Ansible works with NetApp and linux hosts.
 
@@ -32,28 +24,49 @@ The ansible script performs the following tasks
 To run the script, execute the following command.  If you wish to do a dry-run of the command, you can add `--check` to the end of the line:
 
 ```bash
-[root@rhel3 ~]# ansible-playbook existing_vols.yaml
+[root@rhel3 ~]# ansible-playbook prepare-import-task.yaml
 ```
 
 Let's check to make sure your volumes were created:
 
 ```bash
-[root@rhel3 pv_import]# ssh -l admin 192.168.0.101 vol show -vserver svm1 -volume existing\* -fields volume
-Password:
-
-Last login time: 8/7/2020 13:10:10
-Unsuccessful login attempts since last login: 1
-vserver volume
-------- ------------------
-svm1    existing_managed
-svm1    existing_unmanaged
+[root@rhel3 pv_import]# curl -X GET -u admin:Netapp1! -k "https://cluster1.demo.netapp.com/api/storage/volumes?name=existing*&return_records=true&return_timeout=15&" -H "accept: application/json"
+{
+  "records": [
+    {
+      "uuid": "7fb04961-db0a-11ea-bc68-0050569d4f6b",
+      "name": "existing_managed"
+    },
+    {
+      "uuid": "80fa17e4-db0a-11ea-bc68-0050569d4f6b",
+      "name": "existing_unmanaged"
+    }
+  ],
+  "num_records": 2
 ```
 
-OK, the lab is all set and you now have a k8s Pod from the File Application task and a couple of existing volumes sat on the NetApp array.
+As you can see, you have created 2 volumes with the Ansible playbook: 1 for **managed** access and 1 for **unmanaged** access.  
+
+When importing existing volumes (NFS or iSCSI) there are two ways you can do this:
+
+**Managed import**  
+Trident will take over management the volume and handle all future operations on the volume such as snapshots/expansion.  The backend volume will also be renamed to match Trident's volume naming convention.
+
+**Unmanaged Import**  
+When a volume is imported with the `--no-manage` argument, Trident will not perform any additional operations on the PVC or PV for the lifecycle of the objects. Since Trident ignores PV and PVC events for --no-manage objects the storage volume is not deleted when the PV is deleted. Other operations such as volume clone and volume resize are also ignored. This option is provided for those that want to use Kubernetes for containerized workloads but otherwise want to manage the lifecycle of the storage volume outside of Kubernetes.
+
+An annotation is added to the PVC and PV that serves a dual purpose of indicating that the volume was imported and if the PVC and PV are managed. This annotation should not be modified or removed.
 
 ## B. Importing existing volumes as Managed Volumes
 
-Create a Trident managed PVC for the managed volume:
+First let's set up your namespace that you can import your volumes into:
+
+```bash
+[root@rhel3 pv_import]# kubectl create ns import
+namespace/import created
+```
+
+Now import your managed volume as a PVC:
 
 ```bash
 [root@rhel3 pv_import]# tridentctl import volume ontap-file-rwx existing_managed -f pvc_managed_import.yaml -n trident
@@ -64,25 +77,7 @@ Create a Trident managed PVC for the managed volume:
 +------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
 ```
 
-Patch our blog pod within the ghost namespace to mount our new PVC of `managed-volume`:
-
-**This needs work.  I have created a deploy-managed.yaml file, but I don't seem to be able to restart the pod with the new dinfition that has 2 PVs.**
-
-Grab the name of our Pod:
-
-```bash
-[root@rhel3 pv_import]# kubectl get -n ghost pod
-NAME                    READY   STATUS    RESTARTS   AGE
-blog-6bf7df48bb-l98p5   1/1     Running   0          21m
-```
-
-Using the Pod name we just grabbed (rather than the example below), check to see if the existing data that was created by the Ansible script earlier is now abvailable in our Pod:
-```bash
-[root@rhel3 ~]# kubectl exec -n ghost blog-57d7d4886-5bsml -- ls /var/lib/ghost/content
-```
-
-
-## C. Importing existing volumes as Un-managed Volumes
+...and your unmanaged volume as a PVC using the `--no-manage` argument:
 
 ```bash
 [root@rhel3 pv_import]# tridentctl import volume ontap-file-rwx existing_unmanaged -f pvc_unmanaged_import.yaml --no-manage -n trident
@@ -93,113 +88,116 @@ Using the Pod name we just grabbed (rather than the example below), check to see
 +------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
 ```
 
-
-####################################################
-
-**Objective:**  
-Trident allows you to import an existing volume sitting on a NetApp backend into Kubernetes.  This could be useful for applications that are being re-factored which previously had data from an NFS mount into a Virtual Machine and you now want that same data to be accessed by a container in k8s.
-
-We will first copy the volume we used in the [Scenario05](../Scenario05), import it, and create a new Ghost instance  
-
-![PV Import](../../../images/pv_import.jpg "PV Import")
-
-## A. Identify & copy the volume on the NetApp backend
-
-The full name of the volume is available in the PV metadata.  
-You can retrieve it if with the 'kubectl describe' command, or use the following (note how to use the jsonpath feature!)
+Now you have the existing volumes in Trident, deploy your application:
 
 ```bash
-# kubectl get pv $( kubectl get pvc blog-content -n ghostnas -o=jsonpath='{.spec.volumeName}') -o=jsonpath='{.spec.csi.volumeAttributes.internalName}{"\n"}'
-nas1_pvc_e24c99b7_b4e7_4de1_b952_a8d451e7e735
+[root@rhel3 pv_import]# kubectl create -n import -f ghost/
+persistentvolumeclaim/blog-content created
+deployment.apps/blog-import created
+service/blog-import created
 ```
 
-Now that you know the full name of the volume, you can copy it. This copy will be done in 2 stages (clone & split)
-Open Putty, connect to "cluster1" and finally enter all the following:
+Grab the name of our Pod so that you can run some `ls` commands against it:
 
 ```bash
-# vol clone create -flexclone to_import -vserver svm1 -parent-volume nas1_pvc_e24c99b7_b4e7_4de1_b952_a8d451e7e735
-# vol clone split start -flexclone to_import
+[root@rhel3 pv_import]# kubectl get -n import pod
+NAME                           READY   STATUS     RESTARTS   AGE
+blog-import-57ddb8c85d-phhr6   1/1     Running    0          1m
 ```
 
-In this example, the new volume's name is 'to_import'
-
-## B. Import the volume
-
-In the 'Ghost' directory, you will see some yaml files to build a new 'Ghost' app.
-Open the PVC definition file, & notice the difference with the one used in the scenario5.
+Using the Pod name we just grabbed (rather than the example below), check to see if the existing data that was created by the Ansible script earlier is now abvailable in our Pod:
 
 ```bash
-# tridentctl -n trident import volume NAS_Vol-default to_import -f Ghost/1_pvc.yaml
-+------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
-|                   NAME                   |  SIZE   |   STORAGE CLASS   | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
-+------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
-| pvc-ac9ba4b2-7dce-4241-8c8e-a4ced9cf7dcf | 5.0 GiB | sc-file-rwx       | file     | dea226cf-7df7-4795-b1a1-3a4a3318a059 | online | true    |
-+------------------------------------------+---------+-------------------+----------+--------------------------------------+--------+---------+
-
-# kubectl get pvc -n ghostnas
-NAME                  STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
-blog-content          Bound    pvc-e24c99b7-b4e7-4de1-b952-a8d451e7e735   5Gi        RWX            sc-file-rwx         19h
-blog-content-import   Bound    pvc-ac9ba4b2-7dce-4241-8c8e-a4ced9cf7dcf   5Gi        RWX            sc-file-rwx         21m
+[root@rhel3 pv_import]# kubectl exec -n import blog-import-57ddb8c85d-phhr6 -- ls /var/lib/ghost/managed-import
+your-existing-data1.txt
+your_existing_folder1
 ```
 
-Notice that the volume full name on the storage backend has changed to respect the CSI specifications:
+...and the same for the unmanaged volume:
 
 ```bash
-# kubectl get pv $( kubectl get pvc blog-content-import -n ghostnas -o=jsonpath='{.spec.volumeName}') -o=jsonpath='{.spec.csi.volumeAttributes.internalName}{"\n"}'
-nas1_pvc_ac9ba4b2_7dce_4241_8c8e_a4ced9cf7dcf
+[root@rhel3 pv_import]# kubectl exec -n import blog-import-57ddb8c85d-phhr6 -- ls /var/lib/ghost/unmanaged-import
+your-existing-data2.txt
+your_existing_folder2
 ```
 
-Even though the name of the original PV has changed, you can still see it if you look into its annotations.
+Excellent!  You now have 2 volumes imported into your Pod with existing data in place ready to use.
+
+## C. Managed and Unmanaged Volume Behaviour
+
+### Trident Imported Volume Renaming
+
+When Trident imports a volume as a managed volume, it will rename it using the standard Trident naming scheme and any volume prefix set as part of the storage Backend configuration.  If you check again to see all volumes starting with the name "existing", you will see that you only have 1 volume now instead of 2.  
 
 ```bash
-# kubectl describe pvc blog-content-import -n ghostnas | grep importOriginalName
-               trident.netapp.io/importOriginalName: to_import
+[root@rhel3 pv_import]# curl -X GET -u admin:Netapp1! -k "https://cluster1.demo.netapp.com/api/storage/volumes?name=existing*&return_records=true&return_timeout=15&" -H "accept: application/json"
+{
+  "records": [
+    {
+      "uuid": "c49e4991-daf9-11ea-bc68-0050569d4f6b",
+      "name": "existing_unmanaged"
+    }
+  ],
+  "num_records": 1
 ```
 
-## C. Create a new Ghost app
-
-You can now create the deployment & expose it on a new port
+You can find your `managed-import` volume's new name by using the kubectl describe command, or use the following (note how to use the jsonpath feature):
 
 ```bash
-# kubectl create -n ghostnas -f Ghost/2_deploy.yaml
-deployment.apps/blogimport created
-# kubectl create -n ghostnas -f Ghost/3_service.yaml
-service/blogimport created
-
-# kubectl all -n ghostnas
-NAME                           READY   STATUS    RESTARTS   AGE
-pod/blog-cd5894ddd-d2tqp       1/1     Running   0          20h
-pod/blogimport-66945d9-bsw9b   1/1     Running   0          24m
-
-NAME                 TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
-service/blog         NodePort   10.111.248.112   <none>        80:30080/TCP   20h
-service/blogimport   NodePort   10.104.52.17     <none>        80:30082/TCP   24m
-
-NAME                         READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/blog         1/1     1            1           20h
-deployment.apps/blogimport   1/1     1            1           24m
-
-NAME                                 DESIRED   CURRENT   READY   AGE
-replicaset.apps/blog-cd5894ddd       1         1         1       20h
-replicaset.apps/blogimport-66945d9   1         1         1       24m
+[root@rhel3 pv_import]# kubectl get pv $( kubectl get pvc managed-import -n import -o=jsonpath='{.spec.volumeName}') -o=jsonpath='{.spec.csi.volumeAttributes.internalName}{"\n"}'
+nas1_pvc_55085cf9_b477_4514_a9bd_58480686846f
 ```
 
-## D. Access the app
-
-The Ghost service is configured with a NodePort type, which means you can access it from every node of the cluster on port 30082.
-Give it a try !  
-=> <http://192.168.0.63:30082>  
-
-If you have configured Grafana, you can go back to your dashboard, to check what is happening (<http://192.168.0.63:30001>).  
-
-## E. Cleanup
-
-Instead of deleting each object one by one, you can directly delete the namespace which will then remove all of its objects.
+In this example's case, it is `nas1_pvc_55085cf9_b477_4514_a9bd_58480686846f` and you can see on the ONTAP system via an API call that the volume has been renamed by Trident to match.  Copy the below API curl command and replace the volume name with your own from the previous output:
 
 ```bash
-# kubectl delete ns ghostnas
-namespace "ghostnas" deleted
+[root@rhel3 pv_import]# curl -X GET -u admin:Netapp1! -k "https://cluster1.demo.netapp.com/api/storage/volumes?name=nas1_pvc_55085cf9_b477_4514_a9bd_58480686846f&return_records=true&return_timeout=15&" -H "accept: application/json"
+{
+  "records": [
+    {
+      "uuid": "c402db14-daf9-11ea-bc68-0050569d4f6b",
+      "name": "nas1_pvc_55085cf9_b477_4514_a9bd_58480686846f"
+    }
+  ],
+  "num_records": 1
 ```
+
+Even though the name of the original PV volume has changed, you can still see it if you look into its annotations along with the annotation regarding the volume being managed or not:
+
+```bash
+[root@rhel3 pv_import]# kubectl describe pvc -n import | grep 'Name:\|notManaged\|importOriginalName'
+Name:          blog-content
+Name:          managed-import
+               trident.netapp.io/importOriginalName: existing_managed
+               trident.netapp.io/notManaged: false
+Name:          unmanaged-import
+               trident.netapp.io/importOriginalName: existing_unmanaged
+               trident.netapp.io/notManaged: true
+```
+
+### Trident Imported Volume Deletion
+
+To clean-up, you will delete the `import` namespace and observe how Trident handles the managed and unmanaged volumes following this deletion.
+
+```bash
+[root@rhel3 pv_import]# kubectl delete ns import
+namespace "import" deleted
+```
+
+Now you will see that the namespace deletion has removed all the PVs and PVCs related to your `import` namespace:
+
+```bash
+[root@rhel3 pv_import]# kubectl get pv,pvc --all-namespaces
+No resources found
+```
+
+But what has happened on the backend storage:
+
+```bash
+[root@rhel3 pv_import]# curl -X GET -u admin:Netapp1! -k "https://cluster1.demo.netapp.com/api/storage/volumes?return_records=true&return_timeout=15&" -H "accept: application/json"
+```
+
+You will see that your `existing_unmanaged` volume is still there, but the PV that was renamed by Trident for your `exising_managed` volume has been completely deleted, as per the deletion policy set by the Trident administrator.
 
 ## F. What's next
 

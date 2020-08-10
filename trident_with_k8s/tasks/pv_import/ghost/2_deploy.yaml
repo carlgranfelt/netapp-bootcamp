@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: blogimport
+  name: blog-import
   labels:
-    app: blogimport
+    app: blog-import
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: blogimport
+      app: blog-import
   template:
     metadata:
       labels:
-        app: blogimport
+        app: blog-import
     spec:
       containers:
-      - name: blog
+      - name: blog-import
         image: ghost:2.6-alpine
         imagePullPolicy: Always
         ports:
@@ -26,7 +26,17 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/ghost/content
           name: content
+        - mountPath: /var/lib/ghost/managed-import
+          name: managed-import
+        - mountPath: /var/lib/ghost/unmanaged-import
+          name: unmanaged-import
       volumes:
       - name: content
         persistentVolumeClaim:
-          claimName: blog-content-import
+          claimName: blog-content
+      - name: managed-import
+        persistentVolumeClaim:
+          claimName: managed-import
+      - name: unmanaged-import
+        persistentVolumeClaim:
+          claimName: unmanaged-import

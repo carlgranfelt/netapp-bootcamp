@@ -241,15 +241,19 @@ Before setting a limit in the SVM _svm1_, you first need to look for the current
 To do this, you can either login to NetApp System Manager via the Chrome browser & count them up, or run the following command (password Netapp1!) which will out the figure for you:
 
 ```bash
-[root@rhel3 ~]# ssh -l admin 192.168.0.101 vol show -vserver svm1 | grep svm1 | wc -l
-Password:
-8
+curl -X GET -u admin:Netapp1! -k "https://cluster1.demo.netapp.com/api/storage/volumes?return_records=false&return_timeout=15&" -H "accept: application/json"
+{
+  "num_records": 8
+}
 ```
 
 In this example case, we have 8 volumes, so we will add 2 and set the maximum to 10 for this exercise.  Your number of existing volumes may be different depending on which tasks you have alraedy completed, so make sure to check.
 
 ```bash
-[root@rhel3 ~]# ssh -l admin 192.168.0.101 vserver modify -vserver svm1 -max-volumes 10
+[root@rhel3 ~]# curl -XPATCH -u admin:Netapp1! -d '{"max_volumes": 10}' https://cluster1.demo.netapp.com/api/private/cli/vserver?vserver=svm1 -k"
+{
+  "num_records": 1
+}
 ```
 We will then try to create a few new PVC.
 
@@ -296,7 +300,10 @@ Time to clean up.  We can use the scenario labels that are applied as part of th
 persistentvolumeclaim "quotasc-1" deleted
 persistentvolumeclaim "quotasc-2" deleted
 persistentvolumeclaim "quotasc-3" deleted
-[root@rhel3 ~]# ssh -l admin 192.168.0.101 vserver modify -vserver svm1 -max-volumes unlimited
+[root@rhel3 quotas]# curl -X PATCH -u admin:Netapp1! -d '{"max_volumes": "unlimited"}' https://cluster1.demo.netapp.com/api/private/cli/vserver?vserver=svm1 -k
+{
+  "num_records": 1
+}
 ```
 
 ## D. What's next

@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: blogimport
+  name: blog-import
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
-    app: blogimport
+    app: blog-import
   ports:
   - protocol: TCP
     port: 80

@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: managed-vol-import
-  namespace: import
-spec:
-  accessModes:
-  - ReadWriteMany
-  storageClassName: sc-file-rwx

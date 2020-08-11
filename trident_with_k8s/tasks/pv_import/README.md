@@ -151,18 +151,18 @@ You can find your `managed-import` volume's new name by using the kubectl descri
 
 ```bash
 [root@rhel3 pv_import]# kubectl get pv $( kubectl get pvc managed-import -n import -o=jsonpath='{.spec.volumeName}') -o=jsonpath='{.spec.csi.volumeAttributes.internalName}{"\n"}'
-nas1_pvc_55085cf9_b477_4514_a9bd_58480686846f
+trident_rwx_pvc_55085cf9_b477_4514_a9bd_58480686846f
 ```
 
-In this example's case, it is `nas1_pvc_55085cf9_b477_4514_a9bd_58480686846f` and you can see on the ONTAP system via an API call that the volume has been renamed by Trident to match.  Copy the below API curl command and replace the volume name with your own from the previous output:
+In this example's case, it is `trident_rwx_pvc_55085cf9_b477_4514_a9bd_58480686846f` and you can see on the ONTAP system via an API call that the volume has been renamed by Trident to match.  Copy the below API curl command and replace the volume name with your own from the previous output:
 
 ```bash
-[root@rhel3 pv_import]# curl -X GET -u admin:Netapp1! -k "https://cluster1.demo.netapp.com/api/storage/volumes?name=nas1_pvc_55085cf9_b477_4514_a9bd_58480686846f&return_records=true&return_timeout=15&" -H "accept: application/json"
+[root@rhel3 pv_import]# curl -X GET -u admin:Netapp1! -k "https://cluster1.demo.netapp.com/api/storage/volumes?name=trident_rwx_pvc_55085cf9_b477_4514_a9bd_58480686846f&return_records=true&return_timeout=15&" -H "accept: application/json"
 {
   "records": [
     {
       "uuid": "c402db14-daf9-11ea-bc68-0050569d4f6b",
-      "name": "nas1_pvc_55085cf9_b477_4514_a9bd_58480686846f"
+      "name": "trident_rwx_pvc_55085cf9_b477_4514_a9bd_58480686846f"
     }
   ],
   "num_records": 1

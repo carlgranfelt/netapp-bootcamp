@@ -26,7 +26,7 @@ There is also a set of [useful k8s commands](trident_with_k8s/tasks/useful_comma
 
 ### Verify Your Environment
 
-Before you jump into any of the Production or Development cluster tasksm you will need to verify that your environment setup has worked and it is ready for you to deploy applications.  A guide has been provided below, so please follow this and then return to this page to get started:
+Before you jump into any of the Production or Development cluster tasks you will need to verify that your environment setup has worked and it is ready for you to deploy applications.  A guide has been provided below, so please follow this and then return to this page to get started:
 
 * [Verify and navigate the lab environment](trident_with_k8s/tasks/verify_lab)  
 
@@ -38,7 +38,7 @@ If you are new to Kubernetes or persistent storage for k8s, it is **highly recom
 
 * [Deploy your first application with File storage](trident_with_k8s/tasks/file_app)  
 
-After you have verified your lab and carried out your first application deployment with persistent storage, below are a selection of tasks that will help get you familiar with both k8s and persistent storage using Netapp Trident.  You don't have to carry out these tasks in order, but they are ordered in a way that would give the most logical flow.  If there are any that are of particular interest though, feel free to skip ahead:
+After you have verified your lab and carried out your first application deployment with persistent storage, below are a selection of tasks that will help get you more familiar with both k8s and persistent storage using Netapp Trident.  You don't have to carry out these tasks in order, but they are ordered in a way that would give the most logical flow. If there are any that are of particular interest though, feel free to skip ahead:
 
 * [Deploy your first application with Block storage](trident_with_k8s/tasks/block_app)  
 * [Use the 'import' feature of Trident](trident_with_k8s/tasks/pv_import)  

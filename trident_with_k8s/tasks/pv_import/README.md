@@ -6,7 +6,7 @@ Trident allows you to import an existing volume sitting on a NetApp backend into
 
 ## A. Prepare the environment
 
-To give you some data to import, you'll need to run a quick Anible script that has been provided.  The command you need to run the play book is below along with a brief overview of the playbook's tasks.  Although this bootcamp is not focused on Ansible, feel free to have a look through [the script](existing-vols.yaml) to get an idea of how Ansible works with NetApp and linux hosts.
+To give you some data to import, you'll need to run a quick Anible script that has been provided.  The command you need to run the play book is below along with a brief overview of the playbook's tasks.  Although this bootcamp is not focused on Ansible, feel free to have a look through [the script](prepare-import-task.yaml) to get an idea of how Ansible works with NetApp and linux hosts.
 
 Ensure you are in the correct working directory by issuing the following command on your **`rhel3`** putty terminal in the lab:
 
@@ -50,7 +50,7 @@ As you can see, you have created 2 volumes with the Ansible playbook: 1 for **ma
 When importing existing volumes (NFS or iSCSI) there are two ways you can do this:
 
 **Managed import**  
-Trident will take over management the volume and handle all future operations on the volume such as snapshots/expansion.  The backend volume will also be renamed to match Trident's volume naming convention.
+Trident will take over management of the volume and handle all future operations on the volume such as snapshots/expansion.  The backend volume will also be renamed to match Trident's volume naming convention.
 
 **Unmanaged Import**  
 When a volume is imported with the `--no-manage` argument, Trident will not perform any additional operations on the PVC or PV for the lifecycle of the objects. Since Trident ignores PV and PVC events for --no-manage objects the storage volume is not deleted when the PV is deleted. Other operations such as volume clone and volume resize are also ignored. This option is provided for those that want to use Kubernetes for containerized workloads but otherwise want to manage the lifecycle of the storage volume outside of Kubernetes.
@@ -66,7 +66,9 @@ First let's set up your namespace that you can import your volumes into:
 namespace/import created
 ```
 
-Now import your managed volume as a PVC:
+To import an existing volume, specify the name of the Trident backend containing the volume, as well as the name that uniquely identifies the volume on the storage (i.e. ONTAP FlexVol, Element Volume, CVS Volume path').  
+
+Next import your managed volume as a PVC:
 
 ```bash
 [root@rhel3 pv_import]# tridentctl import volume ontap-file-rwx existing_managed -f pvc_managed_import.yaml -n trident
@@ -88,6 +90,8 @@ Now import your managed volume as a PVC:
 +------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
 ```
 
+Feel free to explore further the ```tridentctl import volume <backendName> <volumeName> [flags]``` command to get an idea of how importing an existing volume to Trident works.  
+
 Now you have the existing volumes in Trident, deploy your application:
 
 ```bash
@@ -96,6 +100,8 @@ persistentvolumeclaim/blog-content created
 deployment.apps/blog-import created
 service/blog-import created
 ```
+
+**Note:** Whilst the Ghost application is the same as in the [Deploy your first application using persistent file storage](../file_app) task, the container specification section of the ghost/2_deploy.yaml file has been updated for this task to include the two additional volumes and mount paths.  
 
 Grab the name of our Pod so that you can run some `ls` commands against it:
 
@@ -203,13 +209,13 @@ You will see that your `existing_unmanaged` volume is still there, but the PV th
 
 You can now move on to:  
 
-- Next task: [Consumption control](../quotas)   
+- Next task: [Consumption control](../quotas)  
 
 or jump ahead to...
 
-- [Resize an NFS PVC](../resize_file)   
-- [Using Virtual Storage Pools](../storage_pools)   
-- [StatefulSets & Storage consumption ](../statefulsets)  
+- [Resize an NFS PVC](../resize_file)  
+- [Using Virtual Storage Pools](../storage_pools)  
+- [StatefulSets & Storage consumption](../statefulsets)  
 
 ---
 **Page navigation**  

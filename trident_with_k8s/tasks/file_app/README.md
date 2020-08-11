@@ -129,17 +129,23 @@ Complete the Ghost setup using following steps:
 5. Enter a password that you will remember
 6. Finally, press on 'Last step: Invite your team' to proceed
 
-<p align="center"><img src="../../../images/ghost-account.png" width="650px"></p>
+<p align="center"><img src="../../../images/ghost-account.png"></p>
 
 Optionally select to save the password in Chrome.
 
 Instead of inviting any team members select 'I'll do this later, take me to my blog!'
 
+<p align="center"><img src="../../../images/ghost-invite-your-team.png"></p>
+
 Select 'New story' from the main Stories page:
 
 <p align="center"><img src="../../../images/ghost-new-story.png" width="650px"></p>
 
-Give your blog post a title and add some content. Select Publish (from the top right hand corner),followed by Publish in the 'Ready to publish your post' window. Go back to the main Stories page to confirm the presence of your blog post:
+Give your blog post a title and add some content. Select Publish (from the top right hand corner),followed by Publish in the 'Ready to publish your post' pop-up window. 
+
+<p align="center"><img src="../../../images/ghost-set-it-live.png"></p>
+
+Go back to the main Stories page (link in the top left corner) to confirm the presence of your blog post:
 
 <p align="center"><img src="../../../images/ghost-published.png" width="650px"></p>
 
@@ -153,7 +159,7 @@ NAME                    READY   STATUS    RESTARTS   AGE   IP          NODE    N
 blog-6bf7df48bb-b7d6r   1/1     Running   0          29m   10.42.0.1   rhel4   <none>           <none>
 ```
 
-If we had multiple pods in the namespace using the label selector would be crucial to minimise the desired output.
+If we had multiple pods in the namespace using the selector (-l, --selector='': Selector (label query)) would be crucial to to filter the desired output.
 
 Now that we know that our pod is running on node ```rhel4``` we can drain the node in preparation for maintenance which will also restart the pod on another node:
 
@@ -177,7 +183,7 @@ blog-6bf7df48bb-fflsl   0/1     ContainerCreating   0          52s   <none>   rh
 blog-6bf7df48bb-fflsl   1/1     Running             0          53s   10.36.0.6   rhel1   <none>           <none>
 ```
 
-**Note:** Notice the new pod name and that the age has been reset!
+**Note:** Notice the new pod name and that the age has been reset! Press ```Ctrl-C``` to close to escape.  
 
 Finally refresh your browser window and actually access your blog post to confirm it still exists:
 

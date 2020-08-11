@@ -14,7 +14,7 @@ For the official documentation describing all pre-requisites on upgrading with t
 Connect using PuTTY to the dev k8s cluster's master node, **rhel5**, and remove any existing Trident Operator deployments.  
 
 ```bash
-[root@rhel5 ~]# cd trident-installer
+[root@rhel5 ~]# cd ~/trident-installer
 [root@rhel5 trident-installer]# kubectl delete -f deploy/bundle.yaml
 serviceaccount "trident-operator" deleted
 clusterrole.rbac.authorization.k8s.io "trident-operator" deleted

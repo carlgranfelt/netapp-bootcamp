@@ -288,7 +288,7 @@ The PVC will remain in the `Pending` state. You need to look either in the k8s P
 ```bash
 [root@rhel3 ~]# tridentctl logs -n trident | grep Failed
 
-time="2020-08-05T15:47:34Z" level=warning msg="Failed to create the volume on this backend." backend=ontap-file-rwx backendUUID=25174b4c-06f7-461d-892d-3a168ee14fab error="backend cannot satisfy create request for volume nas1_pvc_e896e2f6_bf43_403d_9c84_4f7a772059d9: (ONTAP-NAS pool aggr2/aggr2; error creating volume nas1_pvc_e896e2f6_bf43_403d_9c84_4f7a772059d9: API status: failed, Reason: Cannot create volume. Reason: Maximum volume count for Vserver svm1 reached.  Maximum volume count is 7. , Code: 13001)" pool=aggr2 volume=pvc-e896e2f6-bf43-403d-9c84-4f7a772059d9
+time="2020-08-05T15:47:34Z" level=warning msg="Failed to create the volume on this backend." backend=ontap-file-rwx backendUUID=25174b4c-06f7-461d-892d-3a168ee14fab error="backend cannot satisfy create request for volume trident_rwx_pvc_e896e2f6_bf43_403d_9c84_4f7a772059d9: (ONTAP-NAS pool aggr2/aggr2; error creating volume trident_rwx_pvc_e896e2f6_bf43_403d_9c84_4f7a772059d9: API status: failed, Reason: Cannot create volume. Reason: Maximum volume count for Vserver svm1 reached.  Maximum volume count is 7. , Code: 13001)" pool=aggr2 volume=pvc-e896e2f6-bf43-403d-9c84-4f7a772059d9
 ```
 
 There you go, point demonstrated!

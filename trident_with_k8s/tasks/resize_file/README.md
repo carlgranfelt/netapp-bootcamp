@@ -54,7 +54,7 @@ Once your pod is running you can now check that the 5G volume is indeed mounted 
 ```bash
 [root@rhel3 ~]# kubectl -n resize exec centos -- df -h /data
 Filesystem                                                    Size  Used Avail Use% Mounted on
-192.168.0.135:/nas1_pvc_7eeea3f7_1bea_458b_9824_1dd442222d55  5.0G  256K  5.0G   1% /data
+192.168.0.135:/trident_rwx_pvc_7eeea3f7_1bea_458b_9824_1dd442222d55  5.0G  256K  5.0G   1% /data
 ```
 
 ## C. Resize the PVC & check the result
@@ -86,7 +86,7 @@ pvc-to-resize   Bound    pvc-7eeea3f7-1bea-458b-9824-1dd442222d55   15Gi       R
 
 [root@rhel3 ~]# kubectl -n resize exec centos -- df -h /data
 Filesystem                                                    Size  Used Avail Use% Mounted on
-192.168.0.135:/nas1_pvc_7eeea3f7_1bea_458b_9824_1dd442222d55   15G  256K   15G   1% /data
+192.168.0.135:/trident_rwx_pvc_7eeea3f7_1bea_458b_9824_1dd442222d55   15G  256K   15G   1% /data
 ```
 
 As you can see, the resizing was done totally dynamically without any interruption.  

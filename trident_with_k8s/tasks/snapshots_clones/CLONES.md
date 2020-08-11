@@ -46,8 +46,8 @@ cluster1::> vol clone show
                       Parent  Parent        Parent
 Vserver FlexClone     Vserver Volume        Snapshot             State     Type
 ------- ------------- ------- ------------- -------------------- --------- ----
-svm1    nas1_pvc_4d6e8738_a419_405e_96fc_9cf3a0840b56
-                      svm1    nas1_pvc_b2113a4f_7359_4ab2_b771_a86272e3d11d
+svm1    trident_rwx_pvc_4d6e8738_a419_405e_96fc_9cf3a0840b56
+                      svm1    trident_rwx_pvc_b2113a4f_7359_4ab2_b771_a86272e3d11d
                                             snapshot-21331427-59a4-4b4a-a71f-91ffe2fb39bc
                                                                  online    RW
 ```

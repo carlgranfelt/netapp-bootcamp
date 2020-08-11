@@ -90,7 +90,7 @@ Let's see if the */var/lib/ghost/content* folder is indeed mounted to the NFS PV
 ```bash
 [root@rhel3 ghost]# kubectl exec -n ghost blog-6bf7df48bb-b7d6r -- df /var/lib/ghost/content
 Filesystem           1K-blocks      Used Available Use% Mounted on
-192.168.0.135:/nas1_pvc_f0b2655f_b451_4087_b68c_9f2416ec999a
+192.168.0.135:/trident_rwx_pvc_f0b2655f_b451_4087_b68c_9f2416ec999a
                        5242880       704   5242176   0% /var/lib/ghost/content
 ```
 

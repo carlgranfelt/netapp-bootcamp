@@ -130,7 +130,7 @@ Annotations:  <none>
 API Version:  trident.netapp.io/v1
 Kind:         TridentProvisioner
 Metadata:
-  Creation Timestamp:  2020-07-21T08:01:22Z
+  Creation Timestamp:  2020-08-11T09:33:07Z
   Generation:          1
   Managed Fields:
     API Version:  trident.netapp.io/v1
@@ -141,31 +141,37 @@ Metadata:
         f:debug:
     Manager:      kubectl
     Operation:    Update
-    Time:         2020-07-21T08:01:22Z
+    Time:         2020-08-11T09:33:07Z
     API Version:  trident.netapp.io/v1
     Fields Type:  FieldsV1
-    fieldsV1:
-      f:status:
-        .:
-        f:message:
-        f:status:
-        f:version:
     Manager:         trident-operator
     Operation:       Update
-    Time:            2020-07-21T08:02:03Z
-  Resource Version:  514288
+    Time:            2020-08-11T09:33:36Z
+  Resource Version:  510810
   Self Link:         /apis/trident.netapp.io/v1/namespaces/trident/tridentprovisioners/trident
-  UID:               77d0eaa9-ac73-4990-b57a-58817948e414
+  UID:               f64faf13-89c6-4311-b457-abb3c25c9329
 Spec:
   Debug:  true
 Status:
-  Message:  Trident installed
-  Status:   Installed
-  Version:  v20.04
+  Current Installation Params:
+    IPv6:               false
+    Autosupport Image:  netapp/trident-autosupport:20.07.0
+    Autosupport Proxy:
+    Debug:              true
+    Image Pull Secrets:
+    Image Registry:       quay.io
+    k8sTimeout:           30
+    Kubelet Dir:          /var/lib/kubelet
+    Log Format:           text
+    Silence Autosupport:  false
+    Trident Image:        netapp/trident:20.07.0
+  Message:                Trident installed
+  Status:                 Installed
+  Version:                v20.07.0
 Events:
-  Type    Reason     Age                   From                        Message
-  ----    ------     ----                  ----                        -------
-  Normal  Installed  3m34s (x117 over 9h)  trident-operator.netapp.io  Trident installed
+  Type    Reason     Age                    From                        Message
+  ----    ------     ----                   ----                        -------
+  Normal  Installed  102s (x70 over 5h20m)  trident-operator.netapp.io  Trident installed
 ```
 
 You can also confirm if the Trident install completed by taking a look at the pods that have been created. Confirm that the Trident Operator, Provisioner and a CSI driver per node (part of the daemonset) are all up & running:
@@ -173,26 +179,26 @@ You can also confirm if the Trident install completed by taking a look at the po
 ```bash
 [root@rhel3 ~]# kubectl get all -n trident
 NAME                                    READY   STATUS    RESTARTS   AGE
-pod/trident-csi-788b4d865c-xdzn7        5/5     Running   0          8h
-pod/trident-csi-gn4cv                   2/2     Running   0          8h
-pod/trident-csi-q2w6c                   2/2     Running   0          8h
-pod/trident-csi-rdpjk                   2/2     Running   0          8h
-pod/trident-csi-x8ppp                   2/2     Running   0          8h
-pod/trident-operator-668bf8cdff-577p9   1/1     Running   0          8h
+pod/trident-csi-5vhfl                   2/2     Running   0          5h22m
+pod/trident-csi-6gg8c                   2/2     Running   0          5h22m
+pod/trident-csi-7bb4bfb84-6wg6z         6/6     Running   0          5h22m
+pod/trident-csi-qxzj8                   2/2     Running   0          5h22m
+pod/trident-csi-tjf7q                   2/2     Running   0          5h20m
+pod/trident-operator-7f74ff5bb8-hw6hq   1/1     Running   0          5h22m
 
 NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)              AGE
-service/trident-csi   ClusterIP   10.105.145.190   <none>        34571/TCP,9220/TCP   8h
+service/trident-csi   ClusterIP   10.101.210.100   <none>        34571/TCP,9220/TCP   5h22m
 
 NAME                         DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR                                     AGE
-daemonset.apps/trident-csi   4         4         4       4            4           kubernetes.io/arch=amd64,kubernetes.io/os=linux   8h
+daemonset.apps/trident-csi   4         4         4       4            4           kubernetes.io/arch=amd64,kubernetes.io/os=linux   5h22m
 
 NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/trident-csi        1/1     1            1           8h
-deployment.apps/trident-operator   1/1     1            1           8h
+deployment.apps/trident-csi        1/1     1            1           5h22m
+deployment.apps/trident-operator   1/1     1            1           5h22m
 
 NAME                                          DESIRED   CURRENT   READY   AGE
-replicaset.apps/trident-csi-788b4d865c        1         1         1       8h
-replicaset.apps/trident-operator-668bf8cdff   1         1         1       8h
+replicaset.apps/trident-csi-7bb4bfb84         1         1         1       5h22m
+replicaset.apps/trident-operator-7f74ff5bb8   1         1         1       5h22m
 ```
 
 You can also use tridentctl to check the version of Trident installed:
@@ -202,7 +208,7 @@ You can also use tridentctl to check the version of Trident installed:
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 20.04.0        | 20.04.0        |
+| 20.07.0        | 20.07.0        |
 +----------------+----------------+
 ```
 
@@ -211,7 +217,7 @@ Because of the CRD extension of the Kubernetes API we can also use kubectl to in
 ```bash
 [root@rhel3 ~]# kubectl -n trident get tridentversions
 NAME      VERSION
-trident   20.04.0
+trident   20.07.0
 ```
 
 To see what other kubectl commands can be used to interact with Trident, the supported API resources can be viewed in a single easy command:

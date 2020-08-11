@@ -14,6 +14,17 @@ Most of the commands start with a '[root@rhel3 ~]#', usually followed by the res
 
 ## A. Production Kubernetes Cluster
 
+Let's start by confirming the version of Kubernetes installed. Either of the commands can be used to confirm that kubernetes 1.18 has been installed.
+
+```bash
+[root@rhel3 ~]# kubectl version
+Client Version: version.Info{Major:"1", Minor:"18", GitVersion:"v1.18.0", GitCommit:"9e991415386e4cf155a24b1da15becaa390438d8", GitTreeState:"clean", BuildDate:"2020-03-25T14:58:59Z", GoVersion:"go1.13.8", Compiler:"gc", Platform:"linux/amd64"}
+Server Version: version.Info{Major:"1", Minor:"18", GitVersion:"v1.18.0", GitCommit:"9e991415386e4cf155a24b1da15becaa390438d8", GitTreeState:"clean", BuildDate:"2020-03-25T14:50:46Z", GoVersion:"go1.13.8", Compiler:"gc", Platform:"linux/amd64"}
+[root@rhel3 ~]# kubectl version --short
+Client Version: v1.18.0
+Server Version: v1.18.0
+```
+
 The production k8s cluster contains a single master node (rhel3) and three worker nodes ( rhel1, rhel2 and rhel4).
 To verify the nodes:  
 `kubectl get nodes -o wide`

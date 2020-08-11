@@ -9,7 +9,7 @@
   collections:
     - netapp.ontap
 
-# Re-configure ONTAP SVM for NFS & iSCSI protocol
+# Environmental variables for ONTAP SVM - svm1
 
   vars:
     netapp_hostname: 192.168.0.101
@@ -103,7 +103,7 @@
         state: touch
         mode: u=rw,g=r,o=r
 
-    - name: Create a directory in te unmanaged volume
+    - name: Create a directory in the unmanaged volume
       file:
         path: /mnt/unmanaged/your_existing_folder2
         state: directory
@@ -116,7 +116,7 @@
         fstype: nfs
         opts: defaults
         state: absent
-        src: 192.168.0.132:/existing_managed"
+        src: 192.168.0.132:/existing_managed
         path: /mnt/managed
 
     - name: Unmount unmanaged volume now that we are done with them

@@ -8,7 +8,7 @@ This bootcamp requires the [NetApp Lab-on-Demand](https://labondemand.netapp.com
 
 **The configure_bootcamp.sh script may be run by the NetApp Lab On Demand team ahead of you connecting to the lab environment, so please confirm this with the person running your particular bootcamp.**  If it has not been run, it can take ~15 minutes to complete, so please run it now by following the instructions [here](trident_with_k8s/tasks/configure_bootcamp) where you will also find details of the tasks carried out by the script.
 
-This repository was orginally forked from the great work done by [YvosOnTheHub](<https://github.com/YvosOnTheHub/LabNetApp>). The bootcamp was further augmented by automating the building of the customized lab setup by way of shell scripts and Ansible playbooks as initially set out by [pablogarciaarevalo](<https://github.com/pablogarciaarevalo/demo-trident>) :clap:  
+This repository was orginally forked from the great work done by [YvosOnTheHub](<https://github.com/YvosOnTheHub/LabNetApp>). The bootcamp was further augmented by automating the building of the customized lab setup by way of shell scripts and Ansible playbooks as initially set out by [pablogarciaarevalo](<https://github.com/pablogarciaarevalo/demo-trident>). Many thanks also to [MrStevenSmith](<https://github.com/MrStevenSmith/Trident-WordPress-Application>) for his Trident based WordPress contribution :clap:  
 
 ## Bootcamp Environment Diagram
 

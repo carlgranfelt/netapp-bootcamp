@@ -15,7 +15,7 @@ The .yaml files provided are for:
 - A DEPLOYMENT that will define how to manage the application
 - A SERVICE to expose the application
 
-Feel free to familiarise yourself with the contents of these .yaml files if you wish.  You will see in the ```1_pvc.yaml``` file that it specifies ReadWriteMany as the access mode, which will result in k8s and Trident providing an NFS based backend for the request.  A diagram is provided below to illustrate how the PVC, deployment, service and surrounding infrastructure all hang together:
+Feel free to familiarise yourself with the contents of these .yaml files if you wish.  You will see in the `1_pvc.yaml` file that it specifies `ReadWriteMany` as the access mode, which will result in k8s and Trident providing an NFS based backend for the request.  A diagram is provided below to illustrate how the PVC, deployment, service and surrounding infrastructure all hang together:
 
 <p align="center"><img src="../../../images/file_app.png" width="650px"></p>
 
@@ -85,7 +85,7 @@ Grab the external IP from the output and check to see if you can browse to your 
 ## C. Explore the application container
 
 Let's see if the */var/lib/ghost/content* folder is indeed mounted to the NFS PVC that was created.  
-**You need to customize the following commands with the POD name you have in your environment.**
+**You need to customize the following commands with the POD name (`blog-XXXXXXXXXXX-XXXX`) you have in your environment.**
 
 ```bash
 [root@rhel3 ghost]# kubectl exec -n ghost blog-6bf7df48bb-b7d6r -- df /var/lib/ghost/content
@@ -94,7 +94,7 @@ Filesystem           1K-blocks      Used Available Use% Mounted on
                        5242880       704   5242176   0% /var/lib/ghost/content
 ```
 
-List out the files found in the ghost/content directory within the PV (don't forget to use your specific blog-XXXXXXXX-XXXX details found in the earlier CLI output):
+List out the files found in the ghost/content directory within the PV (don't forget to use your specific `blog-XXXXXXXX-XXXX` details found in the earlier CLI output):
 
 ```bash
 [root@rhel3 ghost]# kubectl exec -n ghost blog-6bf7df48bb-b7d6r -- ls /var/lib/ghost/content
@@ -149,7 +149,7 @@ Go back to the main Stories page (link in the top left corner) to confirm the pr
 
 <p align="center"><img src="../../../images/ghost-published.png" width="650px"></p>
 
-**Note:** Due to DNS limitations selectiong 'View Post' will not work in this lab environment.
+**Note:** Due to DNS limitations selectiong 'View Post' will not work in this lab environment, but you can go to the main home page at  <http://192.168.0.143> to see your post is now live.
 
 Next let's confirm whcih worker node your pod is running on:
 
@@ -161,7 +161,9 @@ blog-6bf7df48bb-b7d6r   1/1     Running   0          29m   10.42.0.1   rhel4   <
 
 If we had multiple pods in the namespace using the selector (-l, --selector='': Selector (label query)) would be crucial to to filter the desired output.
 
-Now that we know that our pod is running on node ```rhel4``` we can drain the node in preparation for maintenance which will also restart the pod on another node:
+Now that we know that our pod is running on node ```rhel4``` (in this example) we can drain the node in preparation for maintenance which will also restart the pod on another node.  
+
+**Make sure to drain the node that is running your particular instance of the ghost blog, as it may be different to this example**.
 
 ```bash
 [root@rhel3 ghost]# kubectl drain rhel4 --ignore-daemonsets
@@ -171,8 +173,6 @@ evicting pod ghost/blog-6bf7df48bb-b7d6r
 pod/blog-6bf7df48bb-b7d6r evicted
 node/rhel4 evicted
 ```
-
-**Note:** Your pod might be running on a different node!
 
 Following on we can re-confirm the new host the pod is running on (as it might take a few seconds we have added the -w option to ‌watch for the changes take place):  
 
@@ -189,7 +189,7 @@ Finally refresh your browser window and actually access your blog post to confir
 
 <p align="center"><img src="../../../images/ghost-proof-of-persistence.png" width="650px"></p>
 
-To mark our node as schedulable again we need to uncordon it and verify that it's in a ready status:
+To mark our node that was drained as schedulable again we need to uncordon it and verify that it's in a ready status.  Again, make sure to select the particular node that you drained as it may be different from this example:
 
 ```bash
 [root@rhel3 ghost]# kubectl uncordon rhel4
@@ -205,9 +205,7 @@ rhel4   Ready    <none>   3d21h   v1.18.0
 
 ## E. Cleanup (optional)
 
-:boom: **The PVC will be reused in the '[Importing a PV](../pv_import)' task. Only clean-up if you dont plan to do the 'Importing a PV' task.** :boom:  
-
-If you still want to go ahead and clean-up, instead of deleting each object one by one, you can directly delete the namespace which will then remove all of its associated objects.  
+To clean-up this task, instead of deleting each object one by one, you can directly delete the namespace which will then remove all of its associated objects.  
 
 ```bash
 [root@rhel3 ~]# kubectl delete ns ghost

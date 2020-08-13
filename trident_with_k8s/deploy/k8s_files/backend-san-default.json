@@ -6,5 +6,10 @@
     "storagePrefix": "trident_rwo_",
     "svm": "svm1",
     "username": "vsadmin",
-    "password": "Netapp1!"
+    "password": "Netapp1!",
+    "useCHAP": true,
+    "chapInitiatorSecret": "cl9qxIm36DKyawxy",
+    "chapTargetInitiatorSecret": "rqxigXgkesIpwxyz",
+    "chapTargetUsername": "iJF4heBRT0TCwxyz",
+    "chapUsername": "uh2aNCLSd6cNwxyz"
 }

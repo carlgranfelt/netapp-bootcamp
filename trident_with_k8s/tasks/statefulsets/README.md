@@ -33,7 +33,7 @@ In this exercise, we will create a MySQL StatefulSet & scale it.
 Ensure you are in the correct working directory by issuing the following command on your rhel3 putty terminal in the lab:
 
 ```bash
-[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/statefulsets/
+[root@rhel3 statefulsets]# cd /root/NetApp-LoD/trident_with_k8s/tasks/statefulsets/
 ```
 
 This application is based on 3 elements:
@@ -47,39 +47,28 @@ This application is based on 3 elements:
 :mag_right:  
 
 ```bash
-[root@rhel3 ~]# kubectl create namespace mysql
+[root@rhel3 statefulsets]# kubectl create namespace mysql
 namespace/mysql created
 
-[root@rhel3 ~]# kubectl create -n mysql -f mysql-configmap.yaml
+[root@rhel3 statefulsets]# kubectl create -n mysql -f mysql-configmap.yaml
 configmap/mysql created
-[root@rhel3 ~]# kubectl create -n mysql -f mysql-services.yaml
+[root@rhel3 statefulsets]# kubectl create -n mysql -f mysql-services.yaml
 service/mysql created
 service/mysql-read created
-[root@rhel3 ~]# kubectl create -n mysql -f mysql-statefulset.yaml
+[root@rhel3 statefulsets]# kubectl create -n mysql -f mysql-statefulset.yaml
 statefulset.apps/mysql created
 ```
 
 It will take a few minutes for all the replicas to be created, it is suggested to use the _watch_ flag to monitor the deployments progress.  Use control-C to drop out of the watch and back to the prompt:
 
 ```bash
-[root@rhel3 ~]# watch -n1 kubectl -n mysql get pod -o wide
-
-mysql-0   1/2     Running   0          43s   10.36.0.1   rhel1   <none>           <none>
-mysql-0   2/2     Running   0          52s   10.36.0.1   rhel1   <none>           <none>
-mysql-1   0/2     Pending   0          0s    <none>      <none>   <none>           <none>
-mysql-1   0/2     Pending   0          0s    <none>      <none>   <none>           <none>
-mysql-1   0/2     Pending   0          4s    <none>      rhel2    <none>           <none>
-mysql-1   0/2     Init:0/2   0          4s    <none>      rhel2    <none>           <none>
-mysql-1   0/2     Init:1/2   0          24s   10.44.0.1   rhel2    <none>           <none>
-mysql-1   0/2     Init:1/2   0          32s   10.44.0.1   rhel2    <none>           <none>
-mysql-1   0/2     PodInitializing   0          40s   10.44.0.1   rhel2    <none>           <none>
-...
+[root@rhel3 statefulsets]# watch -n1 kubectl -n mysql get pod -o wide
 ```
 
-Once you see that the second POD is up & running, you are good to go:
+Once you see that the second POD is up & running, you are good to go.  Notice that the Pod names are much more friendly than the randomly generated ones you saw in previous tasks you may have carried out when not using stateful sets:
 
 ```bash
-[root@rhel3 ~]# kubectl -n mysql get pod -o wide
+[root@rhel3 statefulsets]# kubectl -n mysql get pod -o wide
 NAME      READY   STATUS    RESTARTS   AGE   IP          NODE    NOMINATED NODE   READINESS GATES
 mysql-0   2/2     Running   0          24h   10.36.0.1   rhel1   <none>           <none>
 mysql-1   2/2     Running   1          24h   10.44.0.1   rhel2   <none>           <none>
@@ -104,7 +93,7 @@ To connect to MySQL, we will use another POD which will connect to the master DB
 **Copy & paste the whole block at once:**
 
 ```bash
-[root@rhel3 ~]# kubectl run mysql-client -n mysql --image=mysql:5.7 -i --rm --restart=Never --\
+[root@rhel3 statefulsets]# kubectl run mysql-client -n mysql --image=mysql:5.7 -i --rm --restart=Never --\
  mysql -h mysql-0.mysql <<EOF
 CREATE DATABASE test;
 CREATE TABLE test.messages (message VARCHAR(250));
@@ -115,7 +104,7 @@ EOF
 Let's check that the operation was successful by reading the database, through the service called `_mysql-read_`:
 
 ```bash
-[root@rhel3 ~]# kubectl run mysql-client -n mysql --image=mysql:5.7 -i -t --rm --restart=Never -- mysql -h mysql-read -e "SELECT * FROM test.messages"
+[root@rhel3 statefulsets]# kubectl run mysql-client -n mysql --image=mysql:5.7 -i -t --rm --restart=Never -- mysql -h mysql-read -e "SELECT * FROM test.messages"
 If you don't see a command prompt, try pressing enter.
 +---------+
 | message |
@@ -134,7 +123,7 @@ Let's check this!
 First, open a new Putty window & connect to RHEL3. You can then run the following, which will display the ID of the database followed by a timestamp:
 
 ```bash
-[root@rhel3 ~]# kubectl run mysql-client-loop -n mysql --image=mysql:5.7 -i -t --rm --restart=Never -- bash -ic "while sleep 1; do mysql -h mysql-read -e 'SELECT @@server_id,NOW()'; done"
+[root@rhel3 statefulsets]# kubectl run mysql-client-loop -n mysql --image=mysql:5.7 -i -t --rm --restart=Never -- bash -ic "while sleep 1; do mysql -h mysql-read -e 'SELECT @@server_id,NOW()'; done"
 +-------------+---------------------+
 | @@server_id | NOW()               |
 +-------------+---------------------+
@@ -155,15 +144,15 @@ Keep this window open for now...
 Scaling an application with Kubernetes is pretty straightforward & can be achieved with the following command:
 
 ```bash
-[root@rhel3 ~]# kubectl scale statefulset mysql -n mysql --replicas=3
+[root@rhel3 statefulsets]# kubectl scale statefulset mysql -n mysql --replicas=3
 statefulset.apps/mysql scaled
 ```
 
 You can use the `kubectl -n mysql get pod -o wide ` with the `watch` parameter again to see the new POD starting.  
-When done, you should have something similar to this:
+When done, you should have something similar to this and again notice that the pod names have maintained their friendly naming with the latest pod using the `-2` suffix:
 
 ```bash
-[root@rhel3 ~]# watch -n1 kubectl -n mysql get pod -o wide 
+[root@rhel3 statefulsets]# watch -n1 kubectl -n mysql get pod -o wide 
 NAME      READY   STATUS    RESTARTS   AGE
 mysql-0   2/2     Running   0          12m
 mysql-1   2/2     Running   0          12m
@@ -175,7 +164,7 @@ Notice the last POD is _younger_ that the other ones...
 Again, check the storage. You can see that a new PVC was automatically created.
 
 ```bash
-[root@rhel3 ~]# kubectl get -n mysql pvc,pv  
+[root@rhel3 statefulsets]# kubectl get -n mysql pvc,pv  
 NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
 persistentvolumeclaim/data-mysql-0   Bound    pvc-f348ec0a-f304-49d8-bbaf-5a85685a6194   10Gi       RWO            sc-file-rwx         15m
 persistentvolumeclaim/data-mysql-1   Bound    pvc-ce114401-5789-454a-ba1c-eb5453fbe026   10Gi       RWO            sc-file-rwx         15m
@@ -209,14 +198,44 @@ Also, if the second window is still open, you should start seeing new `id` ('102
 
 Go back to your Grafana dashboard to check what is happening (<http://192.168.0.141>).  
 
-## E. Clean up
+# E. Scaling down
+
+The final step in this task is to scale your pods down to 2 replicas and observe how the PVs and PVCs behave:
+
+```bash
+[root@rhel3 statefulsets]# kubectl scale statefulset mysql -n mysql --replicas=2
+```
+
+Now check your pods and PV/PVCs:
+
+```bash
+[root@rhel3 statefulsets]# watch -n1 kubectl -n mysql get pod -o wide 
+NAME      READY   STATUS    RESTARTS   AGE
+mysql-0   2/2     Running   0          12m
+mysql-1   2/2     Running   0          12m
+
+[root@rhel3 statefulsets]# kubectl get -n mysql pvc,pv
+NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+persistentvolumeclaim/data-mysql-0   Bound    pvc-a1e0c4ec-bcd8-4267-948a-8670e83dc8d3   5Gi        RWO            sc-file-rwx    6m17s
+persistentvolumeclaim/data-mysql-1   Bound    pvc-f10209cc-6673-4b34-86d8-abc1a396ae8f   5Gi        RWO            sc-file-rwx    5m57s
+persistentvolumeclaim/data-mysql-2   Bound    pvc-cd8ba428-206e-4da5-bb7f-c747720b061a   5Gi        RWO            sc-file-rwx    3m37s
+
+NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                STORAGECLASS   REASON   AGE
+persistentvolume/pvc-a1e0c4ec-bcd8-4267-948a-8670e83dc8d3   5Gi        RWO            Delete           Bound    mysql/data-mysql-0   sc-file-rwx             6m16s
+persistentvolume/pvc-cd8ba428-206e-4da5-bb7f-c747720b061a   5Gi        RWO            Delete           Bound    mysql/data-mysql-2   sc-file-rwx             3m36s
+persistentvolume/pvc-f10209cc-6673-4b34-86d8-abc1a396ae8f   5Gi        RWO            Delete           Bound    mysql/data-mysql-1   sc-file-rwx             5m56s
+```
+
+You will see that although you now only have **2 pods** running, you still have **3 PVs and PVCs** in place.  This is by design within Kubernetes.  The PVs and PVCs are retained in-case the pods are scaled back up and the scaling will be faster due to the PVs already being in place.  If required, the PVs and PVCs can be manually deleted.  This behaviour is [currently under review](https://github.com/kubernetes/enhancements/pull/1915) by the developers of k8s.
+
+## F. Clean up
 
 ```bash
 [root@rhel3 ~]# kubectl delete namespace mysql
 namespace "mysql" deleted
 ```
 
-## F. What's next
+## G. What's next
 
 You can now move on to:  
 

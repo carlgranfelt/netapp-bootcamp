@@ -24,7 +24,7 @@ For additional information, please refer to:
 
 Also, installing & configuring Trident + creating Kubernetes Storage Classe is what is expected to be done by the Admin.
 
-![Configure File](../../../images/config_file.jpg "Configure File")
+![Configure File](../../../images/config-file.png "Configure File")
 
 **Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (**`rhel5`**) to proceed with the task.  
 

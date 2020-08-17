@@ -7,7 +7,7 @@ It is now time to add more backends that can be used for block storage.
 
 The ONTAP environment in the lab has already been setup for block storage. You can choose to use the SVM you are already using, or create your own. In the latter scenario, please refer to  task [Prepare ONTAP for block storage on dev cluster](../../tasks/ontap_block).  
 
-![Configure Block](../../../images/config_block.jpg "Configure Block")
+![Configure Block](../../../images/config-block.png "Configure Block")
 
 **Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (rhel5) to proceed with the task.  
 

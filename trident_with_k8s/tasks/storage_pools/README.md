@@ -21,7 +21,7 @@ The following parameters can be used in the Virtual Pools:
 
 In this lab, instead of creating a few backends pointing to the same NetApp SVM, we are going to use Virtual Storage Pools
 
-![Storage Pools](../../../images/storage_pools.jpg "Storage Pools)
+![Storage Pools](../../../images/storage-pools.png "Storage Pools")
 
 ## A. Create the new backend
 

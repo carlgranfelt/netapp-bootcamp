@@ -26,7 +26,7 @@ For more information please see StatefulSets official documentation: <https://ku
 
 In this exercise, we will create a MySQL StatefulSet & scale it.  
 
-![Statefulsets](../../../images/statefulsets.jpg "Statefulsets")
+![Statefulsets](../../../images/statefulsets.png "Statefulsets")
 
 ## A. Let's start by creating the application
 

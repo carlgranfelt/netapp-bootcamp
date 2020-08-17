@@ -49,7 +49,7 @@ sc-file-rwx.storageclass.storage.k8s.io/persistentvolumeclaims        0     3
 ```
 
 Now let's start creating some PVC against the storage class _quota_ & check the resource quota usage
-![Quotas 1](../../../images/quotas1.jpg "Quotas 1")
+![Quotas 1](../../../images/quotas1.png "Quotas 1")
 
 ```bash
 [root@rhel3 ~]# kubectl create -n quota -f pvc-quotasc-1.yaml
@@ -97,7 +97,7 @@ persistentvolumeclaim "quotasc-3" deleted
 
 Next, we'll look at the capacity quotas:
 
-![Quotas 2](../../../images/quotas2.jpg "Quotas 2")
+![Quotas 2](../../../images/quotas2.png "Quotas 2")
 
 ```bash
 [root@rhel3 ~]# kubectl describe quota sc-resource-limit -n quota
@@ -151,7 +151,7 @@ Depending on the driver, this parameter will:
 1. Control the PVC size (ex: driver ONTAP-NAS)
 2. Control the size of the ONTAP volume hosting PVC (ex: drivers ONTAP-NAS-ECONOMY or ONTAP-SAN-ECONOMY)
 
-![Quotas 3](../../../images/quotas3.jpg "Quotas 3")
+![Quotas 3](../../../images/quotas3.png "Quotas 3")
 
 Let's create a backend with this parameter setup (limitVolumeSize = 5g), followed by the storage class that points to it, using the storagePools parameter:
 
@@ -235,7 +235,7 @@ The amount of volumes (FlexVols) you can have on an ONTAP cluster depends on sev
 
 If the storage platform is also used by other workloads (Databases, File Services, vSphere...), you may want to limit the number of PVCs you build in your storage Tenant (ie SVM).  This can be achieved by setting a parameter on the SVM.  Further documentation for this feature can be found [here](https://netapp-trident.readthedocs.io/en/stable-v20.07/dag/kubernetes/storage_configuration_trident.html#limit-the-maximum-volume-count).
 
-![Quotas 4](../../../images/quotas4.jpg "Quotas 4")
+![Quotas 4](../../../images/quotas4.png "Quotas 4")
 
 Before setting a limit in the SVM _svm1_, you first need to look for the current number of volumes you have already provisioned.
 To do this, you can either login to NetApp System Manager via the Chrome browser & count them up, or run the following command (password Netapp1!) which will out the figure for you:

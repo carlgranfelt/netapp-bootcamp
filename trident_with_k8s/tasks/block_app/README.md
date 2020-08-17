@@ -17,7 +17,7 @@ The .yaml files provided are for:
 
 Feel free to familiarise yourself with the contents of these .yaml files if you wish.  You will see in the ```1_pvc.yaml``` file that it specifies ReadWriteOnce as the access mode, which will result in k8s and Trident providing an iSCSI based backend for the request.  A diagram is provided below to illustrate how the PVC, deployment, service and surrounding infrastructure all hang together:
 
-<p align="center"><img src="../../../images/block_app.png" width="650px"></p>
+<p align="center"><img src="../../../images/block-app.png" width="650px"></p>
 
 ## A. Create the application
 

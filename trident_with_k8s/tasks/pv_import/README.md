@@ -2,7 +2,7 @@
 
 Trident allows you to import an existing volume sitting on a NetApp backend into Kubernetes.  This could be useful for applications that are being re-factored which previously had data from an NFS or iSCSI mount into a Virtual Machine and you now want that same data to be accessed by a container in k8s.
 
-![PV Import](../../../images/pv_import.jpg "PV Import")
+![PV Import](../../../images/pv-import.png "PV Import")
 
 ## A. Prepare the environment
 

@@ -6,8 +6,6 @@ This is fully supported by Trident 20.01.1 and above.
 
 In this task you will create a read-only snapshot of your PV and then also create a space-efficienct read-write cloned PV from your snapshot.  This type of task would be useful for application test and development or in environments that make use of CI/CD pipelines that require multiple presistent data copies for large development teams.
 
-![Snapshots & Clones](../../../images/snapshots_clones.jpg "Snapshots & Clones")
-
 ## A. Prepare the environment
 
 Ensure you are in the correct working directory by issuing the following command on your rhel3 putty terminal in the lab:

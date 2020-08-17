@@ -12,7 +12,7 @@ Resizing a PVC is made available through the option *allowVolumeExpansion* set i
 Ensure you are in the correct working directory by issuing the following command on your rhel3 putty terminal in the lab:
 
 ```bash
-[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/resize_file/
+[root@rhel3 ~]# cd /root/netapp-bootcamp/trident_with_k8s/tasks/resize_file/
 ```
 
 ```bash

@@ -11,13 +11,13 @@ Once connected to the k8s master, run the below commands to configure the kubern
 Download the contents of the bootcamp GitHub repo to the k8s master:
 
 ```bash
-git clone https://github.com/carlgranfelt/NetApp-LoD.git
+git clone https://github.com/carlgranfelt/netapp-bootcamp.git
 ```
 
 Change directory to the deploy directory:
 
 ```bash
-cd /root/NetApp-LoD/trident_with_k8s/deploy/
+cd /root/netapp-bootcamp/trident_with_k8s/deploy/
 ```
 
 Change the permissions of the shell scripts:

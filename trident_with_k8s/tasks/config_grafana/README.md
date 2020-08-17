@@ -151,7 +151,7 @@ The idea here would be to create a ConfigMap pointing to the Trident dashboard j
 **Ensure that the `datasource` in your rhel5 local copy of the `Trident_Dashboard_Std.json` file is set to what you configured for Prometheus earlier (most likely "Prometheus-1") **
 
 ```bash
-[root@rhel5 ~]# cd ~/NetApp-LoD/trident_with_k8s/tasks/config_grafana/
+[root@rhel5 ~]# cd ~/netapp-bootcamp/trident_with_k8s/tasks/config_grafana/
 [root@rhel5 ~]# kubectl create configmap -n monitoring tridentdashboard --from-file=Trident_Dashboard_Std.json
 configmap/tridentdashboard created
 

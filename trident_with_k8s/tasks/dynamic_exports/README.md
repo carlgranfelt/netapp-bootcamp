@@ -19,7 +19,7 @@ This lab is mainly aimed at storage administrators familiar with NetApp ONTAP, s
 Ensure you are in the correct working directory by issuing the following command on your rhel3 putty terminal in the lab:
 
 ```bash
-[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/dynamic_exports/
+[root@rhel3 ~]# cd /root/netapp-bootcamp/trident_with_k8s/tasks/dynamic_exports/
 ```
 
 The difference between both files lies in the *autoExportCIDRs* parameter, one has it while the other one does not.

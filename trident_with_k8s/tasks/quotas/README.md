@@ -13,7 +13,7 @@ It is therefore good practice to put some controls in place to make sure the sto
 Ensure you are in the correct working diecrtory by issuing the following command on your rhel3 putty terminal in the lab:
 
 ```bash
-[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/quotas/
+[root@rhel3 ~]# cd /root/netapp-bootcamp/trident_with_k8s/tasks/quotas/
 ```
 Feel free to look inside the provided .yaml files in this task so that you can get a good idea of what each one is doing.
 

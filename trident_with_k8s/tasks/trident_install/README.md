@@ -178,18 +178,18 @@ But we can easily fix that by running the below commands:
 [root@rhel5 ~]# PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/trident-installer:/root/bin
 [root@rhel5 ~]# export PATH
 [root@rhel5 ~]# cat <<EOF > ~/.bash_profile
-> # .bash_profile
-> # Get the aliases and functions
-> if [ -f ~/.bashrc ]; then
->         . ~/.bashrc
-> fi
-> # add path for tridentctl
-> PATH=$PATH:/root/trident-installer
-> # User specific environment and startup programs
-> PATH=$PATH:$HOME/bin
-> export PATH
-> export KUBECONFIG=$HOME/.kube/config
-> EOF
+# .bash_profile
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+# add path for tridentctl
+PATH=$PATH:/root/trident-installer
+# User specific environment and startup programs
+PATH=$PATH:$HOME/bin
+export PATH
+export KUBECONFIG=$HOME/.kube/config
+EOF
 ```
 
 And to verify our work:

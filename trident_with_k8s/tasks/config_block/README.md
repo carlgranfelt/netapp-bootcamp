@@ -29,7 +29,7 @@ If you take a closer look to both json files, you will see that the parameter da
 First off, make sure you are in the correct path for this task:
 
 ```bash
-[root@rhel5 config_file]# cd ~/NetApp-LoD/trident_with_k8s/tasks/config_block/
+[root@rhel5 config_file]# cd ~/netapp-bootcamp/trident_with_k8s/tasks/config_block/
 [root@rhel5 config_block]#
 ```
 

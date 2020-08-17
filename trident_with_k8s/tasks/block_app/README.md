@@ -6,7 +6,7 @@ We will deploy the same application as in file-base application task, but instea
 For this task you will be deploying Ghost (a light weight web portal) utlilising RWO (Read Write Once) file-based persistent storage over iSCSI.  You will find a few .yaml files in the Ghost directory, so ensure that your putty terminal on the lab is set to the correct directory for this task:
 
 ```bash
-[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/block_app/ghost
+[root@rhel3 ~]# cd /root/netapp-bootcamp/trident_with_k8s/tasks/block_app/ghost
 ```
 
 The .yaml files provided are for:
@@ -76,7 +76,7 @@ It takes about 40 seconds for the POD to be in a *running* state.
 The Ghost service is configured with a LoadBalancer type, which means you need to find the **external IP** for your application so that you can connect to it via a web browser in your lab:
 
 ```bash
-[root@rhel3 ~]# kubectl get svc -n ghost
+[root@rhel3 ~]# kubectl get svc -n ghostsan
 NAME   TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
 blog   LoadBalancer   10.105.11.122   192.168.0.144   80:30090/TCP   3h14m
 ```

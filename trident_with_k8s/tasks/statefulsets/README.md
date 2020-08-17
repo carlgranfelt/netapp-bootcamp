@@ -33,7 +33,7 @@ In this exercise, we will create a MySQL StatefulSet & scale it.
 Ensure you are in the correct working directory by issuing the following command on your rhel3 putty terminal in the lab:
 
 ```bash
-[root@rhel3 statefulsets]# cd /root/NetApp-LoD/trident_with_k8s/tasks/statefulsets/
+[root@rhel3 statefulsets]# cd /root/netapp-bootcamp/trident_with_k8s/tasks/statefulsets/
 ```
 
 This application is based on 3 elements:

@@ -5,12 +5,12 @@ echo "Prepare production kubernetes server rhel4"
 echo "#######################################################################################################"
 
 echo "#######################################################################################################"
-echo "Download the GitHub NetApp-LoD repository"
+echo "Download the GitHub netapp-bootcamp repository"
 echo "#######################################################################################################"
 
 # MUST REMOVE COMMENT ONCE REPO IS PUBLIC!!!
-# git clone <https://github.com/carlgranfelt/NetApp-LoD.git>
-scp -r -q -o "StrictHostKeyChecking no" root@rhel3:/root/NetApp-LoD/ /root
+# git clone <https://github.com/carlgranfelt/netapp-bootcamp.git>
+scp -r -q -o "StrictHostKeyChecking no" root@rhel3:/root/netapp-bootcamp/ /root
 
 echo "#######################################################################################################"
 echo "Preparing the host - firewall and security"

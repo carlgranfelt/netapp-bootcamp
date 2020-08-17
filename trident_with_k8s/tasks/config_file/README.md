@@ -36,7 +36,7 @@ You can decide to use all of them, only a subset of them or modify them as you w
 First, make sure you are in the correct directory on rhel5 for this task:
 
 ```bash
-[root@rhel5 config_grafana]# cd ~/NetApp-LoD/trident_with_k8s/tasks/config_file
+[root@rhel5 config_grafana]# cd ~/netapp-bootcamp/trident_with_k8s/tasks/config_file
 [root@rhel5 config_file]#
 ```
 

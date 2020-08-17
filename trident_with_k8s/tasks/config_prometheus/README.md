@@ -120,7 +120,7 @@ In substance, we will tell in this object to look at services that have the labe
 The yaml file has been provided and is available in the config_prometheus sub-directory:
 
 ```bash
-[root@rhel5 ~]# kubectl create -f /root/NetApp-LoD/trident_with_k8s/tasks/config_prometheus/Trident_ServiceMonitor.yml
+[root@rhel5 ~]# kubectl create -f /root/netapp-bootcamp/trident_with_k8s/tasks/config_prometheus/Trident_ServiceMonitor.yml
 servicemonitor.monitoring.coreos.com/trident-sm created
 ```
 

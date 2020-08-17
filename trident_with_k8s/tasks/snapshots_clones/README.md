@@ -13,7 +13,7 @@ In this task you will create a read-only snapshot of your PV and then also creat
 Ensure you are in the correct working directory by issuing the following command on your rhel3 putty terminal in the lab:
 
 ```bash
-[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/snapshots_clones/
+[root@rhel3 ~]# cd /root/netapp-bootcamp/trident_with_k8s/tasks/snapshots_clones/
 ```
 
 We will create an app in its own namespace (also very useful for cleaning up everything when you are done).  

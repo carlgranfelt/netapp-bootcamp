@@ -28,7 +28,7 @@ In this lab, instead of creating a few backends pointing to the same NetApp SVM,
 Ensure you are in the correct working directory by issuing the following command on your rhel3 putty terminal in the lab:
 
 ```bash
-[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/storage_pools/
+[root@rhel3 ~]# cd /root/netapp-bootcamp/trident_with_k8s/tasks/storage_pools/
 ```
 
 If you take a look at the backend definition, you will see that there are 3 Virtual Storage Pools.

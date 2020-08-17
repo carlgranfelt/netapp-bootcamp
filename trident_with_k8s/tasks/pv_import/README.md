@@ -11,7 +11,7 @@ To give you some data to import, you'll need to run a quick Anible script that h
 Ensure you are in the correct working directory by issuing the following command on your **`rhel3`** putty terminal in the lab:
 
 ```bash
-[root@rhel3 ~]# cd /root/NetApp-LoD/trident_with_k8s/tasks/pv_import/
+[root@rhel3 ~]# cd /root/netapp-bootcamp/trident_with_k8s/tasks/pv_import/
 ```
 
 The ansible script performs the following tasks

@@ -13,7 +13,7 @@ Setting a `default` storage class can be useful, especially when this one is use
 First off, make sure you at the correct path for this task:
 
 ```bash
-[root@rhel5 config_block]# cd ~/NetApp-LoD/trident_with_k8s/tasks/default_sc/
+[root@rhel5 config_block]# cd ~/netapp-bootcamp/trident_with_k8s/tasks/default_sc/
 [root@rhel5 default_sc]#
 ```
 

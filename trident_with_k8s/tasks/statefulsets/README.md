@@ -116,7 +116,7 @@ pod "mysql-client" deleted
 
 ## C. Where are my reads coming from?
 
-In the current setup, _writes_ are done on the master DB, wheareas _reads_ can come from any DB POD.  
+In the current setup, _writes_ are done on the master DB, whereas _reads_ can come from any DB POD.  
 
 Let's check this!  
 

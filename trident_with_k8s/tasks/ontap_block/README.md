@@ -10,7 +10,7 @@ In the latter task, you will need to create a new SVM with the following paramet
 - iSCSI igroup: trident
 - iSCSI target alias: svm2
 
-If you feel confortable with ONTAP, you can create the environment yourself either using the CLI or GUI (ONTAP System Manager).
+If you feel comfortable with ONTAP, you can create the environment yourself either using the CLI or GUI (ONTAP System Manager).
 Alternatively, it can be scripted for example using Ansible.
 
 **Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (rhel5) to proceed with the task.  

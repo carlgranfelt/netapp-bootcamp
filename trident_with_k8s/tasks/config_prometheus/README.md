@@ -19,7 +19,7 @@ Helm is a tool that streamlines installing and managing Kubernetes applications.
 
 Helm uses a packaging format called charts. A chart is a collection of files that describe a related set of Kubernetes resources. A single chart might be used to deploy something simple, like a memcached pod, or something complex, like a full web app stack with HTTP servers, databases, caches, and so on.  For this task you will use Helm to deploy Prometheus.
 
-First off, let's download Helm and get it raedy for use:
+First off, let's download Helm and get it ready for use:
 
 ```bash
 [root@rhel5 trident-installer]# cd
@@ -30,7 +30,7 @@ First off, let's download Helm and get it raedy for use:
 
 ## B. Install Prometheus in its own namespace
 
-Next you need to create a namespace for Poremetheus and then use Helm to download and install Prometheus into that name space.  For our example we are using the `monitoring` namespace and grabbing helm from the `googleapis` repo: 
+Next you need to create a namespace for Prometheus and then use Helm to download and install Prometheus into that name space.  For our example we are using the `monitoring` namespace and grabbing helm from the `googleapis` repo: 
 
 ```bash
 [root@rhel5 ~]#kubectl create namespace monitoring
@@ -54,7 +54,7 @@ Prometheus got installed pretty easily.  But how can you access from your browse
 
 The way Prometheus is installed required it to be accessed from the host where it is installed (with a *port-forwarding* mechanism for instance).
 
-We will modify the Prometheus service in order to access it from anywhere in the lab.  As the dev cluster has a MetalLB load-balancer alraedy configured, we can set up Premetheus to make use of it:
+We will modify the Prometheus service in order to access it from anywhere in the lab.  As the dev cluster has a MetalLB load-balancer already configured, we can set up Prometheus to make use of it:
 
 ```bash
 [root@rhel5 ~]# kubectl edit -n monitoring svc prom-operator-prometheus-o-prometheus
@@ -106,7 +106,7 @@ NAME                                    TYPE           CLUSTER-IP      EXTERNAL-
 prom-operator-prometheus-o-prometheus   LoadBalancer   10.99.220.109   192.168.0.151   80:31420/TCP   15m
 ```
 
-In this instance, we have `192.168.0.151`, so we can use the Chrome browser to go to this IP and chcek that Prometheus is now accessible.
+In this instance, we have `192.168.0.151`, so we can use the Chrome browser to go to this IP and check that Prometheus is now accessible.
 
 ## D. Add Trident to Prometheus
 
@@ -126,7 +126,7 @@ servicemonitor.monitoring.coreos.com/trident-sm created
 
 ## E. Check the configuration
 
-Via the Chorome web browser, you can now connect to your Prometheus instance and check that the Trident endpoint is taken into account & in the right state.  To find this go to the menu STATUS => TARGETS and then scroll to the bottom of the page.  You should see something similar to the below:
+Via the Chrome web browser, you can now connect to your Prometheus instance and check that the Trident endpoint is taken into account & in the right state.  To find this go to the menu STATUS => TARGETS and then scroll to the bottom of the page.  You should see something similar to the below:
 
 ![Trident Status in Prometheus](../../../images/trident_prometheus.png "Trident Status in Prometheus")
 

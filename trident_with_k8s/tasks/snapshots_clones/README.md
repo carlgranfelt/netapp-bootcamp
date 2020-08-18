@@ -4,7 +4,7 @@
 Kubernetes 1.17 promoted [CSI Snapshots to Beta](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/).  
 This is fully supported by Trident 20.01.1 and above.
 
-In this task you will create a read-only snapshot of your PV and then also create a space-efficienct read-write cloned PV from your snapshot.  This type of task would be useful for application test and development or in environments that make use of CI/CD pipelines that require multiple presistent data copies for large development teams.
+In this task you will create a read-only snapshot of your PV and then also create a space-efficient read-write cloned PV from your snapshot.  This type of task would be useful for application test and development or in environments that make use of CI/CD pipelines that require multiple persistent data copies for large development teams.
 
 ## A. Prepare the environment
 
@@ -100,7 +100,7 @@ Before you create your snapshot, let's make sure that you have some important da
 -rw-r--r--    1 root     root             0 Jun 30 11:34 /data/content/very-important-file.txt
 ```
 
-Now that you have your important data in your PV, let's take a snapshot to protect it in case somone accidentally (or on purpose) deletes it:
+Now that you have your important data in your PV, let's take a snapshot to protect it in case someone accidentally (or on purpose) deletes it:
 
 ```bash
 [root@rhel3 ~]# kubectl create -n ghost-snap-clone -f pvc-snapshot.yaml
@@ -137,7 +137,7 @@ Your snapshot has been created!
 
 ## E. Data Management with Snapshots
 
-Now that you have an application with a PV and a Snapshot of that PV, wha can you do with it?  Below are 3 tasks that help to demonstrate the power of these mechanisms:
+Now that you have an application with a PV and a Snapshot of that PV, what can you do with it?  Below are 3 tasks that help to demonstrate the power of these mechanisms:
 
 1. [Create an instant Clone](CLONES.md) of your PV and perform a data-in-place application upgrade
 2. [Recover data from a Snapshot](DATA-RECOVERY.md) if someone accidentally (or on purpose) deletes anything

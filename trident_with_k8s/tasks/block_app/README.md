@@ -21,7 +21,7 @@ Feel free to familiarise yourself with the contents of these .yaml files if you 
 
 ## A. Create the application
 
-It is assumed that the required backend & storage class have [already been created](../config_file) either by you or your bootcamp fascilitator.
+It is assumed that the required backend & storage class have [already been created](../config_file) either by you or your bootcamp facilitator.
 
 We will create this application in its own namespace (which also makes clean-up easier):
 
@@ -39,7 +39,7 @@ deployment.apps/blog created
 service/blog created
 ```
 
-Feel free to refresh your Grafan dashboard to see it now shows another volume is managed.
+Feel free to refresh your Grafana dashboard to see it now shows another volume is managed.
 
 Display all resources for the ghost namespace (your specific pod name of blog-XXXXXXXX-XXXX will be unique to your deployment and will need to be used again later in this task):
 
@@ -107,7 +107,7 @@ settings
 themes
 ```
 
-It is recommended that you also monitor your environment from the pre-created dashboard in Grafana: (<http://192.168.0.141>).  If you carried out the tasks in the [verifying your environment](../verify_lab) task, then you should already have your Grafana username and password which is ```admin:admin``` by default and you will be promted for a new password on 1st login.
+It is recommended that you also monitor your environment from the pre-created dashboard in Grafana: (<http://192.168.0.141>).  If you carried out the tasks in the [verifying your environment](../verify_lab) task, then you should already have your Grafana username and password which is ```admin:admin``` by default and you will be promoted for a new password on 1st login.
 
 ## D. Cleanup
 
@@ -122,7 +122,7 @@ namespace "ghostsan" deleted
 
 Now that you have tried working with SAN backends, you can try to resize a PVC:
 
-- Next task: [Import an existing volume wth Trident](../pv_import)  
+- Next task: [Import an existing volume with Trident](../pv_import)  
 or jump ahead to...
 - [Resize a iSCSI CSI PVC](../resize_block)  
 

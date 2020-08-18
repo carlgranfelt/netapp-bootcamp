@@ -29,7 +29,7 @@ The production k8s cluster contains a single master node (rhel3) and three worke
 To verify the nodes:  
 `kubectl get nodes -o wide`
 
-Your output should be similar to below, all nodes with a "Ready" status with kubernetes 1.18 installed.  
+Your output should be similar to below, all nodes with a "Ready" status with Kubernetes 1.18 installed.  
 
 ```bash
 [root@rhel3 ~]# kubectl get nodes -o wide
@@ -68,7 +68,7 @@ To list all namespaces:
 [root@rhel3 ~]# kubectl get namespaces
 ```
 
-The default and kubernetes specific kube-* should be listed together with the additionally created namespaces for the kubernetes dashboard, metallb load-balancer, monitoring for Prometheus & Grafana and Trident.  
+The default and Kubernetes specific kube-* should be listed together with the additionally created namespaces for the Kubernetes dashboard, metallb load-balancer, monitoring for Prometheus & Grafana and Trident.  
 
 ```bash
 [root@rhel3 ~]# kubectl get namespaces
@@ -306,16 +306,16 @@ NAME                    TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)  
 prom-operator-grafana   LoadBalancer   10.108.152.56   192.168.0.141   80:30707/TCP   7h21m
 ```
 
-You can now access the Grafana GUI from a browser on the jumhost at <http://192.168.0.141> (username `admin` and password `prom-operator`.  It's worth keeping Grafana open as you walk through the tasks in this bootcamp, as it is a good way of tracking the Persistent Volumes you have created.
+You can now access the Grafana GUI from a browser on the jumphost at <http://192.168.0.141> (username `admin` and password `prom-operator`.  It's worth keeping Grafana open as you walk through the tasks in this bootcamp, as it is a good way of tracking the Persistent Volumes you have created.
 
 ## E. Kubernetes web-based UI
 
-The kubernetes dashboard has been pre-installed and configured. Please use below steps to gain access to the UI.
+The Kubernetes dashboard has been pre-installed and configured. Please use below steps to gain access to the UI.
 
 Access the k8s dashboard from a web browser at:  
 <https://192.168.0.142/>.  
 
-Click on **Advanced** in the 'Your connecton is not private' window, follwed by 'Proceed to 192.168.0.142 (unsafe)'.
+Click on **Advanced** in the 'Your connection is not private' window, followed by 'Proceed to 192.168.0.142 (unsafe)'.
 
 Getting a Bearer Token  
 Now we need to find token we can use to log in. Execute following command in the original terminal window:  

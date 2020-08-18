@@ -4,13 +4,13 @@
 
 By utilising quotas within k8s, resources such as compute (CPU & memory) and k8s objects can have limits set against them.  These limits can also be applied against storage resources such as the total number of PVCs or the sum of all storage requests by capacity for each storageclass or namespace.  For more information please see the official k8s documentation: https://kubernetes.io/docs/concepts/policy/resource-quotas/
 
-As Trident dynamically manages persitent volumes & brings self-service to the application level, the first benefit is that end-users do not need to rely on a storage admin to provision volumes on the fly.
+As Trident dynamically manages persistent volumes & brings self-service to the application level, the first benefit is that end-users do not need to rely on a storage admin to provision volumes on the fly.
 
 However, this freedom could quickly fill up the storage backends, especially if the users do not tidy up their environments...  
 
 It is therefore good practice to put some controls in place to make sure the storage is well managed and you are going to review a few different methods to control the storage consumption in this task.
 
-Ensure you are in the correct working diecrtory by issuing the following command on your rhel3 putty terminal in the lab:
+Ensure you are in the correct working directory by issuing the following command on your rhel3 putty terminal in the lab:
 
 ```bash
 [root@rhel3 ~]# cd /root/netapp-bootcamp/trident_with_k8s/tasks/quotas/
@@ -247,7 +247,7 @@ curl -X GET -u admin:Netapp1! -k "https://cluster1.demo.netapp.com/api/storage/v
 }
 ```
 
-In this example case, we have 8 volumes, so we will add 2 and set the maximum to 10 for this exercise.  Your number of existing volumes may be different depending on which tasks you have alraedy completed, so make sure to check.
+In this example case, we have 8 volumes, so we will add 2 and set the maximum to 10 for this exercise.  Your number of existing volumes may be different depending on which tasks you have already completed, so make sure to check.
 
 ```bash
 [root@rhel3 ~]# curl -XPATCH -u admin:Netapp1! -d '{"max_volumes": 10}' https://cluster1.demo.netapp.com/api/private/cli/vserver?vserver=svm1 -k"

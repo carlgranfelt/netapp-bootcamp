@@ -25,7 +25,7 @@ Vim is a “modal” text editor based on the vi editor. In Vim, the mode that t
 | Esc + :wq or Esc + ZZ  | Save and quit Vim |
 | Esc + :q!              | Force quit Vim discarding all changes |
 
-If you need any further assistenace, feel free to ask your bootcamp host.
+If you need any further assistance, feel free to ask your bootcamp host.
 
 ---
 **Page navigation**  

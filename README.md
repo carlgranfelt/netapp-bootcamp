@@ -4,9 +4,9 @@
 
 ## Trident with Kubernetes
 
-This bootcamp requires the [NetApp Lab-on-Demand](https://labondemand.netapp.com/) "Trident with Kubernetes and ONTAP v3.1" lab which comes with Trident 19.07 already installed on Kubernetes 1.15.3. The provided [configure_bootcamp.sh](trident_with_k8s/deploy/configure_bootcamp.sh) within this repo will modify the environment to be ready for the tasks within this bootcamp to be carried out.  The same lab is also available to NetApp customers via the [Hands On Lab portal](https://handsonlabs.netapp.com/lab/trident) and again, you will ned to run the [configuring bootcamp task](trident_with_k8s/tasks/configure_bootcamp) to get the standard Trident lab into the setup required for this bootcamp.
+This bootcamp requires the [NetApp Lab-on-Demand](https://labondemand.netapp.com/) "Trident with Kubernetes and ONTAP v3.1" lab which comes with Trident 19.07 already installed on Kubernetes 1.15.3. The provided [configure_bootcamp.sh](trident_with_k8s/deploy/configure_bootcamp.sh) within this repo will modify the environment to be ready for the tasks within this bootcamp to be carried out.
 
-**If you are taking part in a NetApp hosted bootcamp, the configure_bootcamp.sh script may be run by the NetApp Lab On Demand team ahead of you connecting to the lab environment, so please confirm this with the person running your particular bootcamp.**  If the script has not been run, it can take ~20 minutes to complete, so please run it now by following the instructions [here](trident_with_k8s/tasks/configure_bootcamp) where you will also find details of the tasks carried out by the script.
+**The configure_bootcamp.sh script may be run by the NetApp Lab On Demand team ahead of you connecting to the lab environment, so please confirm this with the person running your particular bootcamp.**  If it has not been run, it can take ~15 minutes to complete, so please run it now by following the instructions [here](trident_with_k8s/tasks/configure_bootcamp) where you will also find details of the tasks carried out by the script.
 
 This repository was orginally forked from the great work done by [YvosOnTheHub](<https://github.com/YvosOnTheHub/LabNetApp>). The bootcamp was further augmented by automating the building of the customized lab setup by way of shell scripts and Ansible playbooks as initially set out by [pablogarciaarevalo](<https://github.com/pablogarciaarevalo/demo-trident>). Many thanks also to [MrStevenSmith](<https://github.com/MrStevenSmith/Trident-WordPress-Application>) for his Trident based WordPress contribution :clap:  
 
@@ -34,11 +34,11 @@ Before you jump into any of the Production or Development cluster tasks you will
 
 To give you a view of utilising a k8s cluster already configured with Trident, a number of tasks have been provided that can be run against the Production cluster.  If you would prefer to set up your own Trident install and configure storage backends and storageclases, a set of Development cluster tasks are provided further down on this page.
 
-If you are new to Kubernetes or persistent storage for k8s, it is **highly recomended** to carry out the File Application task first, as this will give you a grounding in the basics.
+If you are new to Kubernetes or persistent storage for k8s, it is **highly recommended** to carry out the File Application task first, as this will give you a grounding in the basics.
 
 * [Deploy your first application with File storage](trident_with_k8s/tasks/file_app)  
 
-After you have verified your lab and carried out your first application deployment with persistent storage, below are a selection of tasks that will help get you more familiar with both k8s and persistent storage using Netapp Trident.  You don't have to carry out these tasks in order, but they are ordered in a way that would give the most logical flow. If there are any that are of particular interest though, feel free to skip ahead:
+After you have verified your lab and carried out your first application deployment with persistent storage, below are a selection of tasks that will help get you more familiar with both k8s and persistent storage using NetApp Trident.  You don't have to carry out these tasks in order, but they are ordered in a way that would give the most logical flow. If there are any that are of particular interest though, feel free to skip ahead:
 
 * [Deploy your first application with Block storage](trident_with_k8s/tasks/block_app)  
 * [Use the 'import' feature of Trident](trident_with_k8s/tasks/pv_import)  
@@ -54,7 +54,7 @@ After you have verified your lab and carried out your first application deployme
 
 ### Dev k8s Cluster Tasks
 
-If you would like to carry out some of the tasks performed for you by the configure_bootcamp.sh script, below are the commands required.  These can be useful if you wish to become familar with tasks such as installing Trident or defining storage classes and should be run against the dev cluster via host **rhel5**:
+If you would like to carry out some of the tasks performed for you by the configure_bootcamp.sh script, below are the commands required.  These can be useful if you wish to become familiar with tasks such as installing Trident or defining storage classes and should be run against the dev cluster via host **rhel5**:
 
 * [Install Trident with an Operator](trident_with_k8s/tasks/trident_install)  
 * [Upgrading with the Trident Operator](trident_with_k8s/tasks//trident_upgrade)  

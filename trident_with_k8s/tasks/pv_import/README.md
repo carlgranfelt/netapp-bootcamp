@@ -6,7 +6,7 @@ Trident allows you to import an existing volume sitting on a NetApp backend into
 
 ## A. Prepare the environment
 
-To give you some data to import, you'll need to run a quick Anible script that has been provided.  The command you need to run the play book is below along with a brief overview of the playbook's tasks.  Although this bootcamp is not focused on Ansible, feel free to have a look through [the script](prepare-import-task.yaml) to get an idea of how Ansible works with NetApp and linux hosts.
+To give you some data to import, you'll need to run a quick Ansible script that has been provided.  The command you need to run the play book is below along with a brief overview of the playbook's tasks.  Although this bootcamp is not focused on Ansible, feel free to have a look through [the script](prepare-import-task.yaml) to get an idea of how Ansible works with NetApp and linux hosts.
 
 Ensure you are in the correct working directory by issuing the following command on your **`rhel3`** putty terminal in the lab:
 
@@ -111,7 +111,7 @@ NAME                           READY   STATUS     RESTARTS   AGE
 blog-import-57ddb8c85d-phhr6   1/1     Running    0          1m
 ```
 
-Using the Pod name we just grabbed (rather than the example below), check to see if the existing data that was created by the Ansible script earlier is now abvailable in our Pod:
+Using the Pod name we just grabbed (rather than the example below), check to see if the existing data that was created by the Ansible script earlier is now available in our Pod:
 
 ```bash
 [root@rhel3 pv_import]# kubectl exec -n import blog-import-57ddb8c85d-phhr6 -- ls /var/lib/ghost/managed-import
@@ -203,7 +203,7 @@ But what has happened on the backend storage:
 [root@rhel3 pv_import]# curl -X GET -u admin:Netapp1! -k "https://cluster1.demo.netapp.com/api/storage/volumes?return_records=true&return_timeout=15&" -H "accept: application/json"
 ```
 
-You will see that your `existing_unmanaged` volume is still there, but the PV that was renamed by Trident for your `exising_managed` volume has been completely deleted, as per the deletion policy set by the Trident administrator.
+You will see that your `existing_unmanaged` volume is still there, but the PV that was renamed by Trident for your `existing_managed` volume has been completely deleted, as per the deletion policy set by the Trident administrator.
 
 ## F. What's next
 

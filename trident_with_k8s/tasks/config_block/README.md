@@ -68,11 +68,11 @@ storageclass.storage.k8s.io/sc-block-rwo created
 storageclass.storage.k8s.io/sc-block-rwo-eco created
 ```
 
-Feel free to see how your Grafana dashborad has updated since you added the backends and storageclasses.
+Feel free to see how your Grafana dashboard has updated since you added the backends and storageclasses.
 
 ## C. What's next
 
-Now, you have some SAN Backends & some storage classes configured. You can proceed to the creation of a stateful application:  
+Now, you have some SAN backends & some storage classes configured. You can proceed to the creation of a stateful application:  
 - [Deploy your first app with Block storage](../block_app)  
 
 or stay in the dev cluster to:

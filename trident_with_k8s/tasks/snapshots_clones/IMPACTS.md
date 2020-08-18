@@ -21,7 +21,7 @@ Also, if you have already been through the other sub-tasks, you may still have P
 
 Let's start by cleaning this up (remove the Deployment & the services, so that we can work on PVCs).  
 
-Depending on which sub-tasks you have alraedy done, you can use one or both of the following blocks:
+Depending on which sub-tasks you have already done, you can use one or both of the following blocks:
 
 ```bash
 [root@rhel3 ~]# kubectl delete -n ghost-snap-clone all -l scenario=snap

@@ -56,7 +56,7 @@ NAME                              DESIRED   CURRENT   READY   AGE
 replicaset.apps/blog-6bf7df48bb   1         1         0       15s
 ```
 
-List the PVC and PV associated with the ghost namespace:
+Some k8s objects are hidden from the ```kubectl get all``` command output. To display the PV and PVC associated with your application we need to run a separate command:
 
 ```bash
 [root@rhel3 ghost]# kubectl get pvc,pv -n ghost
@@ -70,7 +70,7 @@ persistentvolume/pvc-f0b2655f-b451-4087-b68c-9f2416ec999a   5Gi        RWX      
 
 ## B. Access the application
 
-It takes about 40 seconds for the POD to be in a *running* state.
+It can take up to 1 minute for the POD to be in a *running* state.
 
 The Ghost service is configured with a LoadBalancer type, which means you need to find the **external IP** for your application so that you can connect to it via a web browser in your lab:
 
@@ -190,7 +190,7 @@ node/rhel4 evicted
 
 **Note:** You might have to use --delete-local-data to override  Pods with local storage.
 
-Following on we can confirm the new pod name, notice how the age has been reset, and the new host the pod is running on:
+From above console output We can confirm that both the our pod and node have been evicted. In our "watch" window again we can confirm that we have a new pod (with a new random string pod name), notice how the age has been reset, and that the new pod has been scheduled to run on on a different host:  
 
 ```bash
 Every 1.0s: kubectl get pod -l app=blog -n ghost -o wide                                             Tue Aug 18 11:01:50 2020
@@ -237,7 +237,7 @@ rhel4   Ready    <none>   3d21h   v1.18.0
 To clean-up this task, instead of deleting each object one by one, you can directly delete the namespace which will then remove all of its associated objects.  
 
 ```bash
-[root@rhel3 ~]# kubectl delete ns ghost
+[root@rhel3 ghost]# kubectl delete ns ghost
 namespace "ghost" deleted
 ```
 

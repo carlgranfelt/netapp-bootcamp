@@ -2,12 +2,19 @@
 
 **Objective:**  
 Trident 20.04 introduced a new way to manage its lifecycle: Operators. For Trident 20.04 this installation method is only intended for greenfield environments. With the release of Trident 20.07 the installation method is now also available for brownfield environments.  
+
 This task provides an easy upgrade path for users that seek to use the operator and greatly simplify Trident’s operation. Trident will upgraded to the latest relase, from the previous release (n-1) that got installed in [Trident installation with an Operator](../trident_install)  
 
 For the official documentation describing all pre-requisites on upgrading with the Trident Operator, please see:  
 <https://netapp-trident.readthedocs.io/en/latest/kubernetes/upgrades/operator-upgrade.html>
 
 **Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (rhel5) to proceed with the task.  
+
+### Optional tasks to demonstrate behaviour during upgrade
+
+If you wish to see how applications behave during a Trident upgrade and also how applications can still be deployed during the upgrade, below are some optional tasks that you can carry out via Putty on the **`rhel5`** host as you move from Trident 20.04 to 20.07:
+
+So that you can deploy a basic file-based application and block-based application, you will need to skip ahead and define a set of backends and storageclasses ([file](../config_file/) and [block](../config_block/)).  Once done, you will then be able to deploy (to the dev cluster) the [file application using the guide from the production tasks](../file_app/).  You can then use this application to see how it behaves during the upgrade.  The block app you can deploy mid-upgrade to show how new applications can still be deployed during this process.
 
 ## A. Remove existing Trident Operator Deployment
 
@@ -22,6 +29,10 @@ clusterrolebinding.rbac.authorization.k8s.io "trident-operator" deleted
 deployment.apps "trident-operator" deleted
 podsecuritypolicy.policy "tridentoperatorpods" deleted
 ```
+
+Now that the Trident Operator has been removed, if you are also doing the optional application deployments during this task, go ahead and deploy the block application to the dev cluster using [the guide from the production tasks](../block_app/).
+
+You will see that applications can still be deployed while Trident is being upgraded and your original file application is also still running.
 
 ## B. Download & setup the latest Trident Operator release
 

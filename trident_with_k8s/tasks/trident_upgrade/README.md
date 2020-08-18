@@ -3,7 +3,7 @@
 **Objective:**  
 Trident 20.04 introduced a new way to manage its lifecycle: Operators. For Trident 20.04 this installation method is only intended for greenfield environments. With the release of Trident 20.07 the installation method is now also available for brownfield environments.  
 
-This task provides an easy upgrade path for users that seek to use the operator and greatly simplify Trident’s operation. Trident will upgraded to the latest relase, from the previous release (n-1) that got installed in [Trident installation with an Operator](../trident_install)  
+This task provides an easy upgrade path for users that seek to use the operator and greatly simplify Trident’s operation. Trident will upgraded to the latest release, from the previous release (n-1) that got installed in [Trident installation with an Operator](../trident_install)  
 
 For the official documentation describing all pre-requisites on upgrading with the Trident Operator, please see:  
 <https://netapp-trident.readthedocs.io/en/latest/kubernetes/upgrades/operator-upgrade.html>

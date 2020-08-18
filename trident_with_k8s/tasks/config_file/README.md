@@ -22,7 +22,7 @@ For additional information, please refer to:
 
 - <https://netapp-trident.readthedocs.io/en/latest/kubernetes/concepts/objects.html#kubernetes-storageclass-objects>
 
-Also, installing & configuring Trident + creating Kubernetes Storage Classe is what is expected to be done by the Admin.
+Also, installing & configuring Trident + creating Kubernetes Storage Classes is what is expected to be done by the Admin.
 
 ![Configure File](../../../images/config-file.png "Configure File")
 
@@ -90,7 +90,7 @@ At this point, end-users can now create PVCs against one of theses storage class
 
 ## C. What's next
 
-Now, you have some NAS Backends & some storage classes configured. You can proceed to the creation of an NFS based stateful application:  
+Now, you have some NAS backends & some storage classes configured. You can proceed to the creation of an NFS based stateful application:  
 - [Deploy your first app with File storage](../file_app)  
 
 or stay on the dev cluster to...

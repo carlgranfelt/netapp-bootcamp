@@ -42,7 +42,7 @@ The difference between both files lies in the *autoExportCIDRs* parameter, one h
 
 ## B. Check the export policies
 
-Now, retrieve the IP adresses of all nodes of the cluster:
+Now, retrieve the IP addresses of all nodes of the cluster:
 
 ```bash
 [root@rhel3 ~]# kubectl get nodes -o=custom-columns=NODE:.metadata.name,IP:.status.addresses[0].address
@@ -131,7 +131,7 @@ svm1         default         1       nfs      0.0.0.0/0             any
 
 There you go.  Now, all applications created with these backends are going to have access to storage, while adding an extra level of security.
 
-If you were to add a new node to the Production k8s cluster, Trident will automatically add that node's IP to the export list.  Unfortunatley, as we have maxed out the resources available to us, we can't add another worker node to the cluster.
+If you were to add a new node to the Production k8s cluster, Trident will automatically add that node's IP to the export list.  Unfortunately, as we have maxed out the resources available to us, we can't add another worker node to the cluster.
 
 ## D. Finally some optional cleanup
 

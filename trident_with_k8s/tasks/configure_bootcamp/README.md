@@ -39,12 +39,12 @@ Once running, the script will take ~15 minutes to complete.  Tasks the script ca
 * Prod and Dev Clusters
   * Installing and creating a MetalLB configuration
   * Initialize and configure a dev k8s cluster (nodes rhel5 and rhel6)
-  * Upgading k8s to 1.18
+  * Upgrading k8s to 1.18
   * Install Ansible
 * Prod Cluster Only
   * Add rhel4 as a worker node to the production k8s cluster
   * Install and configure Prometheus and Grafana dashboards
-  * Install and configure lastest Trident with an Operator
+  * Install and configure latest Trident with an Operator
   * Create and configure storage backends and storage classes
   * Install k8s dashboard
   * Install k8s metrics server

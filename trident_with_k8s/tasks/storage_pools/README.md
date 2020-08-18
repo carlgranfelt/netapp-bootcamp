@@ -32,13 +32,13 @@ Ensure you are in the correct working directory by issuing the following command
 ```
 
 If you take a look at the backend definition, you will see that there are 3 Virtual Storage Pools.
-Each one with a different set of parameters.  The below command will show yuu the contents of the backend defintion file:
+Each one with a different set of parameters.  The below command will show yuu the contents of the backend definition file:
 
 ```bash
 [root@rhel3 storage_pools]# cat backend-nas-vsp.json
 ```
 
-Now apply the backend defintion with tridentctl:
+Now apply the backend definition with tridentctl:
 
 ```bash
 [root@rhel3 ~]# tridentctl -n trident create backend -f backend-nas-vsp.json

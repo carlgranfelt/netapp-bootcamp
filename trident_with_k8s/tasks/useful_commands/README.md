@@ -137,7 +137,7 @@ Example:
 [root@rhel3 ~]# kubectl attach nginx -it
 ```
 
-If you need any further assistenace, feel free to ask your bootcamp host.
+If you need any further assistance, feel free to ask your bootcamp host.
 
 ## D. How can I easily list all the containers in a POD
 

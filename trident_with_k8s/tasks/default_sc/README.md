@@ -35,7 +35,7 @@ sc-file-rwx (default)         csi.trident.netapp.io   3d18h
 sc-file-rwx-eco               csi.trident.netapp.io   3d18h
 ```
 
-As you can see, `sc-file-rwx` is now refered as the default SC for this cluster.
+As you can see, `sc-file-rwx` is now referred as the default SC for this cluster.
 
 ## B. Try this new setup
 

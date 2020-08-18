@@ -99,7 +99,7 @@ The operator deployment successfully creates a pod running on one of the worker 
 
 ## B. Creating a TridentProvisioner CR and installing Trident
 
-You are now ready to install Trident using the operator. This will require creating a TridentProvisioner CR. The Trident installer comes with example defintions for creating a TridentProvisioner CR.  Make sure to take a look inside the yaml file to see how it is configured.
+You are now ready to install Trident using the operator. This will require creating a TridentProvisioner CR. The Trident installer comes with example definitions for creating a TridentProvisioner CR.  Make sure to take a look inside the yaml file to see how it is configured.
 
 ```bash
 [root@rhel5 trident-installer]# kubectl create -f deploy/crds/tridentprovisioner_cr.yaml

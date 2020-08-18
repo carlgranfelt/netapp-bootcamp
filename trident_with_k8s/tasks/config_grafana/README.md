@@ -5,7 +5,7 @@ Prometheus does not allow you to create a graph with different metrics, you need
 
 The good news is that the Helm chart you used in the previous task also installed and configured Grafana for you.  
 
-In thuis task you will learn how to access Grafana, and configure a graph.
+In this task you will learn how to access Grafana, and configure a graph.
 
 **Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (**`rhel5`**) to proceed with the task.  
 
@@ -69,7 +69,7 @@ In this instance, we have `192.168.0.152`, so we can use the Chrome browser to g
 
 ## B. Accessing Grafana
 
-The first time to enter Grafana, you are requested to login with a username & a password... But how does one find out what they are?  If you have the time, below is a really sueful task to grab the username and password from the pod, but if you are tight on time, you can [skip ahead and we will give the username and password to you](config_grafana#c-configure-grafana).
+The first time to enter Grafana, you are requested to login with a username & a password... But how does one find out what they are?  If you have the time, below is a really useful task to grab the username and password from the pod, but if you are tight on time, you can [skip ahead and we will give the username and password to you](config_grafana#c-configure-grafana).
 
 Let's find the grafana pod and have a look at the pod definition, maybe there is a hint for us.  Make sure to replace the pod name in this example with your own pod name from the console:
 
@@ -114,7 +114,7 @@ prom-operator
 
 ## C. Configure Grafana
 
-Now we have the necessary clear text credentials of username: `admin` and password `prom-operator` to login to the Grafana UI at youir assigned load-balancer IP.
+Now we have the necessary clear text credentials of username: `admin` and password `prom-operator` to login to the Grafana UI at your assigned load-balancer IP.
 
 The first step is to tell Grafana where to get data (ie Data Sources) via the web GUI.
 
@@ -128,16 +128,16 @@ Click on 'Save & Test' and you should get a green box in response.
 
 Hover on the '+' on left side of the screen, then "Dashboard", "Add new panel".
 
-Next, you can need to configure a new graph by adding metrics. By typing 'trident' in the 'Metrics' box towards the bottom of the page, you will see all metrics available.  Feel free to have a play around and see what you can build fom scratch.  In the next step, we will provide an already created dashboard for you to import.
+Next, you can need to configure a new graph by adding metrics. By typing 'trident' in the 'Metrics' box towards the bottom of the page, you will see all metrics available.  Feel free to have a play around and see what you can build from scratch.  In the next step, we will provide an already created dashboard for you to import.
 
 ## E. Import a graph
 
 There are several ways to bring dashboards into Grafana.  Click on the back arrow at the top left of the GUI to get back to your dashboard.
 
 **Manual Import**  
-Hover on the '+' on left side of the screen and select "Import".  Feel free to save or discard you current dashbaord if you wre working on one.
+Hover on the '+' on left side of the screen and select "Import".  Feel free to save or discard you current dashboard if you were working on one.
 
-Copy & paste the content of the [Trident_Dashboard_Std.json](Trident_Dashboard_Std.json) file in this GitHUb directory.  **Ensure that the `datasource` is set to what you configured for Prometheus earlier (it should be "Prometheus-1") **
+Copy & paste the content of the [Trident_Dashboard_Std.json](Trident_Dashboard_Std.json) file in this GitHub directory.  **Ensure that the `datasource` is set to what you configured for Prometheus earlier (it should be "Prometheus-1") **
 
 The issue with this method is that if the Grafana POD restarts, the dashboard will be lost...  
 
@@ -169,7 +169,7 @@ Now, where can you find this dashboard:
 - Click on the 'Manage' button  
 - You then access a list of dashboards. You can either research 'Trident' or find the link be at the bottom of the page.  
 
-Don't worry if your dashbaord doesn't look too much like the example below, as you haven't yet configured any storage backends or persistent volumes, so there isn't much to report on yet.
+Don't worry if your dashboard doesn't look too much like the example below, as you haven't yet configured any storage backends or persistent volumes, so there isn't much to report on yet.
 
 ![Trident Dashboard](../../../images/trident_dashboard.jpg "Trident Dashboard")
 

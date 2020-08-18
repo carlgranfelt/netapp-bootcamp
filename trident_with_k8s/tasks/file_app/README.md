@@ -21,7 +21,7 @@ Feel free to familiarise yourself with the contents of these .yaml files if you 
 
 ## A. Create the application
 
-From this point on, it is assumed that the required backend & storage class have [already been created](../config_file) either by you or your bootcamp fascilitator.
+From this point on, it is assumed that the required backend & storage class have [already been created](../config_file) either by you or your bootcamp facilitator.
 
 We will create this application in its own namespace (which also makes clean-up easier).  
 
@@ -39,7 +39,7 @@ deployment.apps/blog created
 service/blog created
 ```
 
-Display all resources for the ghost namespace (your specific pod name of blog-XXXXXXXX-XXXX will be unique to your deployment and will need to be used again layter in this task):
+Display all resources for the ghost namespace (your specific pod name of blog-XXXXXXXX-XXXX will be unique to your deployment and will need to be used again later in this task):
 
 ```bash
 [root@rhel3 ghost]# kubectl get all -n ghost
@@ -141,7 +141,7 @@ Select 'New story' from the main Stories page:
 
 <p align="center"><img src="../../../images/ghost-new-story.png" width="650px"></p>
 
-Give your blog post a title and add some content. Select Publish (from the top right hand corner),followed by Publish in the 'Ready to publish your post' pop-up window. 
+Give your blog post a title and add some content. Select Publish (from the top right hand corner),followed by Publish in the 'Ready to publish your post' pop-up window.  
 
 <p align="center"><img src="../../../images/ghost-set-it-live.png"></p>
 
@@ -149,19 +149,33 @@ Go back to the main Stories page (link in the top left corner) to confirm the pr
 
 <p align="center"><img src="../../../images/ghost-published.png" width="650px"></p>
 
-**Note:** Due to DNS limitations selectiong 'View Post' will not work in this lab environment, but you can go to the main home page at  <http://192.168.0.143> to see your post is now live.
+**Note:** Due to DNS limitations selecting 'View Post' will not work in this lab environment, but you can go to the main home page at  <http://192.168.0.143> to see your post is now live.
 
-Next let's confirm whcih worker node your pod is running on:
+Next let's confirm which worker node your pod is running on. In a separate PuTTY window, you want to position them so that you can see the output on both windows at the same time, issue the following watch command:
+
+`watch -n1 kubectl get pod -l app=blog -n ghost -o wide`
 
 ```bash
-[root@rhel3 ghost]# kubectl get pod -l app=blog -n ghost -o wide
-NAME                    READY   STATUS    RESTARTS   AGE   IP          NODE    NOMINATED NODE   READINESS GATES
-blog-6bf7df48bb-b7d6r   1/1     Running   0          29m   10.42.0.1   rhel4   <none>           <none>
+Every 1.0s: kubectl get pod -l app=blog -n ghost -o wide                                             Tue Aug 18 11:01:50 2020
+
+NAME                    READY   STATUS    RESTARTS   AGE     IP          NODE    NOMINATED NODE   READINESS GATES
+blog-6bf7df48bb-b7d6r   1/1     Running   0          8m56s   10.42.0.2   rhel4   <none>           <none>
 ```
 
 If we had multiple pods in the namespace using the selector (-l, --selector='': Selector (label query)) would be crucial to to filter the desired output.
 
-Now that we know that our pod is running on node ```rhel4``` (in this example) we can drain the node in preparation for maintenance which will also restart the pod on another node.  
+Now that we know that our pod is running on node ```rhel4``` (in this example) we can drain the node in preparation for maintenance which will also restart the pod on another node but first let's verify the status of our nodes:
+
+```bash
+[root@rhel3 ghost]# kubectl get no
+NAME    STATUS   ROLES    AGE     VERSION
+rhel1   Ready    <none>   336d    v1.18.0
+rhel2   Ready    <none>   336d    v1.18.0
+rhel3   Ready    master   336d    v1.18.0
+rhel4   Ready    <none>   3d21h   v1.18.0
+```
+
+Next we can drain our node.
 
 **Make sure to drain the node that is running your particular instance of the ghost blog, as it may be different to this example**.
 
@@ -174,20 +188,35 @@ pod/blog-6bf7df48bb-b7d6r evicted
 node/rhel4 evicted
 ```
 
-Following on we can re-confirm the new host the pod is running on (as it might take a few seconds we have added the -w option to ‌watch for the changes take place):  
+**Note:** You might have to use --delete-local-data to override  Pods with local storage.
+
+Following on we can confirm the new pod name, notice how the age has been reset, and the new host the pod is running on:
 
 ```bash
- [root@rhel3 ghost]# kubectl get pod -w -l app=blog -n ghost -o wide
-NAME                    READY   STATUS              RESTARTS   AGE   IP       NODE    NOMINATED NODE   READINESS GATES
+Every 1.0s: kubectl get pod -l app=blog -n ghost -o wide                                             Tue Aug 18 11:01:50 2020
+
+NAME                    READY   STATUS    RESTARTS   AGE     IP          NODE    NOMINATED NODE   READINESS GATES
+blog-6bf7df48bb-b7d6r   1/1     Terminating   0          8m56s   10.42.0.2   rhel4   <none>           <none>
 blog-6bf7df48bb-fflsl   0/1     ContainerCreating   0          52s   <none>   rhel1   <none>           <none>
 blog-6bf7df48bb-fflsl   1/1     Running             0          53s   10.36.0.6   rhel1   <none>           <none>
 ```
 
-**Note:** Notice the new pod name and that the age has been reset! Press ```Ctrl-C``` to close to escape.  
+**Note:** Press ```Ctrl-C``` to escape the watch window.  
 
 Finally refresh your browser window and actually access your blog post to confirm it still exists:
 
 <p align="center"><img src="../../../images/ghost-proof-of-persistence.png" width="650px"></p>
+
+Confirm that status of our nodes:
+
+```bash
+[root@rhel3 ghost]# kubectl get no
+NAME    STATUS                     ROLES    AGE     VERSION
+rhel1   Ready                      <none>   344d    v1.18.0
+rhel2   Ready                      <none>   344d    v1.18.0
+rhel3   Ready                      master   344d    v1.18.0
+rhel4   Ready,SchedulingDisabled   <none>   4d18h   v1.18.0
+```
 
 To mark our node that was drained as schedulable again we need to uncordon it and verify that it's in a ready status.  Again, make sure to select the particular node that you drained as it may be different from this example:
 

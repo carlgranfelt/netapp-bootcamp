@@ -42,18 +42,18 @@ First, make sure you are in the correct directory on rhel5 for this task:
 
 Here are the 2 backends & their corresponding driver:
 
-- backend-nas-default.json        ONTAP-NAS
-- backend-nas-eco-default.json    ONTAP-NAS-ECONOMY
+- dev-backend-ontap-nas.json        ONTAP-NAS
+- dev-backend-ontap-nas-eco.json    ONTAP-NAS-ECONOMY
 
 ```bash
-[root@rhel5 config_file]# tridentctl -n trident create backend -f backend-nas-default.json
+[root@rhel5 config_file]# tridentctl -n trident create backend -f dev-backend-ontap-nas.json
 +-----------------+----------------+--------------------------------------+--------+---------+
 |      NAME       | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
 +-----------------+----------------+--------------------------------------+--------+---------+
 | ontap-file-rwx  | ontap-nas      | 282b09e5-0ff2-4471-97c8-9fd5224945a1 | online |       0 |
 +-----------------+----------------+--------------------------------------+--------+---------+
 
-[root@rhel5 config_file]# tridentctl -n trident create backend -f backend-nas-eco-default.json
+[root@rhel5 config_file]# tridentctl -n trident create backend -f dev-backend-ontap-nas-eco.json
 +---------------------+-------------------+--------------------------------------+--------+---------+
 |        NAME         |  STORAGE DRIVER   |                 UUID                 | STATE  | VOLUMES |
 +---------------------+-------------------+--------------------------------------+--------+---------+

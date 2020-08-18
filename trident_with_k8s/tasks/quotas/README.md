@@ -6,7 +6,7 @@ By utilising quotas within k8s, resources such as compute (CPU & memory) and k8s
 
 As Trident dynamically manages persistent volumes & brings self-service to the application level, the first benefit is that end-users do not need to rely on a storage admin to provision volumes on the fly.
 
-However, this freedom could quickly fill up the storage backends, especially if the users do not tidy up their environments...  
+However, this freedom could quickly fill up the storage backends, especially if the users do not tidy up their environments...   There are no limits in Trident in regards to PVs per worker node, so the only limit will be those of the backend storage infrastructure.  There may also be further limits per worker node, depending on the underlying OS (number of LUNs, etc.) You would usually not run into them, as you would most likely hit the number of pods/node limit much earlier.
 
 It is therefore good practice to put some controls in place to make sure the storage is well managed and you are going to review a few different methods to control the storage consumption in this task.
 

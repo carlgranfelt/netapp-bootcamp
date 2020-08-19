@@ -137,7 +137,7 @@ There are several ways to bring dashboards into Grafana.  Click on the back arro
 **Manual Import**  
 Hover on the '+' on left side of the screen and select "Import".  Feel free to save or discard you current dashboard if you were working on one.
 
-Copy & paste the content of the [Trident_Dashboard_Std.json](Trident_Dashboard_Std.json) file in this GitHub directory.  **Ensure that the `datasource` is set to what you configured for Prometheus earlier (it should be "Prometheus-1") **
+Copy & paste the content of the [Trident_Dashboard_Std.json](Trident_Dashboard_Std.json) file in this GitHub directory.  **Ensure that the `datasource` is set to what you configured for Prometheus earlier (it should be "Prometheus-1")**
 
 The issue with this method is that if the Grafana POD restarts, the dashboard will be lost...  
 
@@ -148,7 +148,7 @@ The idea here would be to create a ConfigMap pointing to the Trident dashboard j
 *A* **ConfigMap** *is an API object used to store non-confidential data in key-value pairs. Pods can consume ConfigMaps as environment variables, command-line arguments, or as configuration files in a volume. A ConfigMap allows you to decouple environment-specific configuration from your container images, so that your applications are easily portable.*  
 :mag_right:  
 
-**Ensure that the `datasource` in your rhel5 local copy of the `Trident_Dashboard_Std.json` file is set to what you configured for Prometheus earlier (most likely "Prometheus-1") **
+**Ensure that the `datasource` in your rhel5 local copy of the `Trident_Dashboard_Std.json` file is set to what you configured for Prometheus earlier (most likely "Prometheus-1")**
 
 ```bash
 [root@rhel5 ~]# cd ~/netapp-bootcamp/trident_with_k8s/tasks/config_grafana/

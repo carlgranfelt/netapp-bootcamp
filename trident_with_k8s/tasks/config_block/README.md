@@ -73,6 +73,7 @@ Feel free to see how your Grafana dashboard has updated since you added the back
 ## C. What's next
 
 Now, you have some SAN backends & some storage classes configured. You can proceed to the creation of a stateful application:  
+
 - [Deploy your first app with Block storage](../block_app)  
 
 or stay in the dev cluster to:

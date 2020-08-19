@@ -95,6 +95,7 @@ Before you create your snapshot, let's make sure that you have some important da
 ```
 
 ...and let's make sure the file is now there:
+
 ```bash
 [root@rhel3 ~]# kubectl exec -n ghost-snapclone blog-5c9c4cdfbf-q986f -- ls -l content/very-important-file.txt
 -rw-r--r--    1 root     root             0 Jun 30 11:34 /data/content/very-important-file.txt

@@ -91,6 +91,7 @@ At this point, end-users can now create PVCs against one of theses storage class
 ## C. What's next
 
 Now, you have some NAS backends & some storage classes configured. You can proceed to the creation of an NFS based stateful application:  
+
 - [Deploy your first app with File storage](../file_app)  
 
 or stay on the dev cluster to...

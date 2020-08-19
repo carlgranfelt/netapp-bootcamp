@@ -155,7 +155,21 @@ trident-csi-x8ppp:      netapp/trident:20.04, quay.io/k8scsi/csi-node-driver-reg
 trident-operator-668bf8cdff-577p9:      netapp/trident-operator:20.04.0,
 ```
 
-What is interesting to notice is that with newer releases of Kubernetes, new sidecars are added to CSI Trident:
+Below is an example output with Trident Operator 20.07 and Kubernetes 1.18:
+
+```bash
+[root@rhel3 ghost]# kubectl get pods -n trident -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |sort
+
+trident-csi-7bb4bfb84-n2gnz:    netapp/trident:20.07.0, netapp/trident-autosupport:20.07.0, quay.io/k8scsi/csi-provisioner:v1.6.0, quay.io/k8scsi/csi-attacher:v2.2.0, quay.io/k8scsi/csi-resizer:v0.5.0, quay.io/k8scsi/csi-snapshotter:v2.1.1,
+trident-csi-g2bq9:      netapp/trident:20.07.0, quay.io/k8scsi/csi-node-driver-registrar:v1.3.0,
+trident-csi-nkmhj:      netapp/trident:20.07.0, quay.io/k8scsi/csi-node-driver-registrar:v1.3.0,
+trident-csi-q6646:      netapp/trident:20.07.0, quay.io/k8scsi/csi-node-driver-registrar:v1.3.0,
+trident-csi-zvrb2:      netapp/trident:20.07.0, quay.io/k8scsi/csi-node-driver-registrar:v1.3.0,
+trident-operator-7f74ff5bb8-h88b6:      netapp/trident-operator:20.07.0,
+```
+
+The difference between Trident 20.04 and 20.07 is a new trident-autosupport sidecar container to periodically send [Trident usage and support telemetry](<https://netapp-trident.readthedocs.io/en/stable-v20.07/kubernetes/operations/tasks/monitoring.html?highlight=autosupport#trident-autosupport-telemetry>) data to NetApp and an update to the csi-snapshotter.  
+What is also interesting to notice is that with newer releases of Kubernetes, new sidecars are added to CSI Trident:
 
 - Kubernetes 1.16: Volume Expansion (CSI Resizer) was promoted to Beta status (<https://kubernetes-csi.github.io/docs/volume-expansion.html>)
 - Kubernetes 1.17: Snapshot & Restore (CSI Snapshotter) was promoted to Beta status (<https://kubernetes-csi.github.io/docs/snapshot-restore-feature.html>)

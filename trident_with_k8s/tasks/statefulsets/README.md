@@ -5,7 +5,7 @@
 StatefulSets were introduced to be able to run stateful applications with the following benefits:  
 
 - A stable pod hostname (instead of `podname-randomstring`)  
-  - The podname will have a sticky identity, using an index, e.g. podname-0 podname-1 and podname-2 (and when a pod gets rescheduled, it’ll keep that identity)  
+  - The podname will have a sticky identity, using an index, e.g. podname-0, podname-1 and podname-2 (and when a pod gets rescheduled, it’ll keep that identity)  
 - StatefulSets allows stateful applications stable storage with volumes based on their ordinal number (podname-x)  
   - Deleting and/or scaling a StatefulSets down will not delete the volumes associated with the StatefulSet (preserving data)
 
@@ -14,15 +14,15 @@ A StatefulSet will also allow the stateful application to order the start-up and
 - Instead of randomly terminating one pod (an instance of the application), the order is pre-determined
   - When scaling up it goes from 0 to n-1 (n = replication factor)
   - When scaling down it starts with the highest number (n-1) to 0
-- This is useful to drain the data from a node before it can be shut down
+- This is useful when draining the data from a node before it can be shut down
 
-For more information please see StatefulSets official documentation: <https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/>
-
-***StatefulSets work differently to Deployments or DaemonSets when it comes to storage.*** 
+***StatefulSets work differently to Deployments or DaemonSets when it comes to storage.***  
 
 ***Deployments & DaemonSets use PVCs defined outside of them, whereas StatefulSets include the storage in their definition (_volumeClaimTemplates_).***
   
 ***Said differently, you can see a StatefulSet as a couple (POD + Storage). When it is scaled, both objects will be automatically created.***
+
+For more information please see StatefulSets official documentation: <https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/>
 
 In this exercise, we will create a MySQL StatefulSet & scale it.  
 
@@ -114,7 +114,7 @@ If you don't see a command prompt, try pressing enter.
 pod "mysql-client" deleted
 ```
 
-## C. Where are my reads coming from?
+## C. Where are the reads coming from
 
 In the current setup, _writes_ are done on the master DB, whereas _reads_ can come from any DB POD.  
 
@@ -148,11 +148,11 @@ Scaling an application with Kubernetes is pretty straightforward & can be achiev
 statefulset.apps/mysql scaled
 ```
 
-You can use the `kubectl -n mysql get pod -o wide ` with the `watch` parameter again to see the new POD starting.  
+You can use the `kubectl -n mysql get pod -o wide` with the `watch` parameter again to see the new POD starting.  
 When done, you should have something similar to this and again notice that the pod names have maintained their friendly naming with the latest pod using the `-2` suffix:
 
 ```bash
-[root@rhel3 statefulsets]# watch -n1 kubectl -n mysql get pod -o wide 
+[root@rhel3 statefulsets]# watch -n1 kubectl -n mysql get pod -o wide
 NAME      READY   STATUS    RESTARTS   AGE
 mysql-0   2/2     Running   0          12m
 mysql-1   2/2     Running   0          12m
@@ -198,7 +198,7 @@ Also, if the second window is still open, you should start seeing new `id` ('102
 
 Go back to your Grafana dashboard to check what is happening (<http://192.168.0.141>).  
 
-# E. Scaling down
+## E. Scaling down
 
 The final step in this task is to scale your pods down to 2 replicas and observe how the PVs and PVCs behave:
 
@@ -209,7 +209,7 @@ The final step in this task is to scale your pods down to 2 replicas and observe
 Now check your pods and PV/PVCs:
 
 ```bash
-[root@rhel3 statefulsets]# watch -n1 kubectl -n mysql get pod -o wide 
+[root@rhel3 statefulsets]# watch -n1 kubectl -n mysql get pod -o wide
 NAME      READY   STATUS    RESTARTS   AGE
 mysql-0   2/2     Running   0          12m
 mysql-1   2/2     Running   0          12m
@@ -239,12 +239,12 @@ namespace "mysql" deleted
 
 You can now move on to:  
 
-- Next task: [Resize a iSCSI CSI PVC](../resize_block)   
+- Next task: [Resize a iSCSI CSI PVC](../resize_block)  
 
 or jump ahead to...  
 
-- [On-Demand Snapshots & PVC clones](../snapshots_clones)   
-- [Dynamic export policy management ](../dynamic_exports)  
+- [On-Demand Snapshots & PVC clones](../snapshots_clones)  
+- [Dynamic export policy management](../dynamic_exports)  
 
 ---
 **Page navigation**  

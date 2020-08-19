@@ -2,11 +2,11 @@
 
 **Objective:**  
 
-By utilising quotas within k8s, resources such as compute (CPU & memory) and k8s objects can have limits set against them.  These limits can also be applied against storage resources such as the total number of PVCs or the sum of all storage requests by capacity for each storageclass or namespace.  For more information please see the official k8s documentation: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+By utilising quotas within k8s, resources such as compute (CPU & memory) and k8s objects can have limits set against them.  These limits can also be applied against storage resources such as the total number of PVCs or the sum of all storage requests by capacity for each storageclass or namespace.  For more information please see the official k8s documentation: <https://kubernetes.io/docs/concepts/policy/resource-quotas/>
 
 As Trident dynamically manages persistent volumes & brings self-service to the application level, the first benefit is that end-users do not need to rely on a storage admin to provision volumes on the fly.
 
-However, this freedom could quickly fill up the storage backends, especially if the users do not tidy up their environments...   There are no limits in Trident in regards to PVs per worker node, so the only limit will be those of the backend storage infrastructure.  There may also be further limits per worker node, depending on the underlying OS (number of LUNs, etc.) You would usually not run into them, as you would most likely hit the number of pods/node limit much earlier.
+However, this freedom could quickly fill up the storage backends, especially if the users do not tidy up their environments...   There are no limits in Trident in regards to PVs per worker node, so the only limit will be those of the backend storage infrastructure.  There may also be further limits per worker node, depending on the underlying OS (number of LUNs, etc). You would usually not run into them, as you would most likely hit the kubernetes number of pods/node limit much earlier.
 
 It is therefore good practice to put some controls in place to make sure the storage is well managed and you are going to review a few different methods to control the storage consumption in this task.
 
@@ -15,6 +15,7 @@ Ensure you are in the correct working directory by issuing the following command
 ```bash
 [root@rhel3 ~]# cd /root/netapp-bootcamp/trident_with_k8s/tasks/quotas/
 ```
+
 Feel free to look inside the provided .yaml files in this task so that you can get a good idea of what each one is doing.
 
 ## A. Kubernetes Resource Quotas
@@ -111,7 +112,7 @@ sc-file-rwx.storageclass.storage.k8s.io/requests.storage        0     8Gi
 
 Each PVC you are going to use is 5GB:
 
-```bash 
+```bash
 [root@rhel3 ~]# kubectl create -n quota -f pvc-5Gi-1.yaml
 persistentvolumeclaim/5gb-1 created
 
@@ -133,7 +134,7 @@ Error from server (Forbidden): error when creating "pvc-5Gi-2.yaml": persistentv
 
 Before starting the second part of this task, let's clean up:
 
-```bash 
+```bash
 [root@rhel3 ~]# kubectl delete pvc -n quota 5gb-1
 persistentvolumeclaim "5gb-1" deleted
 [root@rhel3 ~]# kubectl delete resourcequota -n quota --all
@@ -205,14 +206,13 @@ Events:
 
 ...and via tridentctl:
 
-
 ```bash
 [root@rhel3 ~]# tridentctl logs -n trident | grep Failed
 
 time="2020-08-05T15:39:59Z" level=error msg="GRPC error: rpc error: code = Unknown desc = encountered error(s) in creating the volume: [Failed to create volume pvc-a758cf7b-ffba-4694-bc93-1a1264b93797 on storage pool aggr1 from backend NAS_LimitVolSize: requested size: 10737418240 > the size limit: 5368709120]"
 ```
 
-The error is now identified... 
+The error is now identified...  
 
 You would then need to decide to review the size of the PVC, or you could ask the admin to update the backend definition in order to go on.
 
@@ -255,6 +255,7 @@ In this example case, we have 8 volumes, so we will add 2 and set the maximum to
   "num_records": 1
 }
 ```
+
 We will then try to create a few new PVC.
 
 ```bash
@@ -277,13 +278,12 @@ The PVC will remain in the `Pending` state. You need to look either in the k8s P
 ```bash
 [root@rhel3 ~]# kubectl describe pvc quotasc-3
 ...
- Warning  ProvisioningFailed    15s                
+ Warning  ProvisioningFailed    15s  
  API status: failed, Reason: Cannot create volume. Reason: Maximum volume count for Vserver svm1 reached.  Maximum volume count is 12. , Code: 13001
 ...
 ```
 
 ...and via tridentctl:
-
 
 ```bash
 [root@rhel3 ~]# tridentctl logs -n trident | grep Failed

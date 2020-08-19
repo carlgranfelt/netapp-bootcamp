@@ -30,7 +30,7 @@ First off, let's download Helm and get it ready for use:
 
 ## B. Install Prometheus in its own namespace
 
-Next you need to create a namespace for Prometheus and then use Helm to download and install Prometheus into that name space.  For our example we are using the `monitoring` namespace and grabbing helm from the `googleapis` repo: 
+Next you need to create a namespace for Prometheus and then use Helm to download and install Prometheus into that name space.  For our example we are using the `monitoring` namespace and grabbing helm from the `googleapis` repo:  
 
 ```bash
 [root@rhel5 ~]#kubectl create namespace monitoring

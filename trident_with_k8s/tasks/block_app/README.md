@@ -310,11 +310,14 @@ persistentvolumeclaim/blog-content-san-eco created
 | ontap-block-rwo-eco | ontap-san-economy | 7064da15-6271-4d47-8807-4097ac3ca76b | online |       1 |
 +---------------------+-------------------+--------------------------------------+--------+---------+
 
-[root@rhel3 ghost]# kubectl get pv,pvc
+[root@rhel3 ghost]# kubectl get pv,pvc -n ghostsan
 NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                           STORAGECLASS       REASON   AGE
-persistentvolume/pvc-d3e81e6f-0799-4153-80f0-2cd0f7031650   5Gi        RWO            Delete           Bound    ghostsan/blog-content-san       sc-block-rwo                19m
-persistentvolume/pvc-f53d4bda-00b5-4f20-95d0-172173bcde08   5Gi        RWO            Delete           Bound    ghostsan/blog-content-san-eco   sc-block-rwo-eco            6m7s
+persistentvolume/pvc-0c5f0afa-987e-4287-98cf-a506e0b0d0eb   5Gi        RWO            Delete           Bound    ghostsan/blog-content-san       sc-block-rwo                26m
+persistentvolume/pvc-c12d3e69-da33-4748-bcd4-098c857ea34b   5Gi        RWO            Delete           Bound    ghostsan/blog-content-san-eco   sc-block-rwo-eco            13m
 
+NAME                                         STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS       AGE
+persistentvolumeclaim/blog-content-san       Bound    pvc-c12d3e69-da33-4748-bcd4-098c857ea34b   5Gi        RWO            sc-block-rwo       26m
+persistentvolumeclaim/blog-content-san-eco   Bound    pvc-f53d4bda-00b5-4f20-95d0-172173bcde08   5Gi        RWO            sc-block-rwo-eco   13m
 ```
 
 The presence of the new volume confirms our new CHAP credentials are working. For a more comprehensive verification, you could for example delete the blog-san deployment, re-create it using above steps followed by running the iscsiadm command against the worker node running the pod.  

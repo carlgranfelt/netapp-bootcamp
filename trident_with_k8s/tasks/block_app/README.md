@@ -3,7 +3,7 @@
 **Objective:**  
 We will deploy the same application as in file-base application task, but instead of using RWX storage, we will use RWO Block Storage.
 
-For this task you will be deploying Ghost (a light weight web portal) utlilising RWO (Read Write Once) file-based persistent storage over iSCSI.  You will find a few .yaml files in the Ghost directory, so ensure that your putty terminal on the lab is set to the correct directory for this task:
+For this task you will be deploying Ghost (a lightweight web portal) utlilising RWO (Read Write Once) block-based persistent storage over iSCSI.  You will find a few .yaml files in the 'ghost' directory, so ensure that your putty terminal on the lab is set to the correct directory for this task:
 
 ```bash
 [root@rhel3 ~]# cd /root/netapp-bootcamp/trident_with_k8s/tasks/block_app/ghost
@@ -70,7 +70,7 @@ NAME                                     STATUS   VOLUME                        
 persistentvolumeclaim/blog-content-san   Bound    pvc-c12d3e69-da33-4748-bcd4-098c857ea34b   5Gi        RWO            sc-block-rwo   4m45s
 ```
 
-**Note:** If you have already created the file app and didn't perform the cleanup afterwards you will also see the PV for the ghost namespace as persistent volumes are not namespace specific objects.
+**Note:** If you have already created the file app and didn't perform the cleanup afterwards you will also see the PV for the ghost namespace, as persistent volumes are not namespace specific objects.
 
 ## B. Access the application
 
@@ -112,7 +112,7 @@ settings
 themes
 ```
 
-It is recommended that you also monitor your environment from the pre-created dashboard in Grafana: (<http://192.168.0.141>).  If you carried out the tasks in the [verifying your environment](../verify_lab) task, then you should already have your Grafana username and password which is ```admin:admin``` by default and you will be promoted for a new password on 1st login.
+It is recommended that you also monitor your environment from the pre-created dashboard in Grafana: (<http://192.168.0.141>).  If you carried out the tasks in the [verifying your environment](../verify_lab) task, then you should already have your Grafana username and password which is ```admin:prom-operator```.
 
 ## D. Confirm data persistence
 
@@ -198,7 +198,7 @@ pod/blog-6bf7df48bb-qwsrb evicted
 node/rhel4 evicted
 ```
 
-**Note:** You might have to use --delete-local-data to override  Pods with local storage.
+**Note:** You might have to use --delete-local-data to override Pods with local storage.
 
 From above console output We can confirm that both the our pod and node have been evicted. In our "watch" window again we can confirm that we have a new pod (with a new random string pod name), notice how the age has been reset, and that the new pod has been scheduled to run on on a different host:  
 
@@ -244,7 +244,7 @@ rhel4   Ready    <none>   5d4h   v1.18.0
 
 Bi-directional CHAP authentication has already been setup as part of the bootcamp deployment for the production kubernetes cluster. Let's start by confirming that indeed bi-directional authentication has been enabled.  
 
-First we need to reconfirm what node our pod is running on:  
+First we need to reconfirm what node our pod is running on.  In this example it is `rhel2`:  
 
 ```bash
 [root@rhel3 ghost]# kubectl get pod  -n ghostsan -o wide
@@ -252,7 +252,7 @@ NAME                        READY   STATUS    RESTARTS   AGE   IP          NODE 
 blog-san-86658f65cd-76qw6   1/1     Running   0          25m   10.44.0.8   rhel2   <none>           <none>
 ```
 
-Next, we run a remote ```iscsiadm``` command over SSH (against said node) to verify:
+Next, we run a remote ```iscsiadm``` command over SSH (edi this command to replace the node you found in the previous output) to verify:
 
 ```bash
 [root@rhel3 ghost]# ssh -o "StrictHostKeyChecking no" root@rhel2 iscsiadm -m session -P3
@@ -309,9 +309,15 @@ persistentvolumeclaim/blog-content-san-eco created
 +---------------------+-------------------+--------------------------------------+--------+---------+
 | ontap-block-rwo-eco | ontap-san-economy | 7064da15-6271-4d47-8807-4097ac3ca76b | online |       1 |
 +---------------------+-------------------+--------------------------------------+--------+---------+
+
+[root@rhel3 ghost]# kubectl get pv,pvc
+NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                           STORAGECLASS       REASON   AGE
+persistentvolume/pvc-d3e81e6f-0799-4153-80f0-2cd0f7031650   5Gi        RWO            Delete           Bound    ghostsan/blog-content-san       sc-block-rwo                19m
+persistentvolume/pvc-f53d4bda-00b5-4f20-95d0-172173bcde08   5Gi        RWO            Delete           Bound    ghostsan/blog-content-san-eco   sc-block-rwo-eco            6m7s
+
 ```
 
-The presence of new volume confirms our new CHAP credentials are working. For a more comprehensive verification, you could for example delete the blog-san deployment, re-create it using above steps followed by running the iscsiadm command against the worker node running the pod.  
+The presence of the new volume confirms our new CHAP credentials are working. For a more comprehensive verification, you could for example delete the blog-san deployment, re-create it using above steps followed by running the iscsiadm command against the worker node running the pod.  
 
 ## E. Cleanup
 
@@ -326,7 +332,8 @@ namespace "ghostsan" deleted
 
 Now that you have tried working with SAN backends, you can try to resize a PVC:
 
-- Next task: [Import an existing volume with Trident](../pv_import)  
+- Next task: [Import an existing volume with Trident](../pv_import)
+
 or jump ahead to...
 - [Resize a iSCSI CSI PVC](../resize_block)  
 

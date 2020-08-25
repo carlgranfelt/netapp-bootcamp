@@ -1,7 +1,7 @@
 # Create your first SAN backends
 
 **Objective:**  
-You have mastered how to create backends and what they are for.  You probably also created a few ones with the NFS drivers.  
+You have mastered how to create backends and understand what they are used for.  You probably also created a few backends with the NFS drivers.  
 It is now time to add more backends that can be used for block storage.  
 
 The ONTAP environment in the lab has already been setup for block storage. You can choose to use the SVM you are already using, or create your own. In the latter scenario, please refer to  task [Prepare ONTAP for block storage on dev cluster](../../tasks/ontap_block).  
@@ -9,6 +9,8 @@ The ONTAP environment in the lab has already been setup for block storage. You c
 ![Configure Block](../../../images/config-block.png "Configure Block")
 
 **Note:** All below commands are to be run against the dev cluster. Unless specified differently, please connect using PuTTY to the dev k8s cluster's master node (**`rhel5`**) to proceed with the task.  
+
+**Note:** It is a pre-requisite that not only has Trident been installed on the dev cluster but also running release **`20.07`** or above!  
 
 ## A. Create your first SAN backends
 
@@ -34,29 +36,28 @@ If you take a closer look at the json files, you will see that the parameter dat
 First off, make sure you are in the correct path for this task:
 
 ```bash
-[root@rhel5 config_file]# cd ~/netapp-bootcamp/trident_with_k8s/tasks/config_block/
-[root@rhel5 config_block]#
+[root@rhel5 ~]#  cd ~/netapp-bootcamp/trident_with_k8s/tasks/config_block/
 ```
 
 ```bash
-[root@rhel5 config_block]# tridentctl -n trident create backend -f backend-san-default.json
-+---------------------+-------------------+--------------------------------------+--------+---------+
-|        NAME         |  STORAGE DRIVER   |                 UUID                 | STATE  | VOLUMES |
-+---------------------+-------------------+--------------------------------------+--------+---------+
-| ontap-block-rwo     | ontap-san         | 6ca0fb82-7c42-4319-a039-6d15fbdf0f3d | online |       0 |
-+---------------------+-------------------+--------------------------------------+--------+---------+
+[root@rhel5 config_block]# tridentctl -n trident create backend -f dev-backend-san-default.json
++-----------------+----------------+--------------------------------------+--------+---------+
+|      NAME       | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++-----------------+----------------+--------------------------------------+--------+---------+
+| ontap-block-rwo | ontap-san      | 48c4b8f9-4afa-433d-884c-4d4823580705 | online |       0 |
++-----------------+----------------+--------------------------------------+--------+---------+
 
-[root@rhel5 config_block]# tridentctl -n trident create backend -f backend-san-eco-default.json
+[root@rhel5 config_block]# tridentctl -n trident create backend -f dev-backend-san-eco-default.json
 +---------------------+-------------------+--------------------------------------+--------+---------+
 |        NAME         |  STORAGE DRIVER   |                 UUID                 | STATE  | VOLUMES |
 +---------------------+-------------------+--------------------------------------+--------+---------+
-| ontap-block-rwo-eco | ontap-san         | db6293a4-476e-479b-90e4-ab78372dfd04 | online |       0 |
+| ontap-block-rwo-eco | ontap-san-economy | dad07e99-f22f-4f62-9da2-90f953fa6833 | online |       0 |
 +---------------------+-------------------+--------------------------------------+--------+---------+
 
 [root@rhel5 config_block]# kubectl get -n trident tridentbackends
 NAME        BACKEND               BACKEND UUID
-tbe-cgx2q   ontap-block-rwo-eco   db6293a4-476e-479b-90e4-ab78372dfd04
-tbe-dljs6   ontap-block-rwo       6ca0fb82-7c42-4319-a039-6d15fbdf0f3d
+tbe-6qphb   ontap-block-rwo-eco   dad07e99-f22f-4f62-9da2-90f953fa6833
+tbe-8l4vt   ontap-block-rwo       48c4b8f9-4afa-433d-884c-4d4823580705
 ```
 
 ## B. Create storage classes pointing to each new backend

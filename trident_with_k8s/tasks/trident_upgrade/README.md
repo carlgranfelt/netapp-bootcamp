@@ -14,7 +14,7 @@ For the official documentation describing all pre-requisites on upgrading with t
 
 If you wish to see how applications behave during a Trident upgrade and also how applications can still be deployed during the upgrade, below are some optional tasks that you can carry out via Putty on the **`rhel5`** host as you move from Trident 20.04 to 20.07:
 
-So that you can deploy a basic file-based application and block-based application, you will need to skip ahead and define a set of backends and storageclasses ([file](../config_file/) and [block](../config_block/)).  Once done, you will then be able to deploy (to the dev cluster) the [file application using the guide from the production tasks](../file_app/).  You can then use this application to see how it behaves during the upgrade.  The block app you can deploy mid-upgrade to show how new applications can still be deployed during this process.
+So that you can deploy a basic file-based application you will need to skip ahead and define a set of backends and storageclasses ([file](../config_file/).  Once done, you will then be able to deploy (to the dev cluster) the [file application using the guide from the production tasks](../file_app/).  You can then use this application to see how it behaves during the upgrade.  You can deploy a second instance of the file app in a separate namespace mid-upgrade to show how new applications can still be deployed during this process.
 
 ## A. Remove existing Trident Operator Deployment
 
@@ -30,7 +30,7 @@ deployment.apps "trident-operator" deleted
 podsecuritypolicy.policy "tridentoperatorpods" deleted
 ```
 
-Now that the Trident Operator has been removed, if you are also doing the optional application deployments during this task, go ahead and deploy the block application to the dev cluster using [the guide from the production tasks](../block_app/).
+Now that the Trident Operator has been removed, if you are also doing the optional application deployments during this task, go ahead and deploy the second instance of the file application to the dev cluster using [the guide from the production tasks](../file_app/).
 
 You will see that applications can still be deployed while Trident is being upgraded and your original file application is also still running.
 

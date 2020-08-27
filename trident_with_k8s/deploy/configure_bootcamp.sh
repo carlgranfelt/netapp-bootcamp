@@ -223,19 +223,18 @@ helm repo add stable https://kubernetes-charts.storage.googleapis.com
 helm repo update
 helm install prom-operator stable/prometheus-operator --namespace monitoring
 
-# Recreate the Prometheus service using a LoadBalancer type
+# Patch the Prometheus service using a LoadBalancer type & point it to port 80
 
-kubectl delete -n monitoring svc prom-operator-prometheus-o-prometheus
-kubectl apply -f /root/netapp-bootcamp/trident_with_k8s/deploy/monitoring/prometheus/service-prom-operator-prometheus.yaml
+kubectl patch -n monitoring svc prom-operator-prometheus-o-prometheus -p '{"spec":{"type":"LoadBalancer"}}'
+kubectl patch -n monitoring svc prom-operator-prometheus-o-prometheus --type='json' -p='[{"op": "replace", "path": "/spec/ports/0/port", "value":80}]'
 
 # Create a Service Monitor for Trident
 
 kubectl apply -f /root/netapp-bootcamp/trident_with_k8s/deploy/monitoring/prometheus/servicemonitor.yaml
 
-# Recreate the Grafana service using a LoadBalancer type
+# Patch the Grafana service using a LoadBalancer type
 
-kubectl delete -n monitoring svc prom-operator-grafana
-kubectl apply -f /root/netapp-bootcamp/trident_with_k8s/deploy/monitoring/grafana/service-prom-operator-grafana.yaml
+kubectl patch -n monitoring svc prom-operator-grafana  -p '{"spec":{"type":"LoadBalancer"}}'
 
 # Create configmap resources with the Grafana datasource and dashboards
 

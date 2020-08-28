@@ -263,3 +263,6 @@ or jump ahead to...
 ---
 **Page navigation**  
 [Top of Page](#top) | [Home](/README.md) | [Full Task List](/README.md#prod-k8s-cluster-tasks)
+
+
+curl -X GET -u admin:Netapp1! -k "https://cluster1.demo.netapp.com/api/storage/volumes?return_records=true&return_timeout=15&" -H "accept: application/json"

@@ -65,6 +65,12 @@ echo "##########################################################################
 ansible-playbook /root/netapp-bootcamp/trident_with_k8s/deploy/ansible_files/day0-1.yaml
 
 echo "#######################################################################################################"
+echo "Removing un-needed volumes from ONTAP"
+echo "#######################################################################################################"
+
+ansible-playbook /root/netapp-bootcamp/trident_with_k8s/deploy/ansible_files/vol-cleanup.yaml
+
+echo "#######################################################################################################"
 echo "Delete the configured K8S Storage Classes, Trident backends, and uninstall Trident"
 echo "#######################################################################################################"
 

@@ -306,7 +306,9 @@ NAME                    TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)  
 prom-operator-grafana   LoadBalancer   10.108.152.56   192.168.0.141   80:30707/TCP   7h21m
 ```
 
-You can now access the Grafana GUI from a browser on the jumphost at <http://192.168.0.141> (username `admin` and password `prom-operator`.  It's worth keeping Grafana open as you walk through the tasks in this bootcamp, as it is a good way of tracking the Persistent Volumes you have created.
+You can now access the Grafana GUI and pre-created Trident dashbaord from a browser on the jumphost at: <http://192.168.0.141/d/5ZhlSquZk/trident?orgId=1&refresh=1m> (username `admin` and password `prom-operator`.  
+
+It's worth keeping Grafana open as you walk through the tasks in this bootcamp, as it is a good way of tracking the Persistent Volumes you have created.
 
 ## E. Kubernetes web-based UI
 

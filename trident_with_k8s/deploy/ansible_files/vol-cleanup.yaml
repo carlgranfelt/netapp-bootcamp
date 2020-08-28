@@ -1,0 +1,56 @@
+# Delete un-needed volumes from ONTAP
+
+- name: Remove volumes from ONTAP
+  hosts: localhost
+  gather_facts: no
+  connection: local
+
+  vars:
+    netapp_hostname: 192.168.0.101
+    netapp_username: admin
+    netapp_password: Netapp1!
+  tasks:
+    - name: Delete Managed FlexVol
+      na_ontap_volume:
+        state: absent
+        name: vol_import_manage
+        aggregate_name: aggr1
+        vserver: svm1
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+    - name: Delete Un-Managed FlexVol
+      na_ontap_volume:
+        state: absent
+        name: vol_import_nomanage
+        aggregate_name: aggr1
+        vserver: svm1
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+    - name: Delete Registry FlexVol
+      na_ontap_volume:
+        state: absent
+        name: registry
+        aggregate_name: aggr1
+        vserver: svm1
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+    - name: Delete www FlexVol
+      na_ontap_volume:
+        state: absent
+        name: www
+        aggregate_name: aggr1
+        vserver: svm1
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
